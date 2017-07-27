@@ -1,0 +1,50 @@
+@CHARSET "UTF-8";
+
+*{
+	padding: 0;
+	margin: 0;
+}
+
+table#inner_table{
+	border-collapse:collapse;
+	border: 1px solid black;
+}
+
+caption{
+	font-size: 20pt;
+	font-weight: bold;
+	margin-bottom: 10px;
+}
+
+#inner_table th{
+	background: #c0c0c0;
+}
+
+#inner_table th, #inner_table td{
+	padding: 5px;
+}
+
+#chk_user, #index {
+	text-align: center;
+	vertical-align: middle;
+}
+	
+#main_box{ 
+	position:absolute; 
+	top:50%; 
+	left:40%; 
+	overflow:hidden; 
+	margin-top:-150px; 
+	margin-left:-100px;
+}
+
+#bottom_area{
+	margin-top: 10px;
+	float: right;
+}
+
+.btn{
+	width: 100px;
+	height: 50px;
+	font-size: 13pt;
+}

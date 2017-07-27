@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="">
+
+	<!-- 전체목록 조회 -->
+	<select id="user_list" resultType="vo.UserVo">
+	    select * from user_view order by idx asc
+	</select>
+ 
+ 	<!-- 해당 유저만 조회 -->
+ 	<select id="user_selectOne" resultType="vo.UserVo"
+ 	 parameterType="java.util.Map">
+ 		select * from user_view 
+ 		
+ 		<trim prefix="where" prefixOverrides="and|or">
+ 			<if test="id != null">
+ 				id = #{ id }
+ 			</if>
+ 			<if test="password != null">
+ 				and password = #{ password }
+ 			</if>
+ 		</trim>
+ 	</select>
+ 	
+ 	<!-- idx를 이용해 유저 1명의 정보가져오기 -->
+ 	<select id="selectOne" resultType="vo.UserVo"
+ 	 parameterType="int">
+ 		select * from user_view where idx=#{ idx }
+ 	</select>
+ 	
+ 	<insert id="insert_user" parameterType="vo.UserVo">
+ 		insert into user_manager values( 
+ 			seq_user_idx.nextVal,
+ 			#{ name },
+ 			#{ regnumber },
+ 			#{ id },
+ 			#{ password },
+ 			#{ address },
+ 			#{ email },
+ 			#{ phone },
+ 			sysdate,
+ 			#{ g_idx })
+ 	</insert>
+
+	<!-- 팝업리스트 출력 -->
+    <select id="popup_condition_list" resultType="vo.UserVo" parameterType="java.util.Map">
+    	select *
+		from
+			(
+				select
+					rank() over(order by idx ) rank,
+					p.*
+				from
+					(select * from user_view
+					<trim prefix="where" prefixOverrides="or">
+						<if test="idx!=null">
+							idx like '%' || #{ idx } || '%'
+						</if>
+						<if test="g_position!=null">
+							or g_position like '%' || #{ g_position } || '%'
+						</if>
+						<if test="name!=null">
+							or name like '%' || #{ name } || '%'
+						</if>
+						<if test="id!=null">
+							or id like '%' || #{ id } || '%'
+						</if>
+					</trim>)p
+			)	
+			where rank between #{ start } and #{ end }
+    </select>
+    
+     <!-- 팝업리스트 게시물 총갯수 -->
+    <select id="popup_row_total" parameterType="java.util.Map" resultType="int">
+    	select nvl(count(*),0) from user_view
+    	<trim prefix="where" prefixOverrides="or">
+			<if test="idx!=null">
+				idx like '%' || #{ idx } || '%'
+			</if>
+			<if test="g_position!=null">
+				or g_position like '%' || #{ g_position } || '%'
+			</if>
+			<if test="name!=null">
+				or name like '%' || #{ name } || '%'
+			</if>
+			<if test="id!=null">
+				or id like '%' || #{ id } || '%'
+			</if>
+		</trim>
+    </select>
+    
+    <delete id="user_delete" parameterType="java.util.List">
+   		delete from user_manager
+   		where idx in
+   		<foreach item="item" index="index" 
+   					collection="list" 
+   					open="(" separator="," close=")">
+        	#{item}
+   		</foreach>
+    </delete>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+

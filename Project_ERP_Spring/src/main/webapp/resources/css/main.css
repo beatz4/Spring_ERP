@@ -1,0 +1,47 @@
+@CHARSET "UTF-8";
+
+*{
+	padding: 0;
+	margin: 0;
+}
+
+table#top td{
+	width: 10%;
+	border: 1px solid black; /* 확인용 */
+}
+
+td#main_menu{
+	font-size: 30pt;
+}
+
+table#sub{
+	width: 15%;
+	float: left;
+	
+	border: 1px solid black;
+}
+
+table#user{
+	font-size: 20pt;
+}
+
+td#logout{
+	text-align: right;
+}
+
+a#logout:LINK{
+	text-decoration: none;
+	color: red;	
+	
+	font-size: 15pt;
+}
+
+a#logout:HOVER{
+	font-weight: bold;
+	color: green;
+}
+
+html, body
+{
+  height: 100%;
+}

@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="">
+
+    <!-- 로그인 유저에 맞게 리스트 출력 -->
+	<select id="message_list" resultType="vo.MessageVo">
+	    select * from message where recv_id=#{ recv_id } and msg_box='nobox' order by idx desc
+	</select>
+    
+    <!-- 보낸메세지함 리스트 출력 -->
+    <select id="message_send_list" resultType="vo.MessageVo">
+	    select * from message_send where send_id=#{ send_id } order by idx desc
+	</select>
+	
+	 <!-- 보관메세지함 리스트 출력 -->
+    <select id="message_box_list" resultType="vo.MessageVo">
+	    select * from message where recv_id=#{ recv_id } and msg_box='box' order by idx desc
+	</select>
+    
+    <!-- selectOne -->
+    <select id="message_selectOne" resultType="vo.MessageVo">
+    	select * from message where idx=#{ idx }
+    </select>
+    
+    <!-- 쪽지 읽었을때 읽은상태와 본 날짜 입력 -->
+    <!-- message table -->
+    <update id="message_state" parameterType="java.util.Map">
+    	update message_send set recv_date=#{ recv_date }, send_state=#{ send_state } where idx=#{ idx }
+    </update>
+    
+    
+    <!-- message table insert -->
+    <insert id="message_insert" parameterType="vo.MessageVo">
+    	insert into message values(seq_message_idx.nextVal,
+    							   #{msg_idx},
+    							   #{send_id},
+    							   #{recv_id},
+    							   #{title},
+    							   #{content},
+    							   #{send_date},
+    							   #{recv_date},
+    							   #{send_state},
+    							   #{msg_box},
+    							   #{ip})
+    </insert>
+    
+    <!-- message_send table insert -->
+    <insert id="message_send_insert" parameterType="vo.MessageVo">
+    	insert into message_send values(seq_message_send_idx.nextVal,
+    							   #{msg_idx},
+    							   #{send_id},
+    							   #{recv_id},
+    							   #{title},
+    							   #{content},
+    							   #{send_date},
+    							   #{recv_date},
+    							   #{send_state},
+    							   #{msg_box},
+    							   #{ip})
+    </insert>
+    
+    <!-- message delete -->
+    <delete id="message_delete" parameterType="int">
+    	delete from message where idx=#{ idx }
+    </delete>
+    
+    <!-- message_send delete -->
+    <delete id="message_send_delete" parameterType="int">
+    	delete from message_send where idx=#{ idx }
+    </delete>
+    
+    <!-- message box move -->
+    <update id="message_box_move" parameterType="int">
+    	update message set msg_box='box' where idx=#{ idx }
+    </update>
+    
+    <!-- message row total -->
+    <select id="message_row_total" parameterType="java.util.Map" resultType="int">
+    	select nvl(count(*),0) from message where recv_id=#{ recv_id } and msg_box='nobox'
+    </select>
+    
+    <!-- message condition list -->
+    <select id="message_condition_list" resultType="vo.MessageVo" parameterType="java.util.Map">
+    	select *
+		from
+			(
+				select
+					rank() over(order by idx desc) rank,
+					m.*
+				from
+					(select * from message where recv_id=#{ recv_id } and msg_box='nobox')m
+			)	
+			where rank between #{ start } and #{ end }
+    </select>
+    
+    <!-- message_send row total -->
+    <select id="message_send_row_total" parameterType="java.util.Map" resultType="int">
+    	select nvl(count(*),0) from message_send where send_id=#{ send_id } and msg_box='nobox'
+    </select>
+    
+    <!-- message_send condition list -->
+    <select id="message_send_condition_list" resultType="vo.MessageVo" parameterType="java.util.Map">
+    	select *
+		from
+			(
+				select
+					rank() over(order by idx desc) rank,
+					m.*
+				from
+					(select * from message_send where send_id=#{ send_id } and msg_box='nobox')m
+			)	
+			where rank between #{ start } and #{ end }
+    </select>
+    
+    <!-- message box row total -->
+    <select id="message_box_row_total" parameterType="java.util.Map" resultType="int">
+    	select nvl(count(*),0) from message where recv_id=#{ recv_id } and msg_box='box'
+    </select>
+    
+    <!-- message box condition list -->
+    <select id="message_box_condition_list" resultType="vo.MessageVo" parameterType="java.util.Map">
+    	select *
+		from
+			(
+				select
+					rank() over(order by idx desc) rank,
+					m.*
+				from
+					(select * from message where recv_id=#{ recv_id } and msg_box='box')m
+			)	
+			where rank between #{ start } and #{ end }
+    </select>
+    
+   
+    
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+

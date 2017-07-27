@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	
+	<!-- Dao생성 -->
+	<bean id="company_dao" class="dao.CompanyDao">
+		<property name = "sqlSession" ref="sqlSession"/>
+	</bean>
+	
+	<bean id="grade_dao" class="dao.GradeDao">
+		<property name = "sqlSession" ref="sqlSession"/>
+	</bean>
+	
+	<bean id="mainmenu_dao" class="dao.MainMenuDao">
+		<property name = "sqlSession" ref="sqlSession"/>
+	</bean>
+	
+	<bean id="message_dao" class="dao.MessageDao">
+		<property name = "sqlSession" ref="sqlSession"/>
+	</bean>
+	
+	<bean id="user_dao" class="dao.UserDao">
+		<property name = "sqlSession" ref="sqlSession"/>
+	</bean>
+	
+	
+</beans>

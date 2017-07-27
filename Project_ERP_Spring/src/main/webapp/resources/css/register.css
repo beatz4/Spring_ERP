@@ -1,0 +1,84 @@
+/* 시스템관리 - 사용자 관리 -> 사용자 관리 css */
+@CHARSET "UTF-8";
+
+*{
+	padding: 0;
+	margin: 0;
+}
+
+table#inner_table{
+	border-collapse:collapse;
+	border: 1px solid black;
+	width: 500px;
+}
+
+#inner_table th, #inner_table td{
+	padding: 5px;
+	vertical-align: middle;
+	height: 5px;
+}
+
+#main_box{ 
+	position:absolute; 
+	top:35%; 
+	left:45%; 
+	overflow:hidden; 
+	margin-top:-180px; 
+	margin-left:-100px;
+}
+
+#checkbox { 
+ 	margin: auto; 
+ 	text-align: center;
+ 	vertical-align:middle;
+}
+
+#position{
+	width:20px;
+
+    position:relative; 
+
+    vertical-align:middle; 
+}
+
+lable{
+	
+	width:200px;       
+    position:relative;
+    left: -20px;
+
+    display:inline-block;    
+    vertical-align:middle; 
+}
+
+caption{
+	font-size: 20pt;
+	font-weight: bold;
+	margin-bottom: 10px;
+}
+
+input{
+	border: 0;
+	height: 30px;
+}
+
+input.fullsize{
+     width: 100%; 
+}
+
+input.dividesize{
+	width: 75%;
+}
+
+input.subdivide{
+	width: 22%;
+}
+
+#bottom{
+	margin-top: 20px;
+}
+
+#bottom input[type="button"] {
+	width: 100px;
+	height: 50px;
+}
