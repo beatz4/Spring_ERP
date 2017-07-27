@@ -43,5 +43,27 @@
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
+	
+	<!-- session time 설정 -->
+	<session-config> 
+		<session-timeout>60</session-timeout> 
+	</session-config>
+
+	<!-- 
+	error page 설정 : 추후 error 발생시 이동할 페이지를 설정한다. 
+	<error-page> 
+		<error-code>404</error-code>
+		<location>/WEB-INF/views/error/error.jsp</location> 
+	</error-page> 
+	<error-page> 
+		<error-code>500</error-code>
+		<location>/WEB-INF/views/error/error.jsp</location> 
+	</error-page>
+	-->
+	
+	<!-- 시작 페이지 설정 : login page -->
+	<welcome-file-list> 
+		<welcome-file>/WEB-INF/views/main/login.jsp</welcome-file> 
+	</welcome-file-list>
 
 </web-app>
