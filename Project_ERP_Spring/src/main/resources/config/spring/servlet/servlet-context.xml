@@ -27,19 +27,6 @@
 	<!-- autowired적용 속성 -->
 	<context:annotation-config/>
 	
-	<!-- MessageController생성 -->
-	<beans:bean class="com.ic.erp.CompanyController">
-		<beans:property name="company_dao">
-			<beans:ref bean="company_dao"/>
-		</beans:property>
-	</beans:bean>
-	
-	<beans:bean class="com.ic.erp.GradeController">
-		<beans:property name="grade_dao">
-			<beans:ref bean="grade_dao"/>
-		</beans:property>
-	</beans:bean>
-	
 	<beans:bean class="com.ic.erp.MainMenuController">
 		<beans:property name="mainmenu_dao">
 			<beans:ref bean="mainmenu_dao"/>
@@ -55,10 +42,10 @@
 		</beans:property>
 	</beans:bean>
 	
-	<beans:bean class="com.ic.erp.UserController">
-		<beans:property name="user_dao">
-			<beans:ref bean="user_dao"/>
-		</beans:property>
+	<beans:bean class="com.ic.erp.SystemController">
+		<beans:property name="user_dao" ref="user_dao"/>
+		<beans:property name="grade_dao" ref="grade_dao"/>
+		<beans:property name="company_dao" ref="company_dao"/>
 	</beans:bean>
 	
 	<beans:bean class="com.ic.erp.FileUploadController">

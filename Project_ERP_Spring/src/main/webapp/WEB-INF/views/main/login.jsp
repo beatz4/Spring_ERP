@@ -69,8 +69,8 @@
 			return;
 		}
 
-		// Ajax 통신으로 사용자 아이디/패스워드 확인 요청
-		var url = "check_login.do"; // LoginCheckUserAction
+		// 첫 시작 페이지로 login 페이지를 설정하였으므로 url을 바꾸어준다.
+		var url = "${ pageContext.request.contextPath }/main/check_login.do";
 		var param = "id=" + id + "&password=" + password;
 
 		sendRequest(url, param, resultFn_login, "GET");
@@ -96,7 +96,7 @@
 			
 			alert('로그인 성공!!');
 			
-			g_f.action = "main.do";
+			g_f.action = "${ pageContext.request.contextPath }/main/main.do";
 			g_f.method = "post";
 			g_f.submit();
 		}
@@ -126,13 +126,6 @@
 									<input class="form-control" placeholder="Password" id="password"
 										name="password" type="password" onkeypress="if(event.keyCode==13) {login(this.form);}" >
 								</div>
-								<!-- 아이디 기억하기 (우선block처리)
-								<div class="checkbox">
-									<label> <input name="remember" type="checkbox"
-										value="Remember Me">Remember Me
-									</label>
-								</div> 
-								-->
 								<input type="button" onclick="login(this.form);" class="btn btn-lg btn-success btn-block" value="Login">
 							</fieldset>
 						</form>
@@ -142,33 +135,6 @@
 		</div>
 	</div>
 </form>
-
-	<!--  -->
-<!--  -->
-	<%-- <form>
-		<table>
-			<caption>::: 로그인 :::</caption>
-			<tr>
-				<th>아이디:</th>
-				<td><input id="id"></td>
-			</tr>
-			
-			<tr>
-				<th>패스워드:</th>
-				<td><input type="password" id="password" onkeypress="if(event.keyCode==13) {login(this.form);}"></td>
-			</tr>
-			
-			<tr>  
-				<td colspan="2">
-					<input type="button" class="login" value="로그인" onclick="login(this.form)">
-				</td>
-			</tr>
-		</table>
-		 
-		<div class="find">
-			<a href="#">ID/Password 찾기</a>
-		</div>
-	</form> --%>
 
 </body>
 </html>

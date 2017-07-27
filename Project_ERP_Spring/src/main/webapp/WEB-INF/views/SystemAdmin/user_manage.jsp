@@ -11,22 +11,22 @@
 <title>시스템 관리자</title>
 
 <!-- Bootstrap Core CSS -->
-<link href="${ pageContext.request.contextPath }/ExternalLib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="${ pageContext.request.contextPath }/resources/ExternalLib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
 <!-- MetisMenu CSS -->
-<link href="${ pageContext.request.contextPath }/ExternalLib/bootstrap/css/metisMenu.min.css" rel="stylesheet">
+<link href="${ pageContext.request.contextPath }/resources/ExternalLib/bootstrap/css/metisMenu.min.css" rel="stylesheet">
 
 <!-- DataTables CSS -->
-<link href="${ pageContext.request.contextPath }/ExternalLib/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet">
+<link href="${ pageContext.request.contextPath }/resources/ExternalLib/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet">
 
 <!-- DataTables Responsive CSS -->
-<link href="${ pageContext.request.contextPath }/ExternalLib/bootstrap/css/dataTables.responsive.css" rel="stylesheet">
+<link href="${ pageContext.request.contextPath }/resources/ExternalLib/bootstrap/css/dataTables.responsive.css" rel="stylesheet">
 
 <!-- Custom CSS -->
-<link href="${ pageContext.request.contextPath }/ExternalLib/bootstrap/css/sb-admin-2.css" rel="stylesheet">
+<link href="${ pageContext.request.contextPath }/resources/ExternalLib/bootstrap/css/sb-admin-2.css" rel="stylesheet">
 
 <!-- Custom Fonts -->
-<link href="${ pageContext.request.contextPath }/ExternalLib/bootstrap/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<link href="${ pageContext.request.contextPath }/resources/ExternalLib/bootstrap/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
 <!-- jQuery-Ajax를 사용하기위한 라이브러리 -->
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -65,6 +65,7 @@
 
 		$.ajax({
 			type : "GET",
+			dataType : "json",
 			url : url, //요청(서버)페이지
 			data : {
 				"list_checked" : list_checked
@@ -169,24 +170,24 @@
 	
 <!-- jQuery -->
 <script
-	src="${ pageContext.request.contextPath }/ExternalLib/bootstrap/js/jquery.min.js"></script>
+	src="${ pageContext.request.contextPath }/resources/ExternalLib/bootstrap/js/jquery.min.js"></script>
 
 <!-- Bootstrap Core JavaScript -->
 <script
-	src="${ pageContext.request.contextPath }/ExternalLib/bootstrap/js/bootstrap.min.js"></script>
+	src="${ pageContext.request.contextPath }/resources/ExternalLib/bootstrap/js/bootstrap.min.js"></script>
 
 <!-- Metis Menu Plugin JavaScript -->
 <script
-	src="${ pageContext.request.contextPath }/ExternalLib/bootstrap/js/metisMenu.min.js"></script>
+	src="${ pageContext.request.contextPath }/resources/ExternalLib/bootstrap/js/metisMenu.min.js"></script>
 
 <!-- DataTables JavaScript -->
-<script src="${ pageContext.request.contextPath }/ExternalLib/bootstrap/js/jquery.dataTables.min.js"></script>
-<script src="${ pageContext.request.contextPath }/ExternalLib/bootstrap/js/dataTables.bootstrap.min.js"></script>
-<script src="${ pageContext.request.contextPath }/ExternalLib/bootstrap/js/dataTables.responsive.js"></script>
+<script src="${ pageContext.request.contextPath }/resources/ExternalLib/bootstrap/js/jquery.dataTables.min.js"></script>
+<script src="${ pageContext.request.contextPath }/resources/ExternalLib/bootstrap/js/dataTables.bootstrap.min.js"></script>
+<script src="${ pageContext.request.contextPath }/resources/ExternalLib/bootstrap/js/dataTables.responsive.js"></script>
 
 <!-- Custom Theme JavaScript -->
 <script
-	src="${ pageContext.request.contextPath }/ExternalLib/bootstrap/js/sb-admin-2.js"></script>
+	src="${ pageContext.request.contextPath }/resources/ExternalLib/bootstrap/js/sb-admin-2.js"></script>
 	
 <script type="text/javascript">
 	$(document).ready(function() {

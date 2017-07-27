@@ -65,6 +65,8 @@ public class MainMenuController {
 	public String login_check(String id, String password){
 		
 		String result = "ok";
+		System.out.println(id);
+		System.out.println(password);
 		
 		Map map = new HashMap();
 		map.put("id", id);
