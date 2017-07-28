@@ -42,13 +42,4 @@
 		</beans:property>
 	</beans:bean>
 	
-	<beans:bean class="com.ic.erp.SystemController">
-		<beans:property name="user_dao" ref="user_dao"/>
-		<beans:property name="grade_dao" ref="grade_dao"/>
-		<beans:property name="company_dao" ref="company_dao"/>
-	</beans:bean>
-	
-	<beans:bean class="com.ic.erp.FileUploadController">
-	</beans:bean>
-	
 </beans:beans>
