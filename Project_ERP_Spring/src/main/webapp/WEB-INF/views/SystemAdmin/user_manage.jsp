@@ -36,45 +36,42 @@
 	function del_user() {
 		/* 사용자 삭제 - ajax (jquery) */
 
-		/* 체크된 부분만 list로 얻어온다. */
-		var list_checked = [];
+		/* 체크된 element 정보를 담을 변수 */
+		var param = "";
+		var count = 0;
 
-		/*
-		- jQuery에서 checkbox가 check되었는지 판단 여부를 id로 가져온다.
-		- name일 경우 id만 name으로 변경시켜주면 된다.
-		$('input:checkbox[id="checkbox_id"]').is(":checked") == true
-		 */
-		$("input:checkbox:checked").each(function(index) {
-
-			list_checked.push($(this).val());
+		$("input:checkbox:checked").each(function() {
 			// 해당 배열에 checkbox의 value(사번)을 넣어준다.
+			if( param == "" )
+				param = "index="+$(this).parent().children("#chk_user").val();
+	        else 
+	        	param = param + "&index="+$(this).parent().children("#chk_user").val();
+			
+			count++;
 		});
 		
-		if( list_checked.length < 1 ) {
+		if( count == 0 ) {
 			alert('선택된 사용자가 없습니다.');
 			return;
 		}
 		
 		// 삭제 확인
-		if (confirm(list_checked.length + '명을 정말 삭제 하시겠습니까?') == false) { 
+		if (confirm(count + '명을 정말 삭제 하시겠습니까?') == false) { 
 			return;
 		}
 
 		// list를 ajax를 통해 delete.do servlet으로 전송
 		var url = "delete.do";
-
+		
 		$.ajax({
-			type : "GET",
-			dataType : "json",
-			url : url, //요청(서버)페이지
-			data : {
-				"list_checked" : list_checked
-			}, // array데이터 전송
+			type : "POST",
+			url : url,
+			data : param,
+			dataType : 'text',
 			success : function(data) {
-				
-				alert( $.trim(data) + '명 삭제 완료.');
-				location.href = 'user_manager.do';
-				
+	
+				alert( data + '명 삭제 완료.');
+				document.location.href = "user_manager.do";
 			},
 			error : function(request, status, error) {
 				alert("code:" + request.status + "\n" + "message:"
@@ -151,7 +148,7 @@
                          
                         <div class="well">
                         	<!-- 사용자 추가 button -->
-                        	<a class="btn btn-default btn-lg" href="register_form.do">사용자 추가</a>
+                        	<a class="btn btn-default btn-lg" href="user_register_form.do">사용자 추가</a>
                         	<a class="btn btn-default btn-lg" target="_blank" 
                         		href="javascript:void(0);"
                         		onclick="del_user()">

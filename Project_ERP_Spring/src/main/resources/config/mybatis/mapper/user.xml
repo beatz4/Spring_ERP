@@ -41,7 +41,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  			#{ email },
  			#{ phone },
  			sysdate,
- 			#{ g_idx })
+ 			#{ g_idx },
+ 			#{ c_idx } )
  	</insert>
 
 	<!-- 팝업리스트 출력 -->

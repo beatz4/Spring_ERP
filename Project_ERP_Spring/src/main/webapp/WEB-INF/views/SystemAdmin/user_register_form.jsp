@@ -11,27 +11,22 @@
 <title>신규 사원 가입</title>
 
 <!-- Bootstrap Core CSS -->
-<link
-	href="${ pageContext.request.contextPath }/ExternalLib/bootstrap/css/bootstrap.min.css"
-	rel="stylesheet">
+<link href="${ pageContext.request.contextPath }/resources/ExternalLib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
 <!-- MetisMenu CSS -->
-<link
-	href="${ pageContext.request.contextPath }/ExternalLib/bootstrap/css/metisMenu.min.css"
-	rel="stylesheet">
+<link href="${ pageContext.request.contextPath }/resources/ExternalLib/bootstrap/css/metisMenu.min.css" rel="stylesheet">
 
 <!-- Custom CSS -->
-<link
-	href="${ pageContext.request.contextPath }/ExternalLib/bootstrap/css/sb-admin-2.css"
-	rel="stylesheet">
+<link href="${ pageContext.request.contextPath }/resources/ExternalLib/bootstrap/css/sb-admin-2.css" rel="stylesheet">
 
 <!-- Custom Fonts -->
-<link
-	href="${ pageContext.request.contextPath }/ExternalLib/bootstrap/css/font-awesome.min.css"
-	rel="stylesheet" type="text/css">
-	
+<link href="${ pageContext.request.contextPath }/resources/ExternalLib/bootstrap/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+<!-- zTree -->
+<link href="${ pageContext.request.contextPath }/resources/ExternalLib/zTree/css/zTreeStyle.css" rel="stylesheet" type="text/css">
+
 <!-- 정규식 -->
-<script src="../regular/regular.js"></script>	
+<script src="${ pageContext.request.contextPath }/resources/regular/regular.js"></script>	
 
 <!-- jQuery-Ajax를 사용하기위한 라이브러리 -->
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -140,7 +135,6 @@
 								<!-- 직급 -->
 								<div class="form-group">
 									<label>직급</label>
-									
 									<c:forEach var="g" items="${ list }">
 										<div class="radio">
 											<label> 
@@ -158,10 +152,16 @@
 									</c:forEach>
 								</div>
 								
+								<!-- 소속 팀 트리구조 -->
+								<div class="form-group">
+									<label>소속 그룹</label>  
+										<ul id="treeDemo" class="ztree"></ul>
+								</div>
+								
 								<button type="button" class="btn btn-default"
 										onclick="resgister(this.form);">가입</button>
 								<button type="reset" class="btn btn-default" 
-										onclick="location.href='${ pageContext.request.contextPath }/SystemAdmin/user_manager.do'">취소</button>
+										onclick="location.href='${ pageContext.request.contextPath }/resources/SystemAdmin/user_manager.do'">취소</button>
 								
 							</form>
 						</div>
@@ -182,20 +182,82 @@
 
 <!-- jQuery -->
 <script
-	src="${ pageContext.request.contextPath }/ExternalLib/bootstrap/js/jquery.min.js"></script>
+	src="${ pageContext.request.contextPath }/resources/ExternalLib/bootstrap/js/jquery.min.js"></script>
 
 <!-- Bootstrap Core JavaScript -->
 <script
-	src="${ pageContext.request.contextPath }/ExternalLib/bootstrap/js/bootstrap.min.js"></script>
+	src="${ pageContext.request.contextPath }/resources/ExternalLib/bootstrap/js/bootstrap.min.js"></script>
 
 <!-- Metis Menu Plugin JavaScript -->
 <script
-	src="${ pageContext.request.contextPath }/ExternalLib/bootstrap/js/metisMenu.min.js"></script>
+	src="${ pageContext.request.contextPath }/resources/ExternalLib/bootstrap/js/metisMenu.min.js"></script>
 
 <!-- Custom Theme JavaScript -->
 <script
-	src="${ pageContext.request.contextPath }/ExternalLib/bootstrap/js/sb-admin-2.js"></script>
+	src="${ pageContext.request.contextPath }/resources/ExternalLib/bootstrap/js/sb-admin-2.js"></script>
 	
+<!-- zTree JavaScript -->
+<script type="text/javascript" src="${ pageContext.request.contextPath }/resources/ExternalLib/zTree/js/jquery.ztree.core.js"></script>
+	
+<!-- zTree Script -->
+<script type="text/javascript">
+	 
+	var setting = {
+		data: {
+			simpleData: {
+				enable: true
+			}
+		}
+	};
+	
+	/* json형식 데이터를 servlet에서 받아와야한다. */
+	var zNodes =[
+		{ id:1, pId:0, name:"pNode 1", open:true},
+		{ id:11, pId:1, name:"pNode 11"},
+		{ id:111, pId:11, name:"leaf node 111"},
+		{ id:112, pId:11, name:"leaf node 112"},
+		{ id:113, pId:11, name:"leaf node 113"},
+		{ id:114, pId:11, name:"leaf node 114"},
+		{ id:12, pId:1, name:"pNode 12"},
+		{ id:121, pId:12, name:"leaf node 121"},
+		{ id:122, pId:12, name:"leaf node 122"},
+		{ id:123, pId:12, name:"leaf node 123"},
+		{ id:124, pId:12, name:"leaf node 124"},
+		{ id:13, pId:1, name:"pNode 13 - no child", isParent:true},
+		{ id:2, pId:0, name:"pNode 2"},
+		{ id:21, pId:2, name:"pNode 21", open:true},
+		{ id:211, pId:21, name:"leaf node 211"},
+		{ id:212, pId:21, name:"leaf node 212"},
+		{ id:213, pId:21, name:"leaf node 213"},
+		{ id:214, pId:21, name:"leaf node 214"},
+		{ id:22, pId:2, name:"pNode 22"},
+		{ id:221, pId:22, name:"leaf node 221"},
+		{ id:222, pId:22, name:"leaf node 222"},
+		{ id:223, pId:22, name:"leaf node 223"},
+		{ id:224, pId:22, name:"leaf node 224"},
+		{ id:23, pId:2, name:"pNode 23"},
+		{ id:231, pId:23, name:"leaf node 231"},
+		{ id:232, pId:23, name:"leaf node 232"},
+		{ id:233, pId:23, name:"leaf node 233"},
+		{ id:234, pId:23, name:"leaf node 234"},
+		{ id:3, pId:0, name:"pNode 3 - no child", isParent:true}
+	];
+	
+	var list = '${ c_list }';
+	var out = ""; 
+	
+	for( var i in list ) {
+		out += Object.values(list[i]); 
+	}
+	
+	// alert(out); 
+	
+	$(document).ready(function(){
+		$.fn.zTree.init($("#treeDemo"), setting, zNodes);
+	});
+</script>
+	
+<!-- General Script -->
 <script type="text/javascript">
 
 var checkID = false;		// 아이디 중복체크 유/무
@@ -223,7 +285,7 @@ function chk_Id_dup() {
 				data:{ 'id': id }, 		//파라미터
 				success:function(data){	
 					//서버에서 전달된 데이터
-					if( $.trim(data) == 'ok' ) {
+					if( data == 'ok' ) {
 						alert('사용가능한 아이디입니다.');	
 						checkID = true;
 					} else {
@@ -391,10 +453,11 @@ function resgister(f) {
 		return;
 	}
 	
-	var url = 'register.do';
+	var url = 'user_register.do';
 	
 	//jQuery를 이용한 Ajax통신
 	$.ajax( {
+				type : "POST",
 				url: url, 				//요청(서버)페이지
 				data:{'name': name,
 					  'regnumber': regnumber, 
@@ -406,12 +469,12 @@ function resgister(f) {
 					  'position': position }, 		//파라미터
 				success:function(data){	
 					//서버에서 전달된 데이터
-					if( $.trim(data) == 'ok' ) {
+					if( data == 'ok' ) {
 						alert('회원가입완료!!');
 						
-						f.action = "user_manager.do";
+						/* f.action = "user_manager.do";
 						f.method = "post";
-						f.submit();
+						f.submit(); */
 						
 					} else {
 						alert('회원가입 실패!!\r\n관리자에게 문의하세요.');

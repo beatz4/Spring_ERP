@@ -80,7 +80,8 @@
 <!-- Custom Theme JavaScript -->
 <script
 	src="${ pageContext.request.contextPath }/ExternalLib/bootstrap/js/sb-admin-2.js"></script>
-	 	
+
+<!-- zTree JavaScript -->
 <script type="text/javascript" src="${ pageContext.request.contextPath }/ExternalLib/zTree/js/jquery.ztree.core.js"></script>
 
 <script type="text/javascript">

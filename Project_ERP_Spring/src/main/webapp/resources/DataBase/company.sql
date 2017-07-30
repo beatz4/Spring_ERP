@@ -12,7 +12,7 @@ ALTER SEQUENCE seq_company_idx INCREMENT BY 1
 create table company (
 	idx				int,					-- 일련 번호
 	name			varchar2(100),			-- 조직(팀) 이름
-	parent_idx		int,					-- 상부 조직의 인덱스 ( 4-1 이면 4번이 된다 ) tree구조를 위함
+	parent_idx		int not null,					-- 상부 조직의 인덱스 ( 4-1 이면 4번이 된다 ) tree구조를 위함
 	description		varchar2(500)			-- 설명
 );
 
@@ -25,7 +25,7 @@ alter table company add constraint pk_company_idx primary key(idx)
 -- sample data
 insert into company values( seq_company_idx.nextVal,
 								'대표',
-								null,					-- 대표자의 상부 조직은 없으므로 null을 준다.
+								0,					-- 대표자의 상부 조직은 없으므로 0을 준다.
 								'대표자명단');
 
 									

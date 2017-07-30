@@ -4,19 +4,35 @@ System 메뉴 Servlet은 이곳에 모두 머지 시킨다.
 
 package com.ic.erp;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.google.gson.Gson;
 
 import dao.CompanyDao;
 import dao.GradeDao;
 import dao.UserDao;
+import vo.CompanyVo;
+import vo.GradeVo;
+import vo.UserVo;
 
 @Controller
 public class SystemController {
 
 	final static String VIEW_PATH = "/WEB-INF/views/SystemAdmin/";
+	
+	@Autowired
+	HttpServletRequest request;
 
 	UserDao user_dao; // 유저 정보
 	GradeDao grade_dao; // 직급 정보
@@ -49,38 +65,68 @@ public class SystemController {
 	@RequestMapping("/SystemAdmin/user_manager.do")
 	public String user_list(Model model) {
 
-		/*List<UserVo> list = user_dao.selectList();
+		List<UserVo> list = user_dao.selectList();
 		model.addAttribute("list", list);
-*/
-		
-		System.out.println("manager page");
-		
+
 		return VIEW_PATH + "user_manage.jsp";
 	}
 
 	@RequestMapping("/SystemAdmin/delete.do")
-	public String user_delete() {
+	@ResponseBody
+	public String user_delete(@RequestParam(value="index",required=true) List<String> list) {
 
-		/*List<String> list = new ArrayList<String>();
-		if( list_checked != null ) {
-			for( int i=0; i < list_checked.length; ++i ) {
-				String str = list_checked[i];
-				list.add(str);
-			}
-		}
-		
-		System.out.println(list.size());
+		// 받아온 index list를 넘겨준다
+		int res = user_dao.delete(list);
 
-		int res = 0;
-		// res = user_dao.delete(list);
-		
 		String result = "ng";
-		if( res > 0 ) {
+		if (res > 0) {
 			result = res + "";
 		}
+
+		return result;
+	}
+	
+	@RequestMapping("/SystemAdmin/user_register_form.do")
+	public String user_register_form( Model model ) {
 		
-		return result;*/
+		List<GradeVo> list = grade_dao.selectList();
+		List<CompanyVo> c_list = company_dao.selectList();
 		
-		return "redirect:user_manage.do";
+		model.addAttribute("list", list);
+		model.addAttribute("c_list", c_list);
+		
+		return VIEW_PATH + "user_register_form.jsp";
+	}
+	
+	// 아이디 중복 체크
+	@RequestMapping("/SystemAdmin/check_id.do")
+	@ResponseBody
+	public String check_id( String id ) {
+		
+		Map map = new HashMap();
+		map.put("id", id);
+		
+		UserVo vo = user_dao.selectOne(map);
+		
+		String result = "ng";
+		if( vo == null ) {
+			result = "ok";
+		}
+		
+		return result;
+	}
+	
+	@RequestMapping("/SystemAdmin/user_register.do")
+	@ResponseBody
+	public String user_register(UserVo vo) {
+		
+		int res = user_dao.insert(vo);
+		
+		String result = "ng";
+		if( res != 0 ) {
+			result = "ok";
+		}
+		
+		return result;
 	}
 }
