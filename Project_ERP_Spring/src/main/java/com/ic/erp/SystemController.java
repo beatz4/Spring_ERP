@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.google.gson.Gson;
-
 import dao.CompanyDao;
 import dao.GradeDao;
 import dao.UserDao;
@@ -86,14 +84,31 @@ public class SystemController {
 		return result;
 	}
 	
+	@RequestMapping(value="/SystemAdmin/company_list.do",produces="text/html;charset=utf-8")
+	@ResponseBody
+	public String company_list( ) {
+		List<CompanyVo> c_list = company_dao.selectList();
+		
+		StringBuffer sb = new StringBuffer("[");
+		for(CompanyVo vo : c_list){
+			String str = String.format("{'idx:':'%s','name':'%s'},", vo.getIdx(),vo.getName());
+			sb.append(str);
+		}
+        
+		int length = sb.toString().length();
+		String result = sb.toString().substring(length-1);
+		
+		return result + "]";
+	}
+	
 	@RequestMapping("/SystemAdmin/user_register_form.do")
 	public String user_register_form( Model model ) {
 		
-		List<GradeVo> list = grade_dao.selectList();
+		/*List<GradeVo> list = grade_dao.selectList();
 		List<CompanyVo> c_list = company_dao.selectList();
 		
 		model.addAttribute("list", list);
-		model.addAttribute("c_list", c_list);
+		model.addAttribute("c_list", c_list);*/
 		
 		return VIEW_PATH + "user_register_form.jsp";
 	}
