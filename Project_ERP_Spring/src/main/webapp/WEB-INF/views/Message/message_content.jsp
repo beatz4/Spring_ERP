@@ -7,11 +7,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 
-	<link rel="stylesheet" href="${ pageContext.request.contextPath }/css/message_send_form.css">
+	<link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/message_send_form.css">
 
 	<!-- sweetalert라이브러리 -->
-	<script src="../js/sweetalert.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="../css/sweetalert.css">
+	<script src="${ pageContext.request.contextPath }/resources/js/sweetalert.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="${ pageContext.request.contextPath }/resources/css/sweetalert.css">
 
 	<script type="text/javascript">
 	

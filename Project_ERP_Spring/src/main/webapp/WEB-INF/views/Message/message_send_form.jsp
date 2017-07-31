@@ -7,18 +7,21 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 
-	<link rel="stylesheet" href="${ pageContext.request.contextPath }/css/message_send_form.css">
+	<link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/message_send_form.css">
 	
 	<!-- sweetalert라이브러리 -->
-	<script src="../js/sweetalert.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="../css/sweetalert.css">
+	<script src="${ pageContext.request.contextPath }/resources/js/sweetalert.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="${ pageContext.request.contextPath }/resources/css/sweetalert.css">
+	
+	<!-- 선언 및 값 체크하기 -->
+	<script src="${pageContext.request.contextPath}/resources/ckeditor/ckeditor.js"></script>
 	
 	<script type="text/javascript">
 		function send(f){
 			
 			var recv_id = f.recv_id.value;
 			var title = f.title.value;
-			var content = f.content.value;
+			var content = CKEDITOR.instances.content.getData();
 			
 			if(recv_id==''){
 				sweetAlert("알림!!", "보낼아이디를 입력하세요!!", "error");
@@ -133,7 +136,31 @@
 												<div style="width: 850px;">									     
 											      
 											      <label for="comment" style="margin-top: 50px;">내용</label>
-											      <textarea style="width: 100%; resize:vertical;" class="form-control" rows="15" id="comment" name="content"></textarea>
+											      
+											      <!-- CKEditor + 이미지 업로드기능 설정하기 -->
+													<textarea  name="content" rows="15" cols="" style="width:100%;"></textarea>
+														<script>
+															// Replace the <textarea id="editor1"> with a CKEditor
+															// instance, using default configuration.
+															CKEDITOR.replace( 'content', {
+															filebrowserUploadUrl: '${pageContext.request.contextPath}/ckeditorImageUpload.do',
+															width: 862
+															});
+																
+															CKEDITOR.on('dialogDefinition', function( ev ){
+														            var dialogName = ev.data.name;
+														            var dialogDefinition = ev.data.definition;
+														          
+														            switch (dialogName) {
+														                case 'image': //Image Properties dialog
+																              //dialogDefinition.removeContents('info');
+																              dialogDefinition.removeContents('Link');
+																              dialogDefinition.removeContents('advanced');
+																              break;
+															    }
+															 });
+														</script>
+														
 													<div style="width: 100%; margin-top: 15px;" align="right">
 													  <button style="width: 80px;" type="button" class="btn" onclick="send(this.form)">보내기</button>
 													  <button style="width: 80px;" type="reset" class="btn">리셋</button>	

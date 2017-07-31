@@ -27,6 +27,9 @@
 	<!-- autowired적용 속성 -->
 	<context:annotation-config/>
 	
+	<!-- CKEditor Fileupload용 Controller생성 -->
+	<beans:bean class="com.ic.erp.CKEditorFileUploadController"/>
+	
 	<beans:bean class="com.ic.erp.MainMenuController">
 		<beans:property name="mainmenu_dao">
 			<beans:ref bean="mainmenu_dao"/>
@@ -39,6 +42,9 @@
 	<beans:bean class="com.ic.erp.MessageController">
 		<beans:property name="message_dao">
 			<beans:ref bean="message_dao"/>
+		</beans:property>
+		<beans:property name="user_dao">
+			<beans:ref bean="user_dao"/>
 		</beans:property>
 	</beans:bean>
 	

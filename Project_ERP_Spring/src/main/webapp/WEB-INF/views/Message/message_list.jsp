@@ -11,11 +11,11 @@
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 
 	<!-- Ajax를 이용하기위한 라이브러리 설정 -->
-	<script src="../js/httpRequest.min.js"></script>
+	<script src="${ pageContext.request.contextPath }/resources/js/httpRequest.min.js"></script>
 
 	<!-- sweetalert라이브러리 -->
-	<script src="../js/sweetalert.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="../css/sweetalert.css">
+	<script src="${ pageContext.request.contextPath }/resources/js/sweetalert.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="${ pageContext.request.contextPath }/resources/css/sweetalert.css">
 
 	<script type="text/javascript">
 		/* 체크박스 전체 선택 */

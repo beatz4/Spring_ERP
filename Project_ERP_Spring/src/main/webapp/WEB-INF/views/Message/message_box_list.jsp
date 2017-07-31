@@ -8,8 +8,8 @@
 <title>Insert title here</title>
 
 	<!-- sweetalert라이브러리 -->
-	<script src="../js/sweetalert.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="../css/sweetalert.css">
+	<script src="${ pageContext.request.contextPath }/resources/js/sweetalert.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="${ pageContext.request.contextPath }/resources/css/sweetalert.css">
 
 	<script type="text/javascript">
 		/* 체크박스 전체 선택 */

@@ -14,39 +14,39 @@
 
 <!-- Bootstrap Core CSS -->
 <link
-	href="${ pageContext.request.contextPath }/ExternalLib/bootstrap/css/bootstrap.min.css"
+	href="${ pageContext.request.contextPath }/resources/ExternalLib/bootstrap/css/bootstrap.min.css"
 	rel="stylesheet">
 
 <!-- MetisMenu CSS -->
 <link
-	href="${ pageContext.request.contextPath }/ExternalLib/bootstrap/css/metisMenu.min.css"
+	href="${ pageContext.request.contextPath }/resources/ExternalLib/bootstrap/css/metisMenu.min.css"
 	rel="stylesheet">
 
 <!-- Custom CSS -->
 <link
-	href="${ pageContext.request.contextPath }/ExternalLib/bootstrap/css/sb-admin-2.css"
+	href="${ pageContext.request.contextPath }/resources/ExternalLib/bootstrap/css/sb-admin-2.css"
 	rel="stylesheet">
 
 <!-- Custom Fonts -->
 <link
-	href="${ pageContext.request.contextPath }/ExternalLib/bootstrap/css/font-awesome.min.css"
+	href="${ pageContext.request.contextPath }/resources/ExternalLib/bootstrap/css/font-awesome.min.css"
 	rel="stylesheet" type="text/css">
 
 <!-- jQuery -->
 <script
-	src="${ pageContext.request.contextPath }/ExternalLib/bootstrap/js/jquery.min.js"></script>
+	src="${ pageContext.request.contextPath }/resources/ExternalLib/bootstrap/js/jquery.min.js"></script>
 
 <!-- Bootstrap Core JavaScript -->
 <script
-	src="${ pageContext.request.contextPath }/ExternalLib/bootstrap/js/bootstrap.min.js"></script>
+	src="${ pageContext.request.contextPath }/resources/ExternalLib/bootstrap/js/bootstrap.min.js"></script>
 
 <!-- Metis Menu Plugin JavaScript -->
 <script
-	src="${ pageContext.request.contextPath }/ExternalLib/bootstrap/js/metisMenu.min.js"></script>
+	src="${ pageContext.request.contextPath }/resources/ExternalLib/bootstrap/js/metisMenu.min.js"></script>
 
 <!-- Custom Theme JavaScript -->
 <script
-	src="${ pageContext.request.contextPath }/ExternalLib/bootstrap/js/sb-admin-2.js"></script>
+	src="${ pageContext.request.contextPath }/resources/ExternalLib/bootstrap/js/sb-admin-2.js"></script>
 
 </head>
 <body>
