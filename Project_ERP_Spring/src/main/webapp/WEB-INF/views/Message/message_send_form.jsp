@@ -138,13 +138,12 @@
 											      <label for="comment" style="margin-top: 50px;">내용</label>
 											      
 											      <!-- CKEditor + 이미지 업로드기능 설정하기 -->
-													<textarea  name="content" rows="15" cols="" style="width:100%;"></textarea>
+													<textarea name="content" rows="15" cols="80"></textarea>
 														<script>
 															// Replace the <textarea id="editor1"> with a CKEditor
 															// instance, using default configuration.
 															CKEDITOR.replace( 'content', {
-															filebrowserUploadUrl: '${pageContext.request.contextPath}/ckeditorImageUpload.do',
-															width: 862
+															filebrowserUploadUrl: '${pageContext.request.contextPath}/ckeditorImageUpload.do'
 															});
 																
 															CKEDITOR.on('dialogDefinition', function( ev ){

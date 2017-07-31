@@ -94,15 +94,19 @@
 											<td>
 												<div style="width: 850px;">
 											      <label for="usr">보낸사람</label>
-											      <input style="width: 100%; background: white;" readonly type="text" class="form-control" id="usr" name="title" value="${ vo.send_id }">
+											      <div class="panel panel-default">
+											      	<div style="width: 100%; height: 35px; font-size: 20px; text-align: left; margin-left: 10px; overflow: auto; padding-top: 3px;">${ vo.send_id }</div>
+											      </div>
 											    </div>
 											</td>
 										</tr>
 										<tr>
 											<td>
-												<div style="width: 850px; margin-top: 10px;">
+												<div style="width: 850px;">
 											      <label for="usr">제목</label>
-											      <input style="background: white; width: 100%;" readonly type="text" class="form-control" id="usr" name="title" value="${ vo.title }">
+											      <div class="panel panel-default">
+											      	<div style="width: 100%; height: 35px; font-size: 20px; text-align: left; margin-left: 10px; overflow: auto; padding-top: 3px;">${ vo.title }</div>
+											      </div>
 											    </div>
 											</td>
 										</tr>
@@ -110,7 +114,9 @@
 											<td>
 												<div style="width: 850px; margin-top: 10px;">
 											      <label for="usr">보낸날짜</label>
-											      <input style="background: white; width: 100%;" readonly type="text" class="form-control" id="usr" name="title" value="${ vo.send_date }">
+											      <div class="panel panel-default">
+											      	<div style="width: 100%; height: 35px; font-size: 20px; text-align: left; margin-left: 10px; overflow: auto; padding-top: 3px;">${ vo.send_date }</div>
+											      </div>
 											    </div>
 											</td>
 										</tr>
@@ -118,7 +124,9 @@
 											<td>	
 											    <div style="width: 850px; margin-top: 10px;">
 											      <label for="comment">내용</label>
-											      <textarea style="resize:vertical;background: white;width: 100%;" readonly class="form-control" rows="15" id="comment" name="content">${ vo.content }</textarea>
+											    	<div class="panel panel-default">
+											    		<div class="panel-body" style="width: 100%; height: 380px; overflow: auto; font-size: 20px;">${ vo.content }</div>	
+											    	</div>
 											    	<div style="width: 100%; margin-top: 15px;" align="right" >
 													  <input type="hidden" id="select" value="${ param.select }">
 														  <button type="button" class="btn btn-default" onclick="content_del()">삭제</button>

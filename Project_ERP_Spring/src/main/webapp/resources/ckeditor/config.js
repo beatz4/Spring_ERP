@@ -14,6 +14,7 @@ CKEDITOR.editorConfig = function( config )
 	config.enterMode=CKEDITOR.ENTER_BR;
 	config.shiftEnterMode=CKEDITOR.ENTER_P;
 	config.extraPlugins = 'autogrow';
+	config.autoGrow_minHeight = 380;
 	
 	config.toolbar_Full=
 		[

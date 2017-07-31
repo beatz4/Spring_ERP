@@ -205,23 +205,6 @@ public class MessageController {
 		if(content!=null||content!="") {
 			//content안에 있는 \r\n을 엔터를 -> <br>로 변환해줘야 함
 			content = content.replaceAll("\r\n", "<br>");
-			content = content.replaceAll("<", "&");
-			content = content.replaceAll("/>", "&");
-		}
-		
-		String content_array[] = null;
-		
-		System.out.println(content);
-		
-		if(content.indexOf('&')!=-1){
-			content_array = content.split("&");
-		}
-		
-		for(int i=0; i<content_array.length;i++){
-			if(content_array[i].indexOf("img")!=-1){
-				content_array[i] = "<"+content_array[i]+"/>";
-			}
-			System.out.println(content_array[i]);
 		}
 		
 		String id_array[] = null;
