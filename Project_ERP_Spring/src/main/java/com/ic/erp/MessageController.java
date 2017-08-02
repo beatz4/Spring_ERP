@@ -241,7 +241,7 @@ public class MessageController {
 			int res = message_dao.message_insert(vo);
 			int res_send = message_dao.message_send_insert(vo);
 		
-			if( res != 0){
+			if( (res * res_send) != 0){
 				result = "ok";
 			}
 		}else {
@@ -252,7 +252,7 @@ public class MessageController {
 				int res = message_dao.message_insert(vo);
 				int res_send = message_dao.message_send_insert(vo);
 			
-				if( res != 0){
+				if( (res * res_send) != 0){
 					result = "ok";
 				}
 			}
