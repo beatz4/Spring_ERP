@@ -155,7 +155,7 @@
 								<!-- 소속 팀 트리구조 -->
 								<div class="form-group">
 									<label>소속 그룹</label>  
-										<ul id="treeDemo" class="ztree"></ul>
+										<ul id="tree" class="ztree"></ul>
 								</div>
 								
 								<button type="button" class="btn btn-default"
@@ -201,274 +201,288 @@
 	
 <!-- zTree Script -->
 <script type="text/javascript">
-	 
+
+	var selectGroup = '';
 	var setting = {
-		data: {
-			simpleData: {
-				enable: true
+		data : {
+			key : {
+				title : "t"
+			},
+			simpleData : {
+				enable : true
 			}
+		},
+		callback : {
+			onClick : onClick
 		}
 	};
 	
-	/* json형식 데이터를 servlet에서 받아와야한다. */
-	
-	
-	$(document).ready(function(){
-		
-		var url = "company_list.do";
-		
-		$.ajax( {
-			url: url, 				//요청(서버)페이지
-			success:function(data){	
-				
-				// 이 데이터 형식을 반드시 유지해야한다.
-				// var test = '[{ "id" : 1 , "pId" : 0, "name" : "pNode 1", "open" : "true" }]';
-				
-				var jsonTree = $.parseJSON(data);
-				$.fn.zTree.init($("#treeDemo"), setting, jsonTree);
-				
+	function onClick(event, treeId, treeNode, clickFlag) {
+		selectGroup = treeNode.name;
+	}
+
+	$(document).ready(
+			function() {
+
+				/* 소속 그룹 */
+				var url = "company_list.do";
+
+				$.ajax({
+					url : url, //요청(서버)페이지
+					success : function(data) {
+
+						// 이 데이터 형식을 반드시 유지해야한다.
+						// var test = '[{ "id" : 1 , "pId" : 0, "name" : "pNode 1", "open" : "true" }]';
+
+						var jsonTree = $.parseJSON(data);
+						$.fn.zTree.init($("#tree"), setting, jsonTree);
+
+					},
+					error : function(request, status, error) {
+						alert("code:" + request.status + "\n" + "message:"
+								+ request.responseText + "\n" + "error:"
+								+ error);
+					}
+				});
+			});
+
+	var checkID = false; // 아이디 중복체크 유/무
+
+	function chk_Id_dup() {
+
+		var id = $("#id").val().trim();
+
+		if (id == '') {
+			alert('아이디를 입력해주세요');
+			return;
+		}
+
+		if (reg_special_char.test(id)) {
+			alert('아이디에 특수문자가 포함되어 있습니다.');
+			$("#id").focus();
+			return;
+		}
+
+		var url = 'check_id.do';
+
+		//jQuery를 이용한 Ajax통신
+		$.ajax({
+			url : url, //요청(서버)페이지
+			data : {
+				'id' : id
+			}, //파라미터
+			success : function(data) {
+				//서버에서 전달된 데이터
+				if (data == 'ok') {
+					alert('사용가능한 아이디입니다.');
+					checkID = true;
+				} else {
+					alert('이미 사용중인 아이디입니다!!');
+					checkID = false;
+				}
 			},
-			error:function(request,status,error){
-				alert("code:" + request.status +
-						"\n" + "message:" +
-						request.responseText + 
-						"\n" + "error:" + error);
+			error : function(request, status, error) {
+				alert("code:" + request.status + "\n" + "message:"
+						+ request.responseText + "\n" + "error:" + error);
 			}
 		});
-	});
-</script>
-	
-<!-- General Script -->
-<script type="text/javascript">
-
-var checkID = false;		// 아이디 중복체크 유/무
-
-function chk_Id_dup() {
-	
-	var id = $("#id").val().trim();
-	
-	if( id == '' ) {
-		alert('아이디를 입력해주세요');
-		return;
 	}
-	
-	if(reg_special_char.test(id)) {
-		alert('아이디에 특수문자가 포함되어 있습니다.');
-		$("#id").focus();
-		return;
-	}
-	
-	var url = 'check_id.do';
-	
-	//jQuery를 이용한 Ajax통신
-	$.ajax( {
-				url: url, 				//요청(서버)페이지
-				data:{ 'id': id }, 		//파라미터
-				success:function(data){	
-					//서버에서 전달된 데이터
-					if( data == 'ok' ) {
-						alert('사용가능한 아이디입니다.');	
-						checkID = true;
-					} else {
-						alert('이미 사용중인 아이디입니다!!');
-						checkID = false;
-					}
-				},
-				error:function(request,status,error){
-					alert("code:" + request.status +
-							"\n" + "message:" +
-							request.responseText + 
-							"\n" + "error:" + error);
-				}
-			});
-}
 
-function find_address() {
-	
-	windRef = new daum.Postcode({
-        oncomplete: function(data) {
-            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
-            // 예제를 참고하여 다양한 활용법을 확인해 보세요.
-            document.getElementById("address").value = data.address;
-        }
-	// 중복 팝업 제거를 위한 이름 부여
-    }).open({popupName: 'postcodePopup'});	
-}
+	function find_address() {
 
-function confirm_PW() {
-	
-	var msg = document.getElementById("msg");
-	var pw = document.getElementById("pwd").value;
-	var c_pw = document.getElementById("c_pwd").value;
-	
-	if( !reg_password.test(pw) ) {
-		msg.style.color = 'red';
-		msg.innerHTML = '8~16자리 영문(한글)+숫자+특문 포함해주세요.';
-		return;
+		windRef = new daum.Postcode({
+			oncomplete : function(data) {
+				// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
+				// 예제를 참고하여 다양한 활용법을 확인해 보세요.
+				document.getElementById("address").value = data.address;
+			}
+		// 중복 팝업 제거를 위한 이름 부여
+		}).open({
+			popupName : 'postcodePopup'
+		});
 	}
-	
-	if( pw != '' && c_pw != '' ) {
-		if( pw != c_pw ) {
-			
+
+	function confirm_PW() {
+
+		var msg = document.getElementById("msg");
+		var pw = document.getElementById("pwd").value;
+		var c_pw = document.getElementById("c_pwd").value;
+
+		if (!reg_password.test(pw)) {
 			msg.style.color = 'red';
-			msg.innerHTML = '비밀번호 불일치';
+			msg.innerHTML = '8~16자리 영문(한글)+숫자+특문 포함해주세요.';
 			return;
-		} 
+		}
+
+		if (pw != '' && c_pw != '') {
+			if (pw != c_pw) {
+
+				msg.style.color = 'red';
+				msg.innerHTML = '비밀번호 불일치';
+				return;
+			}
+
+			msg.style.color = 'blue';
+			msg.innerHTML = '비밀번호 일치';
+		} else {
+			msg.innerHTML = '';
+		}
+	}
+
+	function change_id() {
+		checkID = false;
+	}
+
+	function resgister(f) {
+
+		// 모든 공백은 자동 제거한다.
+		var name = $("#name").val().trim();
+		var regnumber = $("#regnumber").val().trim();
+		var id = $("#id").val().trim();
+		var pwd = $("#pwd").val().trim();
+		var c_pwd = $("#c_pwd").val().trim();
+		var address = $("#address").val().trim();
+		var email = $("#email").val().trim();
+		var phone = $("#phone").val().trim();
+		var position = $(':radio[name="optionsRadios"]:checked').val();
 		
-		msg.style.color = 'blue';
-		msg.innerHTML='비밀번호 일치';
-	} else {
-		msg.innerHTML='';
-	}
-}
+		if( selectGroup === '' ) {
+			alert('소속 그룹을 선택해주세요');
+			return;
+		}
 
-function change_id() {
-	checkID = false;
-}
+		if (name == '') {
+			alert('올바른 이름을 입력하세요');
+			$("#name").focus();
+			return;
+		}
 
-function resgister(f) {
-	
-	// 모든 공백은 자동 제거한다.
-	var name = $("#name").val().trim();
-	var regnumber = $("#regnumber").val().trim();
-	var id = $("#id").val().trim();
-	var pwd = $("#pwd").val().trim();
-	var c_pwd = $("#c_pwd").val().trim();
-	var address = $("#address").val().trim();
-	var email = $("#email").val().trim();
-	var phone = $("#phone").val().trim();
-	var position = $(':radio[name="optionsRadios"]:checked').val();
-	
-	if( name == '' ) {
-		alert('올바른 이름을 입력하세요');
-		$("#name").focus();
-		return;
-	}
-	
-	if( reg_name.test(name) == false ) {
-		alert('이름을 한글/영문으로만 입력하세요');
-		$("#name").focus();
-		return;
-	}
-	
-	if( regnumber == '' ) {
-		alert('주민번호를 입력하세요');
-		$("#regnumber").focus();
-		return;
-	}
-	
-	if( reg_regnumber.test(regnumber) == false ) {
-		alert('올바른 주민번호를 입력하세요');
-		$("#regnumber").focus();
-		return;
-	}
-	
-	if( id == '' ) {
-		alert('아이디를 입력하세요');
-		$("#id").focus();
-		return;
-	}
-	
-	if( checkID == false ) {
-		alert('아이디 중복체크를 먼저 해주세요');
-		return;
-	}
+		if (reg_name.test(name) == false) {
+			alert('이름을 한글/영문으로만 입력하세요');
+			$("#name").focus();
+			return;
+		}
 
-	if(reg_special_char.test(id)) {
-		alert('아이디에 특수문자가 포함되어 있습니다.');
-		$("#id").focus();
-		return;
-	}
-	
-	if( pwd == '' ) {
-		alert('패스워드를 입력하세요');
-		$("#pwd").focus();
-		return;
-	}
-	
-	if( reg_password.test(pwd) == false ) {
-		alert('비밀번호에 영문(한글)+숫자+특문 포함해주세요.');
-		$("#pwd").focus();
-		return;
-	}
-	
-	if( address == '' ) {
-		alert('주소를 입력하세요');
-		$("#address").focus();
-		return;
-	}
-	
-	if( email == '' ) {
-		alert('이메일을 입력하세요');
-		$("#email").focus();
-		return;
-	}
-	
-	if( reg_email.test(email) == false ) {
-		alert('올바른 이메일을 입력하세요.');
-		$("#email").focus();
-		return;
-	}
-	
-	if( phone == '' ) {
-		alert('전화번호를 입력하세요');
-		$("#phone").focus();
-		return;
-	}
-	
-	if( reg_phone.test(phone) == false ) {
-		alert('전화번호를 000-0000-0000 형식으로 입력해주세요');
-		$("#phone").focus();
-		return;
-	}
-	
-	if( c_pwd != pwd ) {
-		alert('패스워드가 다릅니다.');
-		$("#pwd").focus();
-		return;
-	}
-	
-	if( position == '' ) {
-		alert('직급을 선택하세요');
-		$("#position").focus();
-		return;
-	}
-	
-	var url = 'user_register.do';
-	
-	//jQuery를 이용한 Ajax통신
-	$.ajax( {
-				type : "POST",
-				url: url, 				//요청(서버)페이지
-				data:{'name': name,
-					  'regnumber': regnumber, 
-					  'id': id,
-					  'password': pwd,
-					  'address': address,
-					  'email': email,
-					  'phone': phone,
-					  'position': position }, 		//파라미터
-				success:function(data){	
-					//서버에서 전달된 데이터
-					if( data == 'ok' ) {
-						alert('회원가입완료!!');
-						
-						/* f.action = "user_manager.do";
-						f.method = "post";
-						f.submit(); */
-						
-					} else {
-						alert('회원가입 실패!!\r\n관리자에게 문의하세요.');
-					}
-				},
-				error:function(request,status,error){
-					alert("code:" + request.status +
-							"\n" + "message:" +
-							request.responseText + 
-							"\n" + "error:" + error);
+		if (regnumber == '') {
+			alert('주민번호를 입력하세요');
+			$("#regnumber").focus();
+			return;
+		}
+
+		if (reg_regnumber.test(regnumber) == false) {
+			alert('올바른 주민번호를 입력하세요');
+			$("#regnumber").focus();
+			return;
+		}
+
+		if (id == '') {
+			alert('아이디를 입력하세요');
+			$("#id").focus();
+			return;
+		}
+
+		if (checkID == false) {
+			alert('아이디 중복체크를 먼저 해주세요');
+			return;
+		}
+
+		if (reg_special_char.test(id)) {
+			alert('아이디에 특수문자가 포함되어 있습니다.');
+			$("#id").focus();
+			return;
+		}
+
+		if (pwd == '') {
+			alert('패스워드를 입력하세요');
+			$("#pwd").focus();
+			return;
+		}
+
+		if (reg_password.test(pwd) == false) {
+			alert('비밀번호에 영문(한글)+숫자+특문 포함해주세요.');
+			$("#pwd").focus();
+			return;
+		}
+
+		if (address == '') {
+			alert('주소를 입력하세요');
+			$("#address").focus();
+			return;
+		}
+
+		if (email == '') {
+			alert('이메일을 입력하세요');
+			$("#email").focus();
+			return;
+		}
+
+		if (reg_email.test(email) == false) {
+			alert('올바른 이메일을 입력하세요.');
+			$("#email").focus();
+			return;
+		}
+
+		if (phone == '') {
+			alert('전화번호를 입력하세요');
+			$("#phone").focus();
+			return;
+		}
+
+		if (reg_phone.test(phone) == false) {
+			alert('전화번호를 000-0000-0000 형식으로 입력해주세요');
+			$("#phone").focus();
+			return;
+		}
+
+		if (c_pwd != pwd) {
+			alert('패스워드가 다릅니다.');
+			$("#pwd").focus();
+			return;
+		}
+
+		if (position == '') {
+			alert('직급을 선택하세요');
+			$("#position").focus();
+			return;
+		}
+
+		var url = 'user_register.do';
+
+		//jQuery를 이용한 Ajax통신
+		$.ajax({
+			type : "POST",
+			url : url, //요청(서버)페이지
+			data : {
+				'name' : name,
+				'regnumber' : regnumber,
+				'id' : id,
+				'password' : pwd,
+				'address' : address,
+				'email' : email,
+				'phone' : phone,
+				'position' : position,
+				'groupname' : selectGroup
+			}, //파라미터
+			success : function(data) {
+				//서버에서 전달된 데이터
+				if (data == 'ok') {
+					alert('회원가입완료!!');
+
+					f.action = "user_manager.do";
+					f.method = "post";
+					f.submit();
+
+				} else {
+					alert('회원가입 실패!!\r\n관리자에게 문의하세요.');
 				}
-			} );
-}
+			},
+			error : function(request, status, error) {
+				alert("code:" + request.status + "\n" + "message:"
+						+ request.responseText + "\n" + "error:" + error);
+			}
+		});
+
+	}
 </script>
 	
 </body>

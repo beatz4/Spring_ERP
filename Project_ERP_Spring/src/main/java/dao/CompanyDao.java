@@ -33,6 +33,10 @@ public class CompanyDao {
 		return list;
 	}
 	
-	
+	public CompanyVo selectOne(String name) {
+		CompanyVo vo = null;
+		vo = sqlSession.selectOne("company_one", name);
+		return vo;
+	}
 
 }

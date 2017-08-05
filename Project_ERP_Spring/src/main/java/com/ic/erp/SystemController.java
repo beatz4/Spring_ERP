@@ -68,6 +68,15 @@ public class SystemController {
 
 		return VIEW_PATH + "user_manage.jsp";
 	}
+	
+	@RequestMapping("/SystemAdmin/company_organize.do")
+	public String company_list(Model model) {
+
+		List<CompanyVo> list = company_dao.selectList();
+		model.addAttribute("list", list);
+
+		return VIEW_PATH + "company_organize.jsp";
+	}
 
 	@RequestMapping("/SystemAdmin/delete.do")
 	@ResponseBody
@@ -92,37 +101,34 @@ public class SystemController {
 		StringBuffer sb = new StringBuffer("[");
 		for(CompanyVo vo : c_list){
 			
+			// 상부 부서 index + 현재 부서 index
 			String str_id = "" + vo.getParent_idx() + vo.getIdx();
 			int id = Integer.parseInt(str_id);
 			
 			// String jsonTxt = "{\"code\":\"200\", \"msg\":\"success\"}";
 			String str = String.format("{ \"id\" :" 
-										+ id 
+										+ id 					// integer type
 										+ ", \"pId\" : "
-										+ vo.getParent_idx()
+										+ vo.getParent_idx()	// integer type
 										+ ", \"name\" : "
-										+ "\"%s\"} ,"
+										+ "\"%s\""
+										+ ", \"open\" : "
+										+ "\"true\" } ,"			// string type
 										, vo.getName() );
 			sb.append(str);
 		}
         
 		int length = sb.toString().length();
 		String result = sb.toString().substring(0, length-1);
-		
 		result += "]";
-		System.out.println(result);
-		
 		return result;
 	}
 	
 	@RequestMapping("/SystemAdmin/user_register_form.do")
 	public String user_register_form( Model model ) {
 		
-		/*List<GradeVo> list = grade_dao.selectList();
-		List<CompanyVo> c_list = company_dao.selectList();
-		
+		List<GradeVo> list = grade_dao.selectList();
 		model.addAttribute("list", list);
-		model.addAttribute("c_list", c_list);*/
 		
 		return VIEW_PATH + "user_register_form.jsp";
 	}
@@ -147,7 +153,11 @@ public class SystemController {
 	
 	@RequestMapping("/SystemAdmin/user_register.do")
 	@ResponseBody
-	public String user_register(UserVo vo) {
+	public String user_register(UserVo vo, String groupname) {
+
+		// 소속 그룹 idx mapping
+		CompanyVo c_vo = company_dao.selectOne(groupname);
+		vo.setC_idx(c_vo.getIdx());
 		
 		int res = user_dao.insert(vo);
 		

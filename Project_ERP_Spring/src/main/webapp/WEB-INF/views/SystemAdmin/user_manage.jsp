@@ -70,7 +70,6 @@
 			dataType : 'text',
 			success : function(data) {
 	
-				alert( data + '명 삭제 완료.');
 				document.location.href = "user_manager.do";
 			},
 			error : function(request, status, error) {

@@ -6,7 +6,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <!-- 전체목록 조회 -->
 	<select id="company_list" resultType="vo.CompanyVo">
-	    select * from company order by idx desc
+	    select * from company order by idx
+	</select>
+	
+	<select id="company_one" resultType="vo.CompanyVo"
+		parameterType="String">
+		select * from company where name = #{ name }
 	</select>
     
 </mapper>

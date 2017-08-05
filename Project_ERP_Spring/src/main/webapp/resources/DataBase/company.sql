@@ -23,10 +23,65 @@ drop table company
 alter table company add constraint pk_company_idx primary key(idx) 
 
 -- sample data
+
+-- 1
 insert into company values( seq_company_idx.nextVal,
 								'대표',
 								0,					-- 대표자의 상부 조직은 없으므로 0을 준다.
 								'대표자명단');
+-- 2							
+insert into company values( seq_company_idx.nextVal,
+								'부대표',
+								1,					-- 대표자 index : 1
+								'부대표명단');
+
+-- 3
+insert into company values( seq_company_idx.nextVal,
+								'영업부',
+								0,					-- 대표 index(1) + 부대표 index(2) : 12
+								'영업부서');
+								
+-- 4
+insert into company values( seq_company_idx.nextVal,
+								'개발부',
+								0,					-- 대표자의 상부 조직은 없으므로 0을 준다.
+								'개발부서');
+								
+-- 5
+insert into company values( seq_company_idx.nextVal,
+								'경영지원부',
+								0,					-- 대표자의 상부 조직은 없으므로 0을 준다.
+								'경영지원부서');
+
+-- 0:대표, 3:영업부, 4:개발부, 5:경영지원부
+insert into company values( seq_company_idx.nextVal,
+								'영업부서1',
+								3,					-- 대표자의 상부 조직은 없으므로 0을 준다.
+								'영업1팀');
+insert into company values( seq_company_idx.nextVal,
+								'영업부서2',
+								3,					-- 대표자의 상부 조직은 없으므로 0을 준다.
+								'영업2팀');   
+								
+insert into company values( seq_company_idx.nextVal,
+								'개발부1',
+								4,					-- 대표자의 상부 조직은 없으므로 0을 준다.
+								'개발1팀');
+insert into company values( seq_company_idx.nextVal,
+								'개발부2',
+								4,					-- 대표자의 상부 조직은 없으므로 0을 준다.
+								'개발2팀');
+								
+insert into company values( seq_company_idx.nextVal,
+								'경영지원부1',
+								5,					-- 대표자의 상부 조직은 없으므로 0을 준다.
+								'경영1팀');
+insert into company values( seq_company_idx.nextVal,
+								'경영지원부2',
+								5,					-- 대표자의 상부 조직은 없으므로 0을 준다.
+								'경영2팀');
+
+
 
 									
 -- 모든 데이터 삭제

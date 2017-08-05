@@ -1,7 +1,7 @@
 package vo;
 
 public class UserVo {
-	
+
 	int idx;
 	int g_idx;
 	String name;
@@ -12,20 +12,30 @@ public class UserVo {
 	String id;
 	String password;
 	String regdate;
-	
-	
+
 	// 직급
-	String g_position;		
+	String g_position;
 	int g_level;
 	
+	// 소속 그룹
+	int c_idx;
+	
+	public int getC_idx() {
+		return c_idx;
+	}
+
+	public void setC_idx(int c_idx) {
+		this.c_idx = c_idx;
+	}
+
 	public int getIdx() {
 		return idx;
 	}
-	
+
 	public void setIdx(int idx) {
 		this.idx = idx;
 	}
-	
+
 	public int getG_idx() {
 		return g_idx;
 	}
@@ -37,27 +47,27 @@ public class UserVo {
 	public String getName() {
 		return name;
 	}
-	
+
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	public String getRegnumber() {
 		return regnumber;
 	}
-	
+
 	public void setRegnumber(String regnumber) {
 		this.regnumber = regnumber;
 	}
-	
+
 	public String getAddress() {
 		return address;
 	}
-	
+
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	
+
 	public String getEmail() {
 		return email;
 	}
@@ -65,35 +75,35 @@ public class UserVo {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
+
 	public String getPhone() {
 		return phone;
 	}
-	
+
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	
+
 	public String getId() {
 		return id;
 	}
-	
+
 	public void setId(String id) {
 		this.id = id;
 	}
-	
+
 	public String getPassword() {
 		return password;
 	}
-	
+
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+
 	public String getRegdate() {
 		return regdate;
 	}
-	
+
 	public void setRegdate(String regdate) {
 		this.regdate = regdate;
 	}
