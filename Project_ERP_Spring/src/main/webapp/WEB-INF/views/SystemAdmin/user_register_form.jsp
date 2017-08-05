@@ -205,11 +205,8 @@
 	var selectGroup = '';
 	var setting = {
 		data : {
-			key : {
-				title : "t"
-			},
 			simpleData : {
-				enable : true
+				enable:true,
 			}
 		},
 		callback : {
@@ -224,7 +221,6 @@
 	$(document).ready(
 			function() {
 
-				/* 소속 그룹 */
 				var url = "company_list.do";
 
 				$.ajax({

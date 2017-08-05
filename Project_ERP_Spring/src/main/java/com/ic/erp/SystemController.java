@@ -104,16 +104,22 @@ public class SystemController {
 			// 상부 부서 index + 현재 부서 index
 			String str_id = "" + vo.getParent_idx() + vo.getIdx();
 			int id = Integer.parseInt(str_id);
+			int pId = vo.getParent_idx();
+			boolean open = true;
+			boolean drag = pId==0 ? false : true;
 			
 			// String jsonTxt = "{\"code\":\"200\", \"msg\":\"success\"}";
 			String str = String.format("{ \"id\" :" 
 										+ id 					// integer type
 										+ ", \"pId\" : "
-										+ vo.getParent_idx()	// integer type
+										+ pId					// integer type
 										+ ", \"name\" : "
 										+ "\"%s\""
 										+ ", \"open\" : "
-										+ "\"true\" } ,"			// string type
+										+ open
+										+ ", \"drag\" : "
+										+ drag 
+										+ " } ,"			// string type
 										, vo.getName() );
 			sb.append(str);
 		}

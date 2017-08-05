@@ -32,7 +32,6 @@
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 
 <script>
-
 	function del_user() {
 		/* 사용자 삭제 - ajax (jquery) */
 
