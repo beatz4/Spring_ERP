@@ -91,14 +91,28 @@ public class SystemController {
 		
 		StringBuffer sb = new StringBuffer("[");
 		for(CompanyVo vo : c_list){
-			String str = String.format("{'idx:':'%s','name':'%s'},", vo.getIdx(),vo.getName());
+			
+			String str_id = "" + vo.getParent_idx() + vo.getIdx();
+			int id = Integer.parseInt(str_id);
+			
+			// String jsonTxt = "{\"code\":\"200\", \"msg\":\"success\"}";
+			String str = String.format("{ \"id\" :" 
+										+ id 
+										+ ", \"pId\" : "
+										+ vo.getParent_idx()
+										+ ", \"name\" : "
+										+ "\"%s\"} ,"
+										, vo.getName() );
 			sb.append(str);
 		}
         
 		int length = sb.toString().length();
-		String result = sb.toString().substring(length-1);
+		String result = sb.toString().substring(0, length-1);
 		
-		return result + "]";
+		result += "]";
+		System.out.println(result);
+		
+		return result;
 	}
 	
 	@RequestMapping("/SystemAdmin/user_register_form.do")
