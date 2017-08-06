@@ -161,7 +161,7 @@
 								<button type="button" class="btn btn-default"
 										onclick="resgister(this.form);">가입</button>
 								<button type="reset" class="btn btn-default" 
-										onclick="location.href='${ pageContext.request.contextPath }/resources/SystemAdmin/user_manager.do'">취소</button>
+										onclick="location.href='user_manager.do'">취소</button>
 								
 							</form>
 						</div>

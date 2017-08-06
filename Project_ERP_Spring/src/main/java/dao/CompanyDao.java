@@ -38,5 +38,17 @@ public class CompanyDao {
 		vo = sqlSession.selectOne("company_one", name);
 		return vo;
 	}
+	
+	public int insert( CompanyVo vo ) {
+		int res = 0;
+		res = sqlSession.insert("company_insert", vo);
+		return res;
+	}
+	
+	public int update( CompanyVo vo ) {
+		int res = 0;
+		res = sqlSession.update("company_update", vo);
+		return res;
+	}
 
 }

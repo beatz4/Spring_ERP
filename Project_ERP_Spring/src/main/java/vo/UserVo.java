@@ -1,6 +1,8 @@
 package vo;
 
-public class UserVo {
+import java.io.Serializable;
+
+public class UserVo implements Serializable {
 
 	int idx;
 	int g_idx;
@@ -16,10 +18,19 @@ public class UserVo {
 	// 직급
 	String g_position;
 	int g_level;
-	
+
 	// 소속 그룹
 	int c_idx;
-	
+	String c_name;
+
+	public String getC_name() {
+		return c_name;
+	}
+
+	public void setC_name(String c_name) {
+		this.c_name = c_name;
+	}
+
 	public int getC_idx() {
 		return c_idx;
 	}

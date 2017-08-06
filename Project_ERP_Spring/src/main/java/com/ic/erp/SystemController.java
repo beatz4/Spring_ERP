@@ -4,6 +4,7 @@ System 메뉴 Servlet은 이곳에 모두 머지 시킨다.
 
 package com.ic.erp;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,13 +14,18 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import dao.CompanyDao;
 import dao.GradeDao;
 import dao.UserDao;
+import util.CompanyEditorFromJsonToVo;
 import vo.CompanyVo;
 import vo.GradeVo;
 import vo.UserVo;
@@ -59,6 +65,11 @@ public class SystemController {
 	public void setCompany_dao(CompanyDao company_dao) {
 		this.company_dao = company_dao;
 	}
+	
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+	    binder.registerCustomEditor(CompanyVo.class, new CompanyEditorFromJsonToVo());
+	}
 
 	@RequestMapping("/SystemAdmin/user_manager.do")
 	public String user_list(Model model) {
@@ -95,7 +106,7 @@ public class SystemController {
 	
 	@RequestMapping(value="/SystemAdmin/company_list.do",produces="text/html;charset=utf-8")
 	@ResponseBody
-	public String company_list( ) {
+	public String company_ListToTree() {
 		List<CompanyVo> c_list = company_dao.selectList();
 		
 		StringBuffer sb = new StringBuffer("[");
@@ -127,6 +138,51 @@ public class SystemController {
 		int length = sb.toString().length();
 		String result = sb.toString().substring(0, length-1);
 		result += "]";
+		return result;
+	}
+	
+	@RequestMapping(value="/SystemAdmin/c_user_list.do",produces="text/html;charset=utf-8")
+	@ResponseBody
+	public String c_user_list(String name) {
+		
+		String result = "fail";
+		
+		// 소속 이름의 vo를 가져온다
+		CompanyVo c_vo = company_dao.selectOne(name);
+		if( c_vo == null )
+			return result;
+		
+		// company vo로 해당 c_idx의 유저목록을 가져온다
+		List<UserVo> c_user = user_dao.selectList(c_vo.getIdx());
+		if( c_user == null || c_user.size() < 1 )
+			return result;
+		
+		int idx=1;
+		
+		StringBuffer sb = new StringBuffer("[");
+		for(UserVo vo : c_user) {
+			
+			// String jsonTxt = "{\"code\":\"200\", \"msg\":\"success\"}";
+			String str = String.format("{ \"id\" :" 
+										+ idx 					// integer type
+										+ ", \"pId\" : "
+										+ 0					// integer type
+										+ ", \"name\" : "
+										+ "\"%s\""
+										+ " } ,"			// string type
+										, vo.getName());
+			sb.append(str);
+			idx++;
+		}
+		
+		/*String desc = c_vo.getDescription();
+		System.out.println(desc);
+		model.addAttribute("desc", desc);*/
+        
+		int length = sb.toString().length();
+		result = sb.toString().substring(0, length-1);
+		result += "]";
+		
 		return result;
 	}
 	
@@ -174,4 +230,29 @@ public class SystemController {
 		
 		return result;
 	}
+	
+	@RequestMapping("/SystemAdmin/company_save.do")
+	@ResponseBody
+	public String company_save(@RequestParam("json") CompanyVo json) {
+		
+		String result = "fail";
+		
+		System.out.println(json.getName());
+		
+		CompanyVo vo = null;
+		vo = company_dao.selectOne(json.getName());
+		
+		int res = 0;
+		// insert
+		if( vo == null ) {
+			res = company_dao.insert(json);
+		} else {	// update
+			res = company_dao.update(json);
+		}
+		
+		
+		
+		return res + "";
+	}
+	
 }

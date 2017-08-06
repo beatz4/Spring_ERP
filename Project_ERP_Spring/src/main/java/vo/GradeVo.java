@@ -1,6 +1,8 @@
 package vo;
 
-public class GradeVo {
+import java.io.Serializable;
+
+public class GradeVo implements Serializable {
 	
 	int g_idx;
 	int g_level;

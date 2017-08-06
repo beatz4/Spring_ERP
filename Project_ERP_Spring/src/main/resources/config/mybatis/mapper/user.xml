@@ -8,6 +8,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="user_list" resultType="vo.UserVo">
 	    select * from user_view order by idx asc
 	</select>
+	
+	<select id="c_user_list" parameterType="int" resultType="vo.UserVo">
+	    select * from user_view 
+	    where c_idx = #{ c_idx } 
+	    order by idx asc
+	</select>
  
  	<!-- 해당 유저만 조회 -->
  	<select id="user_selectOne" resultType="vo.UserVo"

@@ -104,6 +104,7 @@
 								<tr>
 									<th>선택</th>
 									<th>사번</th>
+									<th>소속</th>
 									<th>이름</th>
 									<th>아이디</th>
 									<th>비밀번호</th>
@@ -131,6 +132,7 @@
 										</c:choose>
 										
 										<td id="index">${ vo.idx }</td>
+										<td>${ vo.c_name }</td>
 										<td>${ vo.name }</td>
 										<td>${ vo.id }</td>
 										<td>${ vo.password }</td>

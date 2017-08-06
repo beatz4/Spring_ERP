@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -20,10 +21,10 @@
 
 	<div id="page-wrapper">
 		<div class="row">
-			<div class="col-lg-7">
+			<div class="col-lg-8">
 				<h1 class="page-header">조직 구성</h1>
 			</div>
-			<!-- /.col-lg-7 -->
+			<!-- /.col-lg-8 -->
 		</div>
 		<!-- /.row -->
 		<div class="row"> 
@@ -37,19 +38,43 @@
 						<!-- tree -->
 						<ul id="tree" class="ztree"></ul>
 						<!-- /.tree -->
-						
 					</div>
 				</div> 
+				<div class="panel panel-default">
+					<div class="panel-heading">How to edit...</div>
+					<div class="panel-body">
+						부서 이동을 원하시면 드래그 하시면 됩니다. <br>
+						부서 추가, 팀 추가는 폴더 아이콘을 선택하시고<br>
+						기능을 수행하시기 바랍니다.<br>
+						수정 후 반드시 저장하시기 바랍니다.<br>
+					</div>
+				</div>
 			<!-- /.col-lg-3 -->
 			</div>
 			
 			<!-- 우측 -->
-			<div class="col-lg-4">
+			<div class="col-lg-5">
 				<div class="panel panel-default">
-					<div class="panel-heading">Description</div>
-					<div class="panel-body">부서 이동을 원하시면 드래그 하시면 됩니다.</div>
+					<div class="panel-heading">
+						조직 구성원
+					</div>
+					<div class="panel-body">
+						<!-- tree -->
+						<ul id="treeMember" class="ztree"></ul>
+						<!-- /.tree -->
+					</div>
 				</div>
-
+				<!-- 
+				추후 추가
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						Description
+					</div>
+					<div class="panel-body">
+						<span id="desc"></span>
+					</div>
+				</div>
+				 -->
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						조직 구성 수정
@@ -58,24 +83,44 @@
 						
                         <div class="well">
                         	<!-- 부서 추가 button -->
-                        	<a class="btn btn-default btn-lg" onclick="add_department();">
+                        	<a class="btn btn-default btn-lg" id="addParent" onclick="return false;">
                         		부서 추가
                        		</a>
                        		<!-- 팀 추가 button -->
-                       		<a class="btn btn-default btn-lg" onclick="add_team();">
+                       		<a class="btn btn-default btn-lg" id="addLeaf" onclick="return false;">
                         		팀 추가
                        		</a>
                        		
+                       		<!-- 소속명 수정 button -->
+                       		<a class="btn btn-default btn-lg" id="edit" onclick="return false;">
+                        		소속명 수정
+                       		</a>
+                       		
                        		<!-- 선택 삭제 -->
-                        	<a class="btn btn-default btn-lg" onclick="delete_sel()">
+                        	<a class="btn btn-default btn-lg" id="remove" onclick="return false;">
                        			선택 삭제
                       		</a>
 						</div>
 					</div>
 				</div>
-			<!-- /.col-lg-4 -->
+			<!-- /.col-lg-5 -->
 			</div>
 		<!-- /.row -->
+		</div>
+		
+		<div class="row">
+			<div class="col-lg-8">
+			
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<button type="button" class="btn btn-primary btn-lg btn-block" onclick="save();">
+						 	저장
+					 	</button>
+					</div>
+				</div>
+			</div>
+			
+			<!-- /.col-lg-8 -->
 		</div>
 	<!-- /.container-fluid -->
 	</div>
@@ -100,23 +145,42 @@
 <!-- zTree JavaScript -->
 <script type="text/javascript" src="${ pageContext.request.contextPath }/resources/ExternalLib/zTree/js/jquery.ztree.core.js"></script>
 <script type="text/javascript" src="${ pageContext.request.contextPath }/resources/ExternalLib/zTree/js/jquery.ztree.exedit.js"></script>
+<script type="text/javascript" src="${ pageContext.request.contextPath }/resources/ExternalLib/zTree/js/jquery.ztree.excheck.js"></script>
 
 <script type="text/javascript">
 
+	var menber_setting = {
+		data: {
+			simpleData: {
+				enable: true
+			}
+		}
+	};
+
 	var setting = {
+		view: {
+			selectedMulti: false
+		},
 		edit: {
 			enable: true,
 			showRemoveBtn: false,
 			showRenameBtn: false
 		},
 		data: {
+			keep: {
+				parent:true,
+				leaf:true
+			},
 			simpleData: {
 				enable: true
 			}
 		},
 		callback : {
 			beforeDrag: beforeDrag,
-			beforeDrop: beforeDrop
+			beforeDrop: beforeDrop,
+			beforeRemove: beforeRemove,
+			beforeRename: beforeRename,
+			onClick : onClick
 		}
 	};
 
@@ -132,44 +196,147 @@
 	function beforeDrop(treeId, treeNodes, targetNode, moveType) {
 		return targetNode ? targetNode.drop !== false : true;
 	}
-
-	$(document).ready(function() {
+	
+	function beforeRemove(treeId, treeNode) {
+		return confirm("정말로 '" + treeNode.name + "' 를 삭제하시겠습니까?"); 
+	}
+	
+	function beforeRename(treeId, treeNode, newName) {
+		if (newName.length == 0) {
+			alert("공백은 지정할 수 없습니다.");
+			var zTree = $.fn.zTree.getZTreeObj("tree");
+			setTimeout(function(){zTree.editName(treeNode)}, 10);
+			return false;
+		}
+		return true;
+	}
+	
+	function onClick(event, treeId, treeNode, clickFlag) {
 		
-				var url = "company_list.do";
+		/* 조직 구성원 */
+		var url = "c_user_list.do";
 
-				$.ajax({
-					url : url, //요청(서버)페이지
-					success : function(data) {
-
-						// 이 데이터 형식을 반드시 유지해야한다.
-						// var test = '[{ "id" : 1 , "pId" : 0, "name" : "pNode 1", "open" : "true" }]';
-
-						var jsonTree = $.parseJSON(data);
-						$.fn.zTree.init($("#tree"), setting, jsonTree);
-
-					},
-					error : function(request, status, error) {
-						alert("code:" + request.status + "\n" + "message:"
-								+ request.responseText + "\n" + "error:"
-								+ error);
-					}
-				});
-			});
-	
-	/* 부서 추가 */
-	function add_department() {
-		alert('부서 추가');
+		$.ajax({
+			url : url, //요청(서버)페이지
+			data : {
+				'name' : treeNode.name
+			},
+			success : function(data) {
+				
+				var jsonTree = [];
+				if( data === 'fail' ) {
+					var empty = '[{ "id" : 1 , "pId" : 0, "name" : "구성원이 없습니다." }]';
+					jsonTree = $.parseJSON(empty);
+				} else {
+					jsonTree = $.parseJSON(data);
+				}
+				
+				$.fn.zTree.init($("#treeMember"), menber_setting, jsonTree);
+				
+				/* description - 추후 개선 */
+//				$("#desc").html("설명");
+			},
+			error : function(request, status, error) {
+				alert("code:" + request.status + "\n" + "message:"
+						+ request.responseText + "\n" + "error:"
+						+ error);
+			}
+		});
 	}
 	
-	/* 팀 추가 */
-	function add_team() {
-		alert('팀 추가');
-	}
+	var newCount = 1;
+	function add(e) {
+		var zTree = $.fn.zTree.getZTreeObj("tree"),
+		isParent = e.data.isParent,
+		nodes = zTree.getSelectedNodes(),
+		treeNode = nodes[0];
+		
+		if (treeNode) {
+			treeNode = zTree.addNodes(treeNode, {id:(100 + newCount), pId:treeNode.id, isParent:isParent, name:"new node" + (newCount++)});
+		} else {
+			treeNode = zTree.addNodes(null, {id:(100 + newCount), pId:0, isParent:isParent, name:"new node" + (newCount++)});
+		}
+		
+		if (treeNode) {
+			zTree.editName(treeNode[0]);
+		} else {
+			alert("부서를 선택 후 해당 기능을 수행해주세요.");
+		}
+	};
+	
+	/* 소속명 수정 */
+	function edit() {
+		var zTree = $.fn.zTree.getZTreeObj("tree"),
+		nodes = zTree.getSelectedNodes(),
+		treeNode = nodes[0];
+		if (nodes.length == 0) {
+			alert("소속 부서 또는 팀을 먼저 선택 해주세요.");
+			return;
+		}
+		zTree.editName(treeNode);
+	};
 	
 	/* 선택 삭제 */
-	function delete_sel() {
-		alert('선택 삭제');
-	}
+	function remove(e) {
+		var zTree = $.fn.zTree.getZTreeObj("tree"),
+		nodes = zTree.getSelectedNodes(),
+		treeNode = nodes[0];
+		if (nodes.length == 0) {
+			alert("부서를 먼저 선택해주세요.");
+			return;
+		}
+		zTree.removeNode(treeNode, true);
+	};
+	
+	/* 저장 */
+	function save() { 
+		// tree element를 받아서 json데이터를 가져온다
+		var zTree = $.fn.zTree.getZTreeObj("tree");
+		var nodes = zTree.getNodes();
+		
+		var url = "company_save.do";
+
+		$.ajax({
+			type : "POST",
+			url : url,
+			data : {
+				'json' : JSON.stringify(nodes)	
+			},
+			success : function(data) {
+				alert('success');
+			}
+		});
+ 	}
+	
+	$(document).ready(function() {
+		
+		/* 조직 구성도 */
+		var url = "company_list.do";
+
+		$.ajax({
+			url : url, //요청(서버)페이지
+			success : function(data) {
+
+				// 이 데이터 형식을 반드시 유지해야한다.
+				// var test = '[{ "id" : 1 , "pId" : 0, "name" : "pNode 1", "open" : "true" }]';
+
+				var jsonTree = $.parseJSON(data);
+				$.fn.zTree.init($("#tree"), setting, jsonTree);
+				
+				/* 각 element에 function binding */
+				$("#addParent").bind("click", {isParent:true}, add);
+				$("#addLeaf").bind("click", {isParent:false}, add);
+				$("#edit").bind("click", edit);
+				$("#remove").bind("click", remove);
+
+			},
+			error : function(request, status, error) {
+				alert("code:" + request.status + "\n" + "message:"
+						+ request.responseText + "\n" + "error:"
+						+ error);
+			}
+		});
+	});
 </script>
 
 </body>

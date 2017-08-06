@@ -11,7 +11,7 @@ ALTER SEQUENCE seq_company_idx INCREMENT BY 1
 -- 테이블 생성
 create table company (
 	idx				int,					-- 일련 번호
-	name			varchar2(100),			-- 조직(팀) 이름
+	name			varchar2(100) unique,			-- 조직(팀) 이름
 	parent_idx		int not null,					-- 상부 조직의 인덱스 ( 4-1 이면 4번이 된다 ) tree구조를 위함
 	description		varchar2(500)			-- 설명
 );

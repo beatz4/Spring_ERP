@@ -29,6 +29,16 @@ public class UserDao {
 
 		return list;
 	}
+	
+	public List<UserVo> selectList(int c_idx) {
+		
+		List<UserVo> list = null;
+
+		// 2.작업수행
+		list = sqlSession.selectList("c_user_list", c_idx);
+
+		return list;
+	}
 
 	// idx에 해당되는 게시물 1건 얻어오기
 	public UserVo selectOne(Map map) {

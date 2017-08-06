@@ -1,6 +1,8 @@
 package vo;
 
-public class MainMenuVo {
+import java.io.Serializable;
+
+public class MainMenuVo implements Serializable {
 	
 	int m_idx;
 	String m_name;

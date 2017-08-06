@@ -4,7 +4,9 @@
 
 package vo;
 
-public class CompanyVo {
+import java.io.Serializable;
+
+public class CompanyVo implements Serializable {
 	
 	int idx;
 	int parent_idx;
