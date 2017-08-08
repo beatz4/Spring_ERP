@@ -293,6 +293,7 @@
 		// tree element를 받아서 json데이터를 가져온다
 		var zTree = $.fn.zTree.getZTreeObj("tree");
 		var nodes = zTree.getNodes();
+		var json = "{ \"root\" : " + JSON.stringify(nodes) + "}";
 		
 		var url = "company_save.do";
 
@@ -300,7 +301,7 @@
 			type : "POST",
 			url : url,
 			data : {
-				'json' : JSON.stringify(nodes)	
+				'json' : json	
 			},
 			success : function(data) {
 				alert('success');

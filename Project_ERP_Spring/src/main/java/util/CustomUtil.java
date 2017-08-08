@@ -11,6 +11,11 @@ public class CustomUtil {
 		return Integer.toString(n).length();
 	}
 	
+/*	static public int getLengthOfInteger(final long n) {
+		
+		return Integer.toString(n).length();
+	}*/
+	
 	// 숫자를 substring 한다.	
 	static public int subinteger(final int number, final int start, final int end)
 	{

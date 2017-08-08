@@ -237,7 +237,10 @@ public class SystemController {
 		
 		String result = "fail";
 		
-		System.out.println(json.getName());
+		System.out.println(json);
+		System.out.println("idx" + json.getIdx());
+		System.out.println("pId" + json.getParent_idx());
+		System.out.println("name" + json.getName());
 		
 		CompanyVo vo = null;
 		vo = company_dao.selectOne(json.getName());
