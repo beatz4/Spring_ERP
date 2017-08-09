@@ -234,30 +234,22 @@ public class SystemController {
 		
 		String result = "fail";
 		
-		return result;
-		
-		/*
-		System.out.println(json);
-		System.out.println("idx" + json.getIdx());
-		System.out.println("pId" + json.getParent_idx());
-		System.out.println("name" + json.getName());
-		
-		CompanyVo vo = null;
-		vo = company_dao.selectOne(json.getName());
+		if( json == null )
+			return result;
 		
 		int res = 0;
-		// insert
-		if( vo == null ) {
-			res = company_dao.insert(json);
-		} else {	// update
-			res = company_dao.update(json);
+		for( CompanyVo vo : json.getList_company() ) {
+			
+			CompanyVo vo_sel = company_dao.selectOne(vo.getName());
+			if( vo_sel == null ) {
+				res = company_dao.insert(vo);
+			} else {
+				res = company_dao.update(vo);
+			}
 		}
 		
-		
-		
-		return res + "";
-		
-		*/
+		result = "" + res;
+		return result;
 	}
 	
 }
