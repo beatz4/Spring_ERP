@@ -1,11 +1,16 @@
 package util;
 
 import java.beans.PropertyEditorSupport;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+
+import vo.CompanyVo;
+import vo.CompanyVoArray;
 
 public class CompanyEditorFromJsonToVo extends PropertyEditorSupport {
 
@@ -14,84 +19,57 @@ public class CompanyEditorFromJsonToVo extends PropertyEditorSupport {
 		// TODO Auto-generated method stub
 		// super.setAsText(text);
 		
-		System.out.println(text);
+ 		List<CompanyVo> list = new ArrayList<CompanyVo>();
 		
 		try {
 			JSONObject json = (JSONObject)new  JSONParser().parse(text);
-			
 			JSONArray jsonArray = (JSONArray) json.get("root");
 			
-			for(Object ob : jsonArray){
-				JSONObject item = (JSONObject) ob;
-				Long id = (Long)item.get("id");
-				Long pId = (Long)item.get("pId");
-				String name = (String)item.get("name");
-				
-				if( pId != 0 ) {
-					// int length = CustomUtil.getLengthOfInteger(pId);
-				}
-				
-				System.out.printf("id : %d  name  :  %s\n",id,name);
+			getListCompanyVoFromObject(jsonArray, list);
+			/*
+			Debug 용
+			for( CompanyVo vo : list ) {
+				System.out.printf("id : %d pId : %d name : %s\n", vo.getId(), vo.getParent_idx(), vo.getName());
 			}
-			
+			*/
 			
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
+		// CompanyVoArray type으로 넘겨준다.
+		CompanyVoArray list_company = new CompanyVoArray();
+		list_company.setList_company(list);
+		setValue(list_company);
+	}
+	
+	// Json Object로부터 CompanyVo로 세팅하여 반환한다.
+	public void getListCompanyVoFromObject( JSONArray jsonArray, List<CompanyVo> list ) {
+		 
+		if( jsonArray == null )
+			return;
 		
-		
-		/*ObjectMapper mapper = new ObjectMapper();
-		CompanyVo value = null;
-		
-		try {
-			List<TreeVo> tree_list = mapper.readValue(text, TypeFactory.defaultInstance().
-					constructCollectionType(List.class, TreeVo.class));
+		for(Object ob : jsonArray) {
+			JSONObject item = (JSONObject) ob;
 			
-			System.out.println(tree_list.size());
+			Long id = (Long)item.get("id");
+			Long pId = (Long)item.get("pId");
+			String name = (String)item.get("name");
+			String description = name;		// 우선 name과 동일하게 해준다
+			Boolean isParent = (Boolean)item.get("isParent");
 			
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
-		
-		
-		/*
-		System.out.println(text);
-		
-		CompanyVo[] myObjects = mapper.readValue(text, CompanyVo[].class);
-		
-		try {
-			value = new CompanyVo();
-			JsonNode root = mapper.readTree(text);
+			CompanyVo vo = new CompanyVo();
+			vo.setId(CustomUtil.toIntegerFromLong(id));
+			vo.setParent_idx(pId==null ? 0 : CustomUtil.toIntegerFromLong(pId));
+			vo.setName(name);
+			vo.setDescription(description);
+			list.add(vo);
 			
-			int pId = root.path("pId").asInt();
-			int id = root.path("id").asInt();
-			String name = root.path("name").asText();
-			
-			System.out.println(id);
-			System.out.println(pId);
-			System.out.println(name);
-			System.out.println("------editor--------");
-			
-			// pId가 0일 경우(부모가 없을 경우)는 0
-			if (pId != 0) {
-				int start = CustomUtil.getLengthOfInteger(pId);
-				int end = CustomUtil.getLengthOfInteger(id);
-				id = CustomUtil.subinteger(id, pId == 0 ? 0 : start, end);
+			if( isParent ) {
+				JSONArray children = (JSONArray) item.get("children");
+				getListCompanyVoFromObject( children, list );
 			}
-			
-			value.setIdx(id);
-			value.setParent_idx(pId);
-			value.setName(name);
-			value.setDescription(name); // 일단 name과 동일하게
-			
-		} catch (Exception e) {
-			// TODO: handle exception
 		}
-		
-		setValue(value);
-		*/
 	}
 }

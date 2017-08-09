@@ -7,8 +7,9 @@ package vo;
 import java.io.Serializable;
 
 public class CompanyVo implements Serializable {
-	
+
 	int idx;
+	int id;
 	int parent_idx;
 	String name;
 	String description;
@@ -19,6 +20,14 @@ public class CompanyVo implements Serializable {
 
 	public void setIdx(int idx) {
 		this.idx = idx;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public int getParent_idx() {

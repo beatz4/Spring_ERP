@@ -4,7 +4,6 @@ System 메뉴 Servlet은 이곳에 모두 머지 시킨다.
 
 package com.ic.erp;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,13 +19,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import dao.CompanyDao;
 import dao.GradeDao;
 import dao.UserDao;
 import util.CompanyEditorFromJsonToVo;
 import vo.CompanyVo;
+import vo.CompanyVoArray;
 import vo.GradeVo;
 import vo.UserVo;
 
@@ -68,7 +66,7 @@ public class SystemController {
 	
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
-	    binder.registerCustomEditor(CompanyVo.class, new CompanyEditorFromJsonToVo());
+	    binder.registerCustomEditor(CompanyVoArray.class, new CompanyEditorFromJsonToVo());
 	}
 
 	@RequestMapping("/SystemAdmin/user_manager.do")
@@ -113,8 +111,7 @@ public class SystemController {
 		for(CompanyVo vo : c_list){
 			
 			// 상부 부서 index + 현재 부서 index
-			String str_id = "" + vo.getParent_idx() + vo.getIdx();
-			int id = Integer.parseInt(str_id);
+			int id = vo.getId();
 			int pId = vo.getParent_idx();
 			boolean open = true;
 			boolean drag = pId==0 ? false : true;
@@ -233,10 +230,13 @@ public class SystemController {
 	
 	@RequestMapping("/SystemAdmin/company_save.do")
 	@ResponseBody
-	public String company_save(@RequestParam("json") CompanyVo json) {
+	public String company_save(@RequestParam("json") CompanyVoArray json) {
 		
 		String result = "fail";
 		
+		return result;
+		
+		/*
 		System.out.println(json);
 		System.out.println("idx" + json.getIdx());
 		System.out.println("pId" + json.getParent_idx());
@@ -256,6 +256,8 @@ public class SystemController {
 		
 		
 		return res + "";
+		
+		*/
 	}
 	
 }

@@ -251,10 +251,15 @@
 		nodes = zTree.getSelectedNodes(),
 		treeNode = nodes[0];
 		
+		length = treeNode.children.length;		// children length
+		level = treeNode.children[0].level;		// children level
+		// length와 level을 이용하여 id를 만든다. 
+		id = treeNode.children.length + Math.pow(treeNode.id * 100,level) + 1;	// 100^level : level이 1일 경우 100, 2일경우 1000...
+		
 		if (treeNode) {
-			treeNode = zTree.addNodes(treeNode, {id:(100 + newCount), pId:treeNode.id, isParent:isParent, name:"new node" + (newCount++)});
+			treeNode = zTree.addNodes(treeNode, {id:id, pId:treeNode.id, isParent:isParent, name:"new node" + (newCount++)});
 		} else {
-			treeNode = zTree.addNodes(null, {id:(100 + newCount), pId:0, isParent:isParent, name:"new node" + (newCount++)});
+			treeNode = zTree.addNodes(null, {id:id, pId:0, isParent:isParent, name:"new node" + (newCount++)});
 		}
 		
 		if (treeNode) {
