@@ -41,38 +41,42 @@
 				return;
 			}
 			
-			$.ajax( {
-				url: 'insert.do', 				//요청(서버)페이지
-				data:{'recv_id': recv_id,
-					  'title': title, 
-					  'content': content },	  	//파라미터
-				success:function(data){	
-					//서버에서 전달된 데이터
-					
-					if( $.trim(data) == 'ok' ) {
-						swal({
-							  title: "쪽지를 보내시겠습니까?",
-							  type: "warning",
-							  showCancelButton: true,
-							  confirmButtonColor: "#DD6B55",
-							  confirmButtonText: "보내기",
-							  cancelButtonText: "취소",
-							  closeOnConfirm: false,
-							  allowEscapeKey: true
-							},
-							
-							function(){
-								f.action = "list.do";
-								f.method = "post";
-								f.submit();	
-							});
-						
-					}
+			swal({
+				  title: "쪽지를 보내시겠습니까?",
+				  type: "warning",
+				  showCancelButton: true,
+				  confirmButtonColor: "#DD6B55",
+				  confirmButtonText: "보내기",
+				  cancelButtonText: "취소",
+				  closeOnConfirm: false,
+				  allowEscapeKey: true
 				},
-				error:function(request,status,error){
-					swal("존재하지않는 아이디입니다", "보낼 아이디를 확인하세요!",  "error");
-				}
-			} );
+				
+				function(isConfirm){
+					if(isConfirm){
+						$.ajax( {
+							url: 'insert.do', 				//요청(서버)페이지
+							data:{'recv_id': recv_id,
+								  'title': title, 
+								  'content': content },	  	//파라미터
+							success:function(data){	
+								//서버에서 전달된 데이터
+									if( $.trim(data) == 'ok' ) {
+										f.action = "list.do";
+										f.method = "post";
+										f.submit();	
+									}
+							},
+							error:function(request,status,error){
+								swal("존재하지않는 아이디입니다", "보낼 아이디를 확인하세요!",  "error");
+							}
+						} );		
+					}else{
+						return;
+					}
+								
+				});
+			
 			
 		}
 		
