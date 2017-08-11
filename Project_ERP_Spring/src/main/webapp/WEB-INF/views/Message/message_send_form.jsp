@@ -14,7 +14,7 @@
 	<link rel="stylesheet" type="text/css" href="${ pageContext.request.contextPath }/resources/css/sweetalert.css">
 	
 	<!-- 선언 및 값 체크하기 -->
-	<script src="${pageContext.request.contextPath}/resources/ckeditor/ckeditor.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/ExternalLib/msg_ckeditor/ckeditor.js"></script>
 	
 	<script type="text/javascript">
 		function send(f){
