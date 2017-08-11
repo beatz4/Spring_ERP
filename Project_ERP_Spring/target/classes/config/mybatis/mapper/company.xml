@@ -9,33 +9,45 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    select * from company order by idx
 	</select>
 	
+	<!-- id와 name으로 select_one -->
 	<select id="company_one" resultType="vo.CompanyVo"
-		parameterType="String">
-		select * from company where name = #{ name }
+		parameterType="map">
+		select * from company
+		<trim prefix="where" prefixOverrides="and|or">
+			<if test="name != null">
+				name = #{ name }
+			</if>
+			<if test="id != null">
+				and id = #{ id }
+			</if>
+		</trim>
 	</select>
 	
 	<insert id="company_insert" parameterType="vo.CompanyVo">
 		insert into company values(
 			seq_company_idx.nextVal,
+			#{ id },
 			#{ name },
 			#{ parent_idx },
+			#{ isParent },
 			'' <!-- #{ description } 우선 공백으로 둠 -->
 		)		 
 	</insert>
 	
 	<update id="company_update" parameterType="vo.CompanyVo">
-		update company set 
-		<if test="name != null">		
+		update company set
+			id = #{ id }, 
 			name = #{ name },
-		</if>
-		<if test="parent_idx != null">
 			parent_idx = #{ parent_idx },
-		</if>
-		<if test="description != null">
-			description = #{ description }
-		</if>
+			description = #{ description },
+			isParent = #{ isParent }
 			where idx = #{ idx }
 	</update>
+	
+	<delete id="company_delete" parameterType="int">
+		delete from company
+   		where id = #{ id }
+	</delete>
     
 </mapper>
 
