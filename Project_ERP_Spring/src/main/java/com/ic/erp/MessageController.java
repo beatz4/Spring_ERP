@@ -395,8 +395,8 @@ public class MessageController {
 		
 		//검색내용이 있으면
 		if(search!=null && !search.isEmpty()){
-			if(search.equals("idx")){
-				map.put("idx", search_text);
+			if(search.equals("c_name")){
+				map.put("c_name", search_text);
 			}else if(search.equals("g_position")){
 				map.put("g_position", search_text);
 			}else if(search.equals("name")){

@@ -78,7 +78,7 @@
 		
 		//초기화 함수
 		window.onload=function(){
-			var search_array = ['','idx','g_position','name','id'];
+			var search_array = ['','c_name','g_position','name','id'];
 			var search = '${ param.search }';
 			var search_select = document.getElementById("search");
 			for(var i=0;i<search_array.length;i++){
@@ -122,7 +122,7 @@
                        <div class="input-group custom-search-form" style="width: 80%; margin-left: 45px;">
 	                       <select style="width: 25%; font-size: 10pt;" id=search class="form-control">
 	                            <option value="">전체</option>
-								<option value="idx">사번</option>
+								<option value="c_name">부서</option>
 								<option value="g_position">직책</option>
 								<option value="name">이름</option>
 								<option value="id">아이디</option>
@@ -147,7 +147,7 @@
 							<thead>
 								<tr>
 									<th width="5%"><input id="th_checkAll" name="checkAll" type="checkbox" onclick="checkAll();"></th>
-							        <th width="10%">사번</th>
+							        <th width="10%">부서</th>
 							        <th width="10%">직책</th>
 							        <th width="10%">이름</th>
 							        <th width="10%">아이디</th>
@@ -164,7 +164,7 @@
 								<c:forEach var="vo" items="${ list }">
 									<tr>
 										<td><input id="checkRow" type="checkbox" name="checkRow" value="${ vo.id }"></td>
-								        <td>${ vo.idx }</td>
+								        <td>${ vo.c_name }</td>
 								        <td>${ vo.g_position }</td>
 								        <td>${ vo.name }</td>
 								        <td>${ vo.id }</td>
