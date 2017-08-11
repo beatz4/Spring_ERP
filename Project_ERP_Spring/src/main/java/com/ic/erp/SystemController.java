@@ -113,6 +113,8 @@ public class SystemController {
 			// 상부 부서 index + 현재 부서 index
 			int id = vo.getId();
 			int pId = vo.getParent_idx();
+
+			boolean isParent = (vo.isParent() == 0) ? false : true;
 			boolean open = true;
 			boolean drag = pId==0 ? false : true;
 			
@@ -127,8 +129,11 @@ public class SystemController {
 										+ open
 										+ ", \"drag\" : "
 										+ drag 
+										+ ", \"isParent\" : " 
+										+ isParent
 										+ " } ,"			// string type
 										, vo.getName() );
+			
 			sb.append(str);
 		}
         
@@ -140,12 +145,26 @@ public class SystemController {
 	
 	@RequestMapping(value="/SystemAdmin/c_user_list.do",produces="text/html;charset=utf-8")
 	@ResponseBody
-	public String c_user_list(String name) {
+	public String c_user_list(CompanyVo vo) {
 		
 		String result = "fail";
 		
+		if( vo == null )
+			return result;
+		
+		String name = vo.getName();
+		int id = vo.getId();
+		
+		if( name.isEmpty() || name == null ) {
+			return result;
+		}
+		
+		Map map = new HashMap();
+		map.put("name", name);
+		map.put("id", id);
+
 		// 소속 이름의 vo를 가져온다
-		CompanyVo c_vo = company_dao.selectOne(name);
+		CompanyVo c_vo = company_dao.selectOne(map);
 		if( c_vo == null )
 			return result;
 		
@@ -157,7 +176,7 @@ public class SystemController {
 		int idx=1;
 		
 		StringBuffer sb = new StringBuffer("[");
-		for(UserVo vo : c_user) {
+		for(UserVo u_vo : c_user) {
 			
 			// String jsonTxt = "{\"code\":\"200\", \"msg\":\"success\"}";
 			String str = String.format("{ \"id\" :" 
@@ -167,7 +186,7 @@ public class SystemController {
 										+ ", \"name\" : "
 										+ "\"%s\""
 										+ " } ,"			// string type
-										, vo.getName());
+										, u_vo.getName());
 			sb.append(str);
 			idx++;
 		}
@@ -215,7 +234,9 @@ public class SystemController {
 	public String user_register(UserVo vo, String groupname) {
 
 		// 소속 그룹 idx mapping
-		CompanyVo c_vo = company_dao.selectOne(groupname);
+		Map map = new HashMap();
+		map.put("name", groupname);
+		CompanyVo c_vo = company_dao.selectOne(map);
 		vo.setC_idx(c_vo.getIdx());
 		
 		int res = user_dao.insert(vo);
@@ -238,9 +259,13 @@ public class SystemController {
 			return result;
 		
 		int res = 0;
+		Map map = new HashMap();
 		for( CompanyVo vo : json.getList_company() ) {
 			
-			CompanyVo vo_sel = company_dao.selectOne(vo.getName());
+			map.clear();
+			map.put("id", vo.getId());
+			CompanyVo vo_sel = company_dao.selectOne(map);
+			
 			if( vo_sel == null ) {
 				res = company_dao.insert(vo);
 			} else {
@@ -249,6 +274,19 @@ public class SystemController {
 		}
 		
 		result = "" + res;
+		return result;
+	}
+	
+	@RequestMapping("/SystemAdmin/company_delete.do")
+	@ResponseBody
+	public String company_delete( int id ) {
+		
+		String result = "fail";
+		
+		int res = 0;
+		res = company_dao.delete(id);
+		
+		result = res + "";
 		return result;
 	}
 	

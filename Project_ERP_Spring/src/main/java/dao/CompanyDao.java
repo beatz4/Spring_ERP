@@ -5,6 +5,7 @@
 package dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -33,9 +34,9 @@ public class CompanyDao {
 		return list;
 	}
 	
-	public CompanyVo selectOne(String name) {
+	public CompanyVo selectOne(Map map) {
 		CompanyVo vo = null;
-		vo = sqlSession.selectOne("company_one", name);
+		vo = sqlSession.selectOne("company_one", map);
 		return vo;
 	}
 	
@@ -48,6 +49,13 @@ public class CompanyDao {
 	public int update( CompanyVo vo ) {
 		int res = 0;
 		res = sqlSession.update("company_update", vo);
+		return res;
+	}
+
+	public int delete(int id) {
+		// TODO Auto-generated method stub
+		int res = 0;
+		res = sqlSession.delete("company_delete", id);
 		return res;
 	}
 

@@ -219,7 +219,8 @@
 		$.ajax({
 			url : url, //요청(서버)페이지
 			data : {
-				'name' : treeNode.name
+				'name' : treeNode.name,
+				'id' : treeNode.id
 			},
 			success : function(data) {
 				
@@ -251,15 +252,11 @@
 		nodes = zTree.getSelectedNodes(),
 		treeNode = nodes[0];
 		
+		count = treeNode.children==null ? 0 : treeNode.children.length;		// children length
+		count += 1;
 		
-		length = treeNode.children==null ? 0 : treeNode.children.length;		// children length
-		level = treeNode.children==null ? 0 : treeNode.children[0].level;		// children level
-		// length와 level을 이용하여 id를 만든다. 
-		id = (treeNode.children == null) ?  
-				treeNode.id + '1'
-			: length + Math.pow(treeNode.id * 100,level) + 1;	// 100^level : level이 1일 경우 100, 2일경우 1000...
-		
-		alert('id' + id);
+		// 자식 노드가 10개 이하일 경우 
+		id = (count / 10 < 1) ? (treeNode.id * 100 + count) : (treeNode.id + '' + count);
 		
 		if (treeNode) {
 			treeNode = zTree.addNodes(treeNode, {id:id, pId:treeNode.id, isParent:isParent, name:"new node" + (newCount++)});
@@ -295,6 +292,21 @@
 			alert("부서를 먼저 선택해주세요.");
 			return;
 		}
+		
+		id = treeNode.id;
+		var url = "company_delete.do";
+		
+		$.ajax({
+			type : "POST",
+			url : url,
+			data : {
+				'id' : id	
+			},
+			success : function(data) { 
+				// alert(data + '이(가) 삭제되었습니다');
+			}
+		});
+		
 		zTree.removeNode(treeNode, true);
 	};
 	
@@ -314,7 +326,7 @@
 				'json' : json	
 			},
 			success : function(data) {
-				alert('success');
+				alert('저장되었습니다.');
 			}
 		});
  	}

@@ -14,6 +14,8 @@ public class CompanyVo implements Serializable {
 	String name;
 	String description;
 
+	int isParent;
+
 	public int getIdx() {
 		return idx;
 	}
@@ -54,4 +56,11 @@ public class CompanyVo implements Serializable {
 		this.description = description;
 	}
 
+	public int isParent() {
+		return isParent;
+	}
+
+	public void setParent(int isParent) {
+		this.isParent = isParent;
+	}
 }

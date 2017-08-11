@@ -64,8 +64,11 @@ public class CompanyEditorFromJsonToVo extends PropertyEditorSupport {
 			vo.setParent_idx(pId==null ? 0 : CustomUtil.toIntegerFromLong(pId));
 			vo.setName(name);
 			vo.setDescription(description);
+			vo.setParent(isParent==true ? 1 : 0);
+			
 			list.add(vo);
 			
+			// 자식이 있을 경우 재귀함수 호출 
 			if( isParent ) {
 				JSONArray children = (JSONArray) item.get("children");
 				getListCompanyVoFromObject( children, list );
