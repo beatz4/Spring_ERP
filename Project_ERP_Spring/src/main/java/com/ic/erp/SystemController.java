@@ -32,7 +32,7 @@ import vo.UserVo;
 public class SystemController {
 
 	final static String VIEW_PATH = "/WEB-INF/views/SystemAdmin/";
-	
+
 	@Autowired
 	HttpServletRequest request;
 
@@ -63,10 +63,10 @@ public class SystemController {
 	public void setCompany_dao(CompanyDao company_dao) {
 		this.company_dao = company_dao;
 	}
-	
+
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
-	    binder.registerCustomEditor(CompanyVoArray.class, new CompanyEditorFromJsonToVo());
+		binder.registerCustomEditor(CompanyVoArray.class, new CompanyEditorFromJsonToVo());
 	}
 
 	@RequestMapping("/SystemAdmin/user_manager.do")
@@ -77,7 +77,7 @@ public class SystemController {
 
 		return VIEW_PATH + "user_manage.jsp";
 	}
-	
+
 	@RequestMapping("/SystemAdmin/company_organize.do")
 	public String company_list(Model model) {
 
@@ -89,7 +89,7 @@ public class SystemController {
 
 	@RequestMapping("/SystemAdmin/delete.do")
 	@ResponseBody
-	public String user_delete(@RequestParam(value="index",required=true) List<String> list) {
+	public String user_delete(@RequestParam(value = "index", required = true) List<String> list) {
 
 		// 받아온 index list를 넘겨준다
 		int res = user_dao.delete(list);
@@ -101,134 +101,125 @@ public class SystemController {
 
 		return result;
 	}
-	
-	@RequestMapping(value="/SystemAdmin/company_list.do",produces="text/html;charset=utf-8")
+
+	@RequestMapping(value = "/SystemAdmin/company_list.do", produces = "text/html;charset=utf-8")
 	@ResponseBody
 	public String company_ListToTree() {
 		List<CompanyVo> c_list = company_dao.selectList();
-		
+
 		StringBuffer sb = new StringBuffer("[");
-		for(CompanyVo vo : c_list){
-			
+		for (CompanyVo vo : c_list) {
+
 			// 상부 부서 index + 현재 부서 index
 			int id = vo.getId();
 			int pId = vo.getParent_idx();
 
 			boolean isParent = (vo.isParent() == 0) ? false : true;
 			boolean open = true;
-			boolean drag = pId==0 ? false : true;
-			
+			boolean drag = pId == 0 ? false : true;
+
 			// String jsonTxt = "{\"code\":\"200\", \"msg\":\"success\"}";
-			String str = String.format("{ \"id\" :" 
-										+ id 					// integer type
-										+ ", \"pId\" : "
-										+ pId					// integer type
-										+ ", \"name\" : "
-										+ "\"%s\""
-										+ ", \"open\" : "
-										+ open
-										+ ", \"drag\" : "
-										+ drag 
-										+ ", \"isParent\" : " 
-										+ isParent
-										+ " } ,"			// string type
-										, vo.getName() );
-			
+			String str = String.format(
+					"{ \"id\" :" + id // integer type
+							+ ", \"pId\" : " + pId // integer type
+							+ ", \"name\" : " + "\"%s\"" + ", \"open\" : " + open + ", \"drag\" : " + drag
+							+ ", \"isParent\" : " + isParent + " } ," // string
+																		// type
+					, vo.getName());
+
 			sb.append(str);
 		}
-        
+
 		int length = sb.toString().length();
-		String result = sb.toString().substring(0, length-1);
+		String result = sb.toString().substring(0, length - 1);
 		result += "]";
 		return result;
 	}
-	
-	@RequestMapping(value="/SystemAdmin/c_user_list.do",produces="text/html;charset=utf-8")
+
+	@RequestMapping(value = "/SystemAdmin/c_user_list.do", produces = "text/html;charset=utf-8")
 	@ResponseBody
 	public String c_user_list(CompanyVo vo) {
-		
+
 		String result = "fail";
-		
-		if( vo == null )
+
+		if (vo == null)
 			return result;
-		
+
 		String name = vo.getName();
 		int id = vo.getId();
-		
-		if( name.isEmpty() || name == null ) {
+
+		if (name.isEmpty() || name == null) {
 			return result;
 		}
-		
+
 		Map map = new HashMap();
 		map.put("name", name);
 		map.put("id", id);
 
 		// 소속 이름의 vo를 가져온다
 		CompanyVo c_vo = company_dao.selectOne(map);
-		if( c_vo == null )
+		if (c_vo == null)
 			return result;
-		
+
 		// company vo로 해당 c_idx의 유저목록을 가져온다
 		List<UserVo> c_user = user_dao.selectList(c_vo.getIdx());
-		if( c_user == null || c_user.size() < 1 )
+		if (c_user == null || c_user.size() < 1)
 			return result;
-		
-		int idx=1;
-		
+
+		int idx = 1;
+
 		StringBuffer sb = new StringBuffer("[");
-		for(UserVo u_vo : c_user) {
-			
+		for (UserVo u_vo : c_user) {
+
 			// String jsonTxt = "{\"code\":\"200\", \"msg\":\"success\"}";
-			String str = String.format("{ \"id\" :" 
-										+ idx 					// integer type
-										+ ", \"pId\" : "
-										+ 0					// integer type
-										+ ", \"name\" : "
-										+ "\"%s\""
-										+ " } ,"			// string type
-										, u_vo.getName());
+			String str = String.format(
+					"{ \"id\" :" + idx // integer type
+							+ ", \"pId\" : " + 0 // integer type
+							+ ", \"name\" : " + "\"%s\"" + " } ," // string type
+					, u_vo.getName());
 			sb.append(str);
 			idx++;
 		}
-		
-		/*String desc = c_vo.getDescription();
-		System.out.println(desc);
-		model.addAttribute("desc", desc);*/
-        
+
+		/*
+		 * String desc = c_vo.getDescription(); System.out.println(desc);
+		 * model.addAttribute("desc", desc);
+		 */
+
 		int length = sb.toString().length();
-		result = sb.toString().substring(0, length-1);
+		result = sb.toString().substring(0, length - 1);
 		result += "]";
-		
+
 		return result;
 	}
-	
+
 	@RequestMapping("/SystemAdmin/user_register_form.do")
-	public String user_register_form( Model model ) {
-		
+	public String user_register_form(Model model) {
+
 		List<GradeVo> list = grade_dao.selectList();
 		model.addAttribute("list", list);
-		
+
 		return VIEW_PATH + "user_register_form.jsp";
 	}
-	
+
 	// 아이디 중복 체크
 	@RequestMapping("/SystemAdmin/check_id.do")
 	@ResponseBody
-	public String check_id( String id ) {
-		
+	public String check_id(String id) {
+
 		Map map = new HashMap();
 		map.put("id", id);
-		
+
 		UserVo vo = user_dao.selectOne(map);
-		
+
 		String result = "ng";
-		if( vo == null ) {
+		if (vo == null) {
 			result = "ok";
 		}
-		
+
 		return result;
 	}
-	
+
 	@RequestMapping("/SystemAdmin/user_register.do")
 	@ResponseBody
 	public String user_register(UserVo vo, String groupname) {
@@ -238,56 +229,99 @@ public class SystemController {
 		map.put("name", groupname);
 		CompanyVo c_vo = company_dao.selectOne(map);
 		vo.setC_idx(c_vo.getIdx());
-		
+
 		int res = user_dao.insert(vo);
-		
+
 		String result = "ng";
-		if( res != 0 ) {
+		if (res != 0) {
 			result = "ok";
 		}
-		
+
 		return result;
 	}
-	
+
 	@RequestMapping("/SystemAdmin/company_save.do")
 	@ResponseBody
 	public String company_save(@RequestParam("json") CompanyVoArray json) {
-		
+
 		String result = "fail";
-		
-		if( json == null )
+
+		if (json == null)
 			return result;
-		
+
 		int res = 0;
 		Map map = new HashMap();
-		for( CompanyVo vo : json.getList_company() ) {
-			
+		for (CompanyVo vo : json.getList_company()) {
+
 			map.clear();
 			map.put("id", vo.getId());
 			CompanyVo vo_sel = company_dao.selectOne(map);
-			
-			if( vo_sel == null ) {
+
+			if (vo_sel == null) {
 				res = company_dao.insert(vo);
 			} else {
 				res = company_dao.update(vo);
 			}
 		}
+
+		result = "" + res;
+		return result;
+	}
+
+	@RequestMapping("/SystemAdmin/company_delete.do")
+	@ResponseBody
+	public String company_delete(int id) {
+
+		String result = "fail";
+
+		int res = 0;
+		res = company_dao.delete(id);
+
+		result = res + "";
+		return result;
+	}
+
+	@RequestMapping("/SystemAdmin/position_manager.do")
+	public String position_manager(Model model) {
+		
+		List<GradeVo> list = grade_dao.selectList();
+		model.addAttribute("list", list);
+
+		return VIEW_PATH + "position_manage.jsp";
+	}
+	
+	@RequestMapping("/SystemAdmin/position_insert_form.do")
+	public String position_insert_form() {
+		
+		return VIEW_PATH + "position_insert_form.jsp";
+	}
+	
+	@RequestMapping("/SystemAdmin/position_insert.do")
+	@ResponseBody
+	public String position_insert(GradeVo vo) {
+		String result = "fail";
+		
+		int res = grade_dao.insert(vo);
 		
 		result = "" + res;
 		return result;
 	}
 	
-	@RequestMapping("/SystemAdmin/company_delete.do")
-	@ResponseBody
-	public String company_delete( int id ) {
-		
-		String result = "fail";
+	@RequestMapping("/SystemAdmin/position_modify_form.do")
+	public String position_modify_form(int idx, Model model) {
 		
 		int res = 0;
-		res = company_dao.delete(id);
 		
-		result = res + "";
-		return result;
+		GradeVo vo = null;
+		vo = grade_dao.selectOne(idx);
+		
+		model.addAttribute("vo", vo);
+		return VIEW_PATH + "position_modify_form.jsp"; 
 	}
 	
+	@RequestMapping("/SystemAdmin/board_manager.do")
+	public String board_manager(Model model) {
+
+		return VIEW_PATH + "board_manage.jsp";
+	}
 }

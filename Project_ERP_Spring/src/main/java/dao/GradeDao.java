@@ -27,4 +27,17 @@ public class GradeDao {
 
 		return list;
 	}
+	
+	public int insert( GradeVo vo ) {
+		int res = 0;
+		res = sqlSession.insert("grade_insert", vo);
+		return res;
+	}
+
+	public GradeVo selectOne(int idx) {
+		// TODO Auto-generated method stub
+		GradeVo vo = null;
+		vo = sqlSession.selectOne("grade_one", idx);
+		return vo;
+	}
 }

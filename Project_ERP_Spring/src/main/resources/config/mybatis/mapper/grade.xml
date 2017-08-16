@@ -6,7 +6,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <!-- 전체목록 조회 -->
 	<select id="grade_list" resultType="vo.GradeVo">
-	    select * from grade order by g_idx desc
+	    select * from grade order by g_idx asc
+	</select>
+	
+	<!-- 직책 추가 -->
+	<insert id="grade_insert" parameterType="vo.GradeVo">
+		insert into grade values(
+				seq_grade_idx.nextVal,
+				#{ g_level },
+				#{ g_position }
+		)
+	</insert>
+	
+	<select id="grade_one" resultType="vo.GradeVo"
+		parameterType="int">
+		select * from grade where g_idx = #{ idx }	
 	</select>
     
 </mapper>
