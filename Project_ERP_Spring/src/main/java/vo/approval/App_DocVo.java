@@ -3,7 +3,23 @@ package vo.approval;
 public class App_DocVo {
 
 	int app_d_idx, idx, doc_idx, a_line_idx;
-	String app_d_regdate, app_d_edate;
+	String app_d_regdate, app_d_edate, company_name, user_name;
+
+	public String getCompany_name() {
+		return company_name;
+	}
+
+	public void setCompany_name(String company_name) {
+		this.company_name = company_name;
+	}
+
+	public String getUser_name() {
+		return user_name;
+	}
+
+	public void setUser_name(String user_name) {
+		this.user_name = user_name;
+	}
 
 	public int getApp_d_idx() {
 		return app_d_idx;
