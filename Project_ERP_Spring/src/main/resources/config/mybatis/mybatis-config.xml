@@ -18,5 +18,6 @@
 		<mapper resource="config/mybatis/mapper/message.xml" />	
 		<mapper resource="config/mybatis/mapper/user.xml" />
 		<mapper resource="config/mybatis/mapper/company.xml" />
+		<mapper resource="config/mybatis/mapper/approval.xml" />
 	</mappers>
 </configuration>
