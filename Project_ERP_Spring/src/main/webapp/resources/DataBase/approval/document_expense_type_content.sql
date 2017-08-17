@@ -21,7 +21,9 @@ alter table c_expense drop constraint fk_t_expense_idx
 
 insert into c_expense values(seq_c_expense_idx.nextVal,1,sysdate,'','',0,'','','')
 
-select d.*, t.t_expense_title, c.* from d_expense d inner join t_expense t on d.d_expense_idx = t.d_expense_idx inner join C_EXPENSE c on t.t_expense_idx = c.t_expense_idx
+select d.*, t.*, c.* from d_expense d 
+inner join t_expense t on d.d_expense_idx = t.d_expense_idx 
+inner join C_EXPENSE c on t.t_expense_idx = c.t_expense_idx
 
 commit
 

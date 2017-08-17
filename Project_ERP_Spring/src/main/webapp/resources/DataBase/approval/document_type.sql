@@ -29,4 +29,6 @@ insert into document_type values(seq_doc_idx.nextVal, 3, '지출결의서', sysdate);
 insert into document_type values(seq_doc_idx.nextVal, 3, '휴가신청서', sysdate);
 insert into document_type values(seq_doc_idx.nextVal, 3, '구매요청서', sysdate);
 
+select * from document_type
+
 select c.name, d.* from user_manager c inner join document_type d on c.idx = d.idx
