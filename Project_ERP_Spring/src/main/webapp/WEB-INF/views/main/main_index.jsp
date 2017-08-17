@@ -68,7 +68,7 @@
 				</li>
 				<li> 
 				<a 
-					href="${ pageContext.request.contextPath }/Approval/approval_main_page.jsp">
+					href="${ pageContext.request.contextPath }/Approval/main_page.do">
 					전자 결재
 				</a>
 				</li>
