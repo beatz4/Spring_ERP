@@ -280,7 +280,9 @@
 			alert("소속 부서 또는 팀을 먼저 선택 해주세요.");
 			return;
 		}
+
 		zTree.editName(treeNode);
+		
 	};
 	
 	/* 선택 삭제 */

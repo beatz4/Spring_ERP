@@ -35,15 +35,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	
 	<update id="company_update" parameterType="vo.CompanyVo">
-		update company set
-			id = #{ id }, 
+		update company set 
 			name = #{ name },
 			parent_idx = #{ parent_idx },
 			description = #{ description },
 			isParent = #{ isParent }
-			where idx = #{ idx }
+			where id = #{ id }
 	</update>
-	
+		
 	<delete id="company_delete" parameterType="int">
 		delete from company
    		where id = #{ id }

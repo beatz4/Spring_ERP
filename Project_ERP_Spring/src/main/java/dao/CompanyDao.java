@@ -51,7 +51,7 @@ public class CompanyDao {
 		res = sqlSession.update("company_update", vo);
 		return res;
 	}
-
+	
 	public int delete(int id) {
 		// TODO Auto-generated method stub
 		int res = 0;

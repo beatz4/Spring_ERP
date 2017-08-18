@@ -11,7 +11,7 @@ ALTER SEQUENCE seq_company_idx INCREMENT BY 1
 -- 테이블 생성
 create table company (
 	idx				int,										-- 일련 번호
-	id				int,									-- tree id
+	id				int,									    -- tree id
 	name			varchar2(100),								-- 조직(팀) 이름
 	parent_idx		int,										-- 상부 조직의 인덱스 ( 4-1 이면 4번이 된다 ) tree구조를 위함
 	isParent NUMBER(1) NOT NULL CHECK  (isParent in (0,1)),		-- 부모 tere인지 확인 , 0 : false, 1 : tree, 0과1만 기입이 가능함.
@@ -105,7 +105,9 @@ insert into company values( seq_company_idx.nextVal,
 								0,
 								'경영2팀');
 
-									
+					
+update company set name = '경영3팀' where id = 402
+								
 -- 모든 데이터 삭제
 delete from company;
 									
