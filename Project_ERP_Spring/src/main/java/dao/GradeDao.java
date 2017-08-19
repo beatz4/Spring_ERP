@@ -1,6 +1,7 @@
 package dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -34,10 +35,10 @@ public class GradeDao {
 		return res;
 	}
 
-	public GradeVo selectOne(int idx) {
+	public GradeVo selectOne(Map map) {
 		// TODO Auto-generated method stub
 		GradeVo vo = null;
-		vo = sqlSession.selectOne("grade_one", idx);
+		vo = sqlSession.selectOne("grade_one", map);
 		return vo;
 	}
 }

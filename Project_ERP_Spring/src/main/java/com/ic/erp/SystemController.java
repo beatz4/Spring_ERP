@@ -19,6 +19,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import dao.CompanyDao;
 import dao.GradeDao;
 import dao.UserDao;
@@ -283,40 +286,59 @@ public class SystemController {
 
 	@RequestMapping("/SystemAdmin/position_manager.do")
 	public String position_manager(Model model) {
-		
-		List<GradeVo> list = grade_dao.selectList();
-		model.addAttribute("list", list);
-
 		return VIEW_PATH + "position_manage.jsp";
 	}
 	
-	@RequestMapping("/SystemAdmin/position_insert_form.do")
-	public String position_insert_form() {
-		
-		return VIEW_PATH + "position_insert_form.jsp";
-	}
-	
-	@RequestMapping("/SystemAdmin/position_insert.do")
+	@RequestMapping(value = "/SystemAdmin/position_list.do", produces = "text/html;charset=utf-8")
 	@ResponseBody
-	public String position_insert(GradeVo vo) {
-		String result = "fail";
+	public String position_list() {
+
+		List<GradeVo> list = grade_dao.selectList();
+		// json으로 포장
+		StringBuffer sb = new StringBuffer("[");
+		for (GradeVo vo : list) {
+
+			// String jsonTxt = "{\"code\":\"200\", \"msg\":\"success\"}";
+			String str = String.format(
+					"{ \"name\" : \"%s\" } ," // string
+					, vo.getG_position());
+
+			sb.append(str);
+		}
+
+		int length = sb.toString().length();
+		String result = sb.toString().substring(0, length - 1);
+		result += "]";
 		
-		int res = grade_dao.insert(vo);
-		
-		result = "" + res;
 		return result;
 	}
 	
-	@RequestMapping("/SystemAdmin/position_modify_form.do")
-	public String position_modify_form(int idx, Model model) {
+	@RequestMapping(value = "/SystemAdmin/position_select.do", produces = "text/html;charset=utf-8")
+	@ResponseBody
+	public String position_select(String name, Model model) throws JsonProcessingException {
 		
-		int res = 0;
+		Map map = new HashMap();
+		map.put("g_position", name);
 		
 		GradeVo vo = null;
-		vo = grade_dao.selectOne(idx);
+		vo = grade_dao.selectOne(map);
+		
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(vo);
 		
 		model.addAttribute("vo", vo);
-		return VIEW_PATH + "position_modify_form.jsp"; 
+		return json;
+	}
+	
+	@RequestMapping("/SystemAdmin/insert_position.do")
+	@ResponseBody
+	public String position_insert( GradeVo vo ) {
+		
+		int res = 0;
+		res = grade_dao.insert(vo);
+		
+		String result = res==0 ? "fail" : "success";
+		return result;
 	}
 	
 	@RequestMapping("/SystemAdmin/board_manager.do")

@@ -9,48 +9,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>직책 관리</title>
 
-<!-- Bootstrap Core CSS -->
-<link href="${ pageContext.request.contextPath }/resources/ExternalLib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-<!-- MetisMenu CSS -->
-<link href="${ pageContext.request.contextPath }/resources/ExternalLib/bootstrap/css/metisMenu.min.css" rel="stylesheet">
-
-<!-- DataTables CSS -->
-<link href="${ pageContext.request.contextPath }/resources/ExternalLib/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet">
-
-<!-- DataTables Responsive CSS -->
-<link href="${ pageContext.request.contextPath }/resources/ExternalLib/bootstrap/css/dataTables.responsive.css" rel="stylesheet">
-
-<!-- Custom CSS -->
-<link href="${ pageContext.request.contextPath }/resources/ExternalLib/bootstrap/css/sb-admin-2.css" rel="stylesheet">
-
-<!-- Custom Fonts -->
-<link href="${ pageContext.request.contextPath }/resources/ExternalLib/bootstrap/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
-<!-- jQuery-Ajax를 사용하기위한 라이브러리 -->
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-
-<script type="text/javascript">
-
-/* 체크박스 한개만 되도록 */
-$(function() { 
-		$('input[type="checkbox"]').bind('click',function() { 
-		$('input[type="checkbox"]').not(this).prop("checked", false); 
-	});
-});
-
-var param = "";
-function modify() {
-	
-	// 모두 동일한 id를 사용하기때문에 each문을 돌려줘야 한다.
-	$("input:checkbox:checked").each(function() {
-		param =$(this).parent().children("#chk_position").val();
-	});
-	
-	document.location.href = "position_modify_form.do?idx=" + param;
-}
-
-</script>
+<!-- zTree -->
+<link href="${ pageContext.request.contextPath }/resources/ExternalLib/zTree/css/zTreeStyle.css" rel="stylesheet" type="text/css">
 
 </head>
 <body>
@@ -70,57 +30,91 @@ function modify() {
 		</div>
 		<!-- /.row -->
 		<div class="row">
-			<div class="col-lg-12">
+			<!-- 좌측 트리 -->
+			<div class="col-lg-4">
 				<div class="panel panel-default">
+					<div class="panel-heading">
+						직책 구성도 
+					</div>
 					<div class="panel-body">
-						<table width="100%" class="table table-striped table-bordered table-hover" id="dataTables">
-							<thead>
+						<!-- tree -->
+						<ul id="tree" class="ztree"></ul>
+						<!-- /.tree -->
+					</div>
+				</div>
+			</div>
+			
+			<!-- 우측 상세 -->
+			<div class="col-lg-8">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						상세 정보
+					</div>
+					<div class="panel-body">
+						<div class="table-responsive">
+							<table class="table table-bordered table-striped">
 								<tr>
-									<th>선택</th>
-									<th>번호</th>
+									<th>일련 번호</th>
 									<th>직책명</th>
 									<th>보안 등급</th>
-								</tr>
-							</thead>
-							<tbody>
-								<c:forEach var="vo" items="${ list }">
-									<tr>
-										<td id="chk_user">
-											<input id="chk_position" type="checkbox" name="checkbox" value="${ vo.g_idx }">
-										</td> 
-										<td>${ vo.g_idx }</td>
-										<td>${ vo.g_position }</td>
-										<td>${ vo.g_level }</td>
-									</tr> 
-								</c:forEach> 
-							</tbody>
-                        </table>
-                         
-                        <div class="well"> 
-                        	<!-- 직책 추가 button -->
-                        	<a class="btn btn-default btn-lg" href="position_insert_form.do">직책 추가</a>
-                        	<a class="btn btn-default btn-lg" target="_blank"
-                        		href="javascript:void(0);" 
-                        		onclick="modify()">
-                        		직책 수정
-                       		</a>
-                        	<a class="btn btn-default btn-lg" target="_blank" 
-                        		href="javascript:void(0);"
-                        		onclick="del_position()">
-                        			선택 직책 삭제
-                      		</a>
+							 	</tr>
+							 	<tr>
+									<td>
+										<input id="g_idx" type="text" readonly="readonly">
+									</td>
+							 		<td>
+							 			<input id="g_position" type="text" readonly="readonly">
+						 			</td>
+							 		<td>
+							 			<select id="g_level" disabled="disabled">
+							 				<option value="1">1</option>
+							 				<option value="2">2</option>
+							 				<option value="3">3</option>
+							 				<option value="4">4</option>
+							 				<option value="5">5</option>
+							 				<option value="6">6</option>
+							 				<option value="7">7</option>
+							 				<option value="8">8</option>
+							 				<option value="9">9</option>
+							 				<option value="10">10</option>
+							 			</select>
+							 			<!-- <input id="g_level" type="text" readonly="readonly"> -->
+						 			</td>
+							 	</tr>
+							</table> 
+							<input class="btn btn-primary btn-lg btn-block" id="confirm" type="hidden" value="확인">
+							<input class="btn btn-primary btn-lg btn-block" id="cancel" type="hidden" value="취소">
 						</div>
 					</div>
 				</div>
-			<!-- /.col-lg-12 -->
 			</div>
-		<!-- /.row -->
 		</div>
-	<!-- /.container-fluid -->
+		<!-- /.row -->
+		
+		<div class="row">
+				<div class="col-lg-12">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							Control Panel
+						</div>
+						<div class="panel-body">
+							<div class="well">
+								<!-- 직책 추가 button -->
+		                       	<a class="btn btn-default btn-lg" id="addLeaf">직책 추가</a>
+		                       	<a class="btn btn-default btn-lg" id="edit">직책 수정</a>
+		                       	<a class="btn btn-default btn-lg" id="remove">선택 직책 삭제</a>
+	                   		</div>
+						</div>
+					</div>
+				</div>
+				<!-- /.col-lg-12 -->
+			</div>
+			<!-- /.row -->
+		<!-- /.container-fluid -->
 	</div>
 	<!-- /#page-wrapper -->
 	
-	<!-- jQuery -->
+<!-- jQuery -->
 <script
 	src="${ pageContext.request.contextPath }/resources/ExternalLib/bootstrap/js/jquery.min.js"></script>
 
@@ -132,21 +126,222 @@ function modify() {
 <script
 	src="${ pageContext.request.contextPath }/resources/ExternalLib/bootstrap/js/metisMenu.min.js"></script>
 
-<!-- DataTables JavaScript -->
-<script src="${ pageContext.request.contextPath }/resources/ExternalLib/bootstrap/js/jquery.dataTables.min.js"></script>
-<script src="${ pageContext.request.contextPath }/resources/ExternalLib/bootstrap/js/dataTables.bootstrap.min.js"></script>
-<script src="${ pageContext.request.contextPath }/resources/ExternalLib/bootstrap/js/dataTables.responsive.js"></script>
-
 <!-- Custom Theme JavaScript -->
 <script
 	src="${ pageContext.request.contextPath }/resources/ExternalLib/bootstrap/js/sb-admin-2.js"></script>
 	
+<!-- zTree JavaScript -->
+<script type="text/javascript" src="${ pageContext.request.contextPath }/resources/ExternalLib/zTree/js/jquery.ztree.core.js"></script>
+<script type="text/javascript" src="${ pageContext.request.contextPath }/resources/ExternalLib/zTree/js/jquery.ztree.exedit.js"></script>
+<script type="text/javascript" src="${ pageContext.request.contextPath }/resources/ExternalLib/zTree/js/jquery.ztree.excheck.js"></script>
+	
 <script type="text/javascript">
-	$(document).ready(function() {
-        $('#dataTables').DataTable({
-            responsive: true
-        });
-    });
+	/* tree */
+	var setting = {
+
+			view: {
+				selectedMulti: false
+			},
+			edit: {
+				enable: true,
+				showRemoveBtn: false,
+				showRenameBtn: false
+			},
+			data: {
+				keep: {
+					parent:true,
+					leaf:true
+				},
+				simpleData: {
+					enable: true
+				}
+			},
+			callback: {
+				beforeDrag: beforeDrag,
+				beforeRemove: beforeRemove,
+				beforeRename: beforeRename,
+				onClick : onClick,
+				onRename : onRename
+			}
+		};
+	
+	function beforeDrag(treeId, treeNodes) {
+		return false;
+	}
+	
+	function beforeRemove(treeId, treeNode) {
+		return confirm("삭제하면 복구가 불가능합니다.\r\n정말로 '" + treeNode.name + "' 를 삭제하시겠습니까?"); 
+	}
+	
+	function beforeRename(treeId, treeNode, newName) {
+		if (newName.length == 0) {
+			alert("Node name can not be empty.");
+			var zTree = $.fn.zTree.getZTreeObj("tree");
+			setTimeout(function(){zTree.editName(treeNode)}, 10);
+			return false;
+		}
+		return true;
+	}
+	
+	var newCount = 1;
+	
+	function add(e) {
+		var zTree = $.fn.zTree.getZTreeObj("tree"),
+		nodes = zTree.getSelectedNodes(),
+		treeNode = nodes[0];
+		
+		var allnodes = zTree.getNodes();
+		
+		treeNode = zTree.addNodes(null, {id:(100 + newCount), pId:0, name:"new node" + (newCount++)});
+		zTree.editName(treeNode[0]);
+		
+		// 컨트롤 입력
+		$("#g_idx").val(allnodes.length);
+		$("#g_level").attr("disabled",false);
+		
+		$("#confirm").attr("type","button");
+		$("#cancel").attr("type","button");
+		
+		$("#confirm").bind("click", confirm_pos);
+		$("#cancel").bind("click", cancel_pos);
+	};
+	
+	function confirm_pos() {
+		
+		$("#g_idx").attr("readonly",true);
+		$("#g_position").attr("readonly",true);
+		$("#g_level").attr("readonly",true);
+		
+		$("#confirm").attr("type","hidden");
+		$("#cancel").attr("type","hidden");
+		
+		// insert ajax
+		url = "insert_position.do";
+		
+		var g_idx = $("#g_idx").val();
+		var g_position = $("#g_position").val();
+		var g_level = $("#g_level").val();
+		
+		$.ajax({
+			url : url,  //요청(서버)페이지
+			data : {
+				'g_idx' : g_idx,
+				'g_position' : g_position,
+				'g_level' : g_level
+			},
+			success : function(data) {
+				
+			},
+			error : function(request, status, error) {
+				alert("code:" + request.status + "\n" + "message:"
+						+ request.responseText + "\n" + "error:"
+						+ error);
+			}
+		});
+	};
+	
+	function cancel_pos() {
+		$("#g_idx").attr("readonly",true);
+		$("#g_position").attr("readonly",true);
+		$("#g_level").attr("readonly",true);
+		
+		$("#confirm").attr("type","hidden");
+		$("#cancel").attr("type","hidden");
+		
+		// 새로고침
+		location.reload();
+	};
+	
+	function onRename(event, treeId, treeNode, isCancel) {
+		$("#g_position").val(treeNode.name);
+	}
+	
+	function edit() {
+		var zTree = $.fn.zTree.getZTreeObj("tree"),
+		nodes = zTree.getSelectedNodes(),
+		treeNode = nodes[0];
+		if (nodes.length == 0) {
+			alert("공백은 불가능 합니다.");
+			return;
+		}
+		zTree.editName(treeNode);
+	};
+	
+	function remove(e) {
+		var zTree = $.fn.zTree.getZTreeObj("tree"),
+		nodes = zTree.getSelectedNodes(),
+		treeNode = nodes[0];
+		if (nodes.length == 0) {
+			alert("직책을 먼저 선택해주세요.");
+			return;
+		}
+		
+		id = treeNode.id;
+		var url = "position_delete.do";
+		
+		$.ajax({
+			type : "POST",
+			url : url,
+			data : {
+				'id' : id	
+			},
+			success : function(data) { 
+				// alert(data + '이(가) 삭제되었습니다');
+			}
+		});
+		
+		zTree.removeNode(treeNode, true);
+	};
+	
+	function onClick(event, treeId, treeNode, clickFlag) {
+		
+		var url = "position_select.do";
+		
+		$.ajax({
+			url : url,  //요청(서버)페이지
+			data : {
+				'name' : treeNode.name
+			},
+			success : function(data) {
+				var obj = eval("("+data+")");
+				  
+				$("#g_idx").val(obj.g_idx);
+				$("#g_position").val(obj.g_position);
+				$("#g_level").val(obj.g_level);
+			},
+			error : function(request, status, error) {
+				alert("code:" + request.status + "\n" + "message:"
+						+ request.responseText + "\n" + "error:"
+						+ error);
+			}
+		});
+	}
+	
+	$(document).ready(function(){
+		
+		var url = "position_list.do";
+		
+		$.ajax({
+			url : url, //요청(서버)페이지
+			success : function(data) {
+				
+				// json 데이터로 받아온다
+				var jsonTree = $.parseJSON(data);
+				$.fn.zTree.init($("#tree"), setting, jsonTree);
+				
+				$("#addLeaf").bind("click", {isParent:false}, add);
+				$("#edit").bind("click", edit);
+				$("#remove").bind("click", remove);
+				
+			},
+			error : function(request, status, error) {
+				alert("code:" + request.status + "\n" + "message:"
+						+ request.responseText + "\n" + "error:"
+						+ error);
+			}
+		});
+	});
+
 </script>
 
 </body>

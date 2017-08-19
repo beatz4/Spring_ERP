@@ -126,7 +126,7 @@
 	</div>
 	<!-- /#page-wrapper -->
 
- <!-- jQuery --> 
+<!-- jQuery --> 
 <script
 	src="${ pageContext.request.contextPath }/resources/ExternalLib/bootstrap/js/jquery.min.js"></script>
 
@@ -198,7 +198,7 @@
 	}
 	
 	function beforeRemove(treeId, treeNode) {
-		return confirm("정말로 '" + treeNode.name + "' 를 삭제하시겠습니까?"); 
+		return confirm("삭제하면 복구가 불가능합니다.\r\n정말로 '" + treeNode.name + "' 를 삭제하시겠습니까?"); 
 	}
 	
 	function beforeRename(treeId, treeNode, newName) {
