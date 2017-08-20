@@ -81,6 +81,15 @@ public class UserDao {
 
 		return res;
 	}
+	
+	public int update(UserVo vo) {
+		int res = 0;
+
+		// 2.작업수행
+		res = sqlSession.update("modify_user", vo);
+
+		return res;
+	}
 
 	public List<UserVo> selectList_popup(Map map) {
 		List<UserVo> list = null;

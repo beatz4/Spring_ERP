@@ -204,6 +204,20 @@ public class SystemController {
 
 		return VIEW_PATH + "user_register_form.jsp";
 	}
+	
+	@RequestMapping("/SystemAdmin/modify_form.do")
+	public String modify_form(Model model) {
+
+		int id = Integer.parseInt(request.getParameter("index"));
+		
+		List<GradeVo> list = grade_dao.selectList();
+		UserVo vo = user_dao.selectOne(id);
+		
+		model.addAttribute("list", list);
+		model.addAttribute("vo", vo);
+
+		return VIEW_PATH + "user_modify_form.jsp";
+	}
 
 	// 아이디 중복 체크
 	@RequestMapping("/SystemAdmin/check_id.do")
@@ -234,6 +248,29 @@ public class SystemController {
 		vo.setC_idx(c_vo.getIdx());
 
 		int res = user_dao.insert(vo);
+
+		String result = "ng";
+		if (res != 0) {
+			result = "ok";
+		}
+
+		return result;
+	}
+	
+	@RequestMapping("/SystemAdmin/user_modify.do")
+	@ResponseBody
+	public String user_modify(UserVo vo, String groupname) {
+		
+		// 소속 그룹 idx mapping
+		Map map = new HashMap();
+		map.put("name", groupname);
+		CompanyVo c_vo = company_dao.selectOne(map);
+		vo.setC_idx(c_vo.getIdx());
+		
+		map.clear();
+		map.put("idx", vo.getIdx());
+		
+		int res = user_dao.update(vo);
 
 		String result = "ng";
 		if (res != 0) {

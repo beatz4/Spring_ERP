@@ -77,6 +77,37 @@
 			}
 		});
 	}
+	
+	function mod_user() {
+		/* 사용자 수정 - ajax (jquery) */
+
+		/* 체크된 element 정보를 담을 변수 */
+		var param = "";
+		var count = 0;
+
+		$("input:checkbox:checked").each(function() {
+			// 해당 배열에 checkbox의 value(사번)을 넣어준다.
+			if( param == "" )
+				param = "index="+$(this).parent().children("#chk_user").val();
+	        else 
+	        	param = param + "&index="+$(this).parent().children("#chk_user").val();
+			
+			count++;
+		});
+		
+		if( count == 0 ) {
+			alert('선택된 사용자가 없습니다.');
+			return;
+		}
+		
+		if( count > 1 ) {
+			alert('수정할 한명의 사용자를 선택하세요.');
+			return;
+		}
+
+		location.href='modify_form.do?'+param;
+		
+	}
 </script>
 </head>
 <body>
@@ -149,6 +180,11 @@
                         <div class="well">
                         	<!-- 사용자 추가 button -->
                         	<a class="btn btn-default btn-lg" href="user_register_form.do">사용자 추가</a>
+                        	<a class="btn btn-default btn-lg" target="_blank" 
+                        		href="javascript:void(0);"
+                        		onclick="mod_user()">
+                        			사용자 수정
+                      		</a>
                         	<a class="btn btn-default btn-lg" target="_blank" 
                         		href="javascript:void(0);"
                         		onclick="del_user()">
