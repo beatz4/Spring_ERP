@@ -30,6 +30,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			</if>
 		</trim>
 	</select>
+	
+	<update id="grade_update" parameterType="vo.GradeVo">
+		update grade set
+		g_position = #{ g_position },
+		g_level = #{ g_level }
+		where g_idx = #{ g_idx }
+	</update>
+	
+	<delete id="grade_delete" parameterType="int">
+		delete from grade where g_idx = #{ g_idx }
+	</delete>
     
 </mapper>
 

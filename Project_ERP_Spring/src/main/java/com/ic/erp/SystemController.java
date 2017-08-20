@@ -323,6 +323,12 @@ public class SystemController {
 
 	@RequestMapping("/SystemAdmin/position_manager.do")
 	public String position_manager(Model model) {
+		
+		// 마지막 일련번호를 넘겨준다. 추가할 경우 다음 번호 사용을 위해
+		List<GradeVo> list = grade_dao.selectList();
+		GradeVo vo = list.get(list.size()-1);
+		model.addAttribute("last_idx", vo.getG_idx());
+		
 		return VIEW_PATH + "position_manage.jsp";
 	}
 	
@@ -335,9 +341,8 @@ public class SystemController {
 		StringBuffer sb = new StringBuffer("[");
 		for (GradeVo vo : list) {
 
-			// String jsonTxt = "{\"code\":\"200\", \"msg\":\"success\"}";
 			String str = String.format(
-					"{ \"name\" : \"%s\" } ," // string
+					"{ \"name\" : \"%s\" } ,"
 					, vo.getG_position());
 
 			sb.append(str);
@@ -373,6 +378,28 @@ public class SystemController {
 		
 		int res = 0;
 		res = grade_dao.insert(vo);
+		
+		String result = res==0 ? "fail" : "success";
+		return result;
+	}
+	
+	@RequestMapping("/SystemAdmin/modify_position.do")
+	@ResponseBody
+	public String position_modify( GradeVo vo ) {
+		
+		int res = 0;
+		res = grade_dao.update(vo);
+		
+		String result = res==0 ? "fail" : "success";
+		return result;
+	}
+	
+	@RequestMapping("/SystemAdmin/position_delete.do")
+	@ResponseBody
+	public String position_delete(int g_idx) {
+		
+		int res = 0;
+		res = grade_dao.delete(g_idx);
 		
 		String result = res==0 ? "fail" : "success";
 		return result;

@@ -78,7 +78,6 @@
 							 				<option value="9">9</option>
 							 				<option value="10">10</option>
 							 			</select>
-							 			<!-- <input id="g_level" type="text" readonly="readonly"> -->
 						 			</td>
 							 	</tr>
 							</table> 
@@ -136,6 +135,11 @@
 <script type="text/javascript" src="${ pageContext.request.contextPath }/resources/ExternalLib/zTree/js/jquery.ztree.excheck.js"></script>
 	
 <script type="text/javascript">
+	var last_idx;				// 마지막 일련번호 (sequence 마지막 번호)
+	var isFromRemoveCall;		// 직책 삭제 버튼을 통해 call되었는지 확인
+	var newCount = 1;			// 새로운 default node 번호
+	var mode;					// 삽입/수정 모드 삽입 - 1, 수정 - 2
+
 	/* tree */
 	var setting = {
 
@@ -170,7 +174,8 @@
 	}
 	
 	function beforeRemove(treeId, treeNode) {
-		return confirm("삭제하면 복구가 불가능합니다.\r\n정말로 '" + treeNode.name + "' 를 삭제하시겠습니까?"); 
+		if( isFromRemoveCall )
+			return confirm("삭제하면 복구가 불가능합니다.\r\n정말로 '" + treeNode.name + "' 를 삭제하시겠습니까?");
 	}
 	
 	function beforeRename(treeId, treeNode, newName) {
@@ -183,38 +188,39 @@
 		return true;
 	}
 	
-	var newCount = 1;
-	
 	function add(e) {
+		mode = 1;
+		
 		var zTree = $.fn.zTree.getZTreeObj("tree"),
 		nodes = zTree.getSelectedNodes(),
 		treeNode = nodes[0];
-		
-		var allnodes = zTree.getNodes();
 		
 		treeNode = zTree.addNodes(null, {id:(100 + newCount), pId:0, name:"new node" + (newCount++)});
 		zTree.editName(treeNode[0]);
 		
 		// 컨트롤 입력
-		$("#g_idx").val(allnodes.length);
+		$("#g_idx").val(++last_idx);
 		$("#g_level").attr("disabled",false);
 		
 		$("#confirm").attr("type","button");
 		$("#cancel").attr("type","button");
-		
-		$("#confirm").bind("click", confirm_pos);
-		$("#cancel").bind("click", cancel_pos);
 	};
 	
 	function confirm_pos() {
 		
-		$("#g_idx").attr("readonly",true);
-		$("#g_position").attr("readonly",true);
-		$("#g_level").attr("readonly",true);
+		$("#g_level").attr("disabled",true);
 		
 		$("#confirm").attr("type","hidden");
 		$("#cancel").attr("type","hidden");
 		
+		if( mode === 1 ) {
+			confirm_insert();
+		} else {
+			confirm_modify();
+		}
+	};
+	
+	function confirm_insert() {
 		// insert ajax
 		url = "insert_position.do";
 		
@@ -238,25 +244,69 @@
 						+ error);
 			}
 		});
-	};
+	}
+	
+	function confirm_modify() {
+		// insert ajax
+		url = "modify_position.do";
+		
+		var g_idx = $("#g_idx").val();
+		var g_position = $("#g_position").val();
+		var g_level = $("#g_level").val();
+		
+		$.ajax({
+			url : url,  //요청(서버)페이지
+			data : {
+				'g_idx' : g_idx,
+				'g_position' : g_position,
+				'g_level' : g_level
+			},
+			success : function(data) {
+				
+			},
+			error : function(request, status, error) {
+				alert("code:" + request.status + "\n" + "message:"
+						+ request.responseText + "\n" + "error:"
+						+ error);
+			}
+		});
+	}
 	
 	function cancel_pos() {
-		$("#g_idx").attr("readonly",true);
-		$("#g_position").attr("readonly",true);
-		$("#g_level").attr("readonly",true);
+		
+		$("#g_level").attr("disabled",true);
 		
 		$("#confirm").attr("type","hidden");
 		$("#cancel").attr("type","hidden");
 		
-		// 새로고침
-		location.reload();
+		if( mode == 1 ) {
+			cancel_insert();
+		} else {
+			location.reload();
+		}
 	};
+	
+	function cancel_insert() {
+		// 새로 추가된 tree도 삭제
+		isFromRemoveCall = false;
+		var zTree = $.fn.zTree.getZTreeObj("tree"),
+		nodes = zTree.getNodes(),
+		treeNode = nodes[nodes.length-1];
+
+		zTree.removeNode(treeNode, true);
+		
+		// 인덱스 감소
+		last_idx--;
+		newCount--;
+	}
 	
 	function onRename(event, treeId, treeNode, isCancel) {
 		$("#g_position").val(treeNode.name);
 	}
 	
 	function edit() {
+		mode = 2;
+		
 		var zTree = $.fn.zTree.getZTreeObj("tree"),
 		nodes = zTree.getSelectedNodes(),
 		treeNode = nodes[0];
@@ -265,9 +315,17 @@
 			return;
 		}
 		zTree.editName(treeNode);
+		
+		// 컨트롤 입력
+		$("#g_level").attr("disabled",false);
+		
+		$("#confirm").attr("type","button");
+		$("#cancel").attr("type","button");
 	};
 	
 	function remove(e) {
+		isFromRemoveCall = true;
+		
 		var zTree = $.fn.zTree.getZTreeObj("tree"),
 		nodes = zTree.getSelectedNodes(),
 		treeNode = nodes[0];
@@ -276,17 +334,17 @@
 			return;
 		}
 		
-		id = treeNode.id;
+		var g_idx = $("#g_idx").val();
 		var url = "position_delete.do";
 		
 		$.ajax({
 			type : "POST",
 			url : url,
 			data : {
-				'id' : id	
+				'g_idx' : g_idx	
 			},
 			success : function(data) { 
-				// alert(data + '이(가) 삭제되었습니다');
+				
 			}
 		});
 		
@@ -319,6 +377,8 @@
 	
 	$(document).ready(function(){
 		
+		last_idx = "${ last_idx }";
+		
 		var url = "position_list.do";
 		
 		$.ajax({
@@ -340,6 +400,9 @@
 						+ error);
 			}
 		});
+		
+		$("#confirm").bind("click", confirm_pos);
+		$("#cancel").bind("click", cancel_pos);
 	});
 
 </script>

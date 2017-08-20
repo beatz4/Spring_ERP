@@ -36,9 +36,20 @@ public class GradeDao {
 	}
 
 	public GradeVo selectOne(Map map) {
-		// TODO Auto-generated method stub
 		GradeVo vo = null;
 		vo = sqlSession.selectOne("grade_one", map);
 		return vo;
+	}
+
+	public int update(GradeVo vo) {
+		int res = 0;
+		res = sqlSession.update("grade_update", vo);
+		return res;
+	}
+
+	public int delete(int g_idx) {
+		int res = 0;
+		res = sqlSession.delete("grade_delete", g_idx);
+		return res;
 	}
 }
