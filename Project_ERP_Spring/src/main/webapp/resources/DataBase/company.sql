@@ -106,8 +106,7 @@ insert into company values( seq_company_idx.nextVal,
 								'경영2팀');
 
 					
-update company set name = '경영3팀' where id = 402
-								
+		
 -- 모든 데이터 삭제
 delete from company;
 									
