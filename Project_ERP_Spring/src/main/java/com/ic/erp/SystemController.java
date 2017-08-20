@@ -240,15 +240,18 @@ public class SystemController {
 	@RequestMapping("/SystemAdmin/user_register.do")
 	@ResponseBody
 	public String user_register(UserVo vo, String groupname) {
-
+		int res = 0;
 		// 家加 弊缝 idx mapping
 		Map map = new HashMap();
 		map.put("name", groupname);
 		CompanyVo c_vo = company_dao.selectOne(map);
-		vo.setC_idx(c_vo.getIdx());
+		if(c_vo.getId()>100) {
+			vo.setC_idx(c_vo.getIdx());
+			
+			res = user_dao.insert(vo);
 
-		int res = user_dao.insert(vo);
-
+		}
+		
 		String result = "ng";
 		if (res != 0) {
 			result = "ok";
@@ -261,17 +264,21 @@ public class SystemController {
 	@ResponseBody
 	public String user_modify(UserVo vo, String groupname) {
 		
+		int res = 0;
+		
 		// 家加 弊缝 idx mapping
 		Map map = new HashMap();
 		map.put("name", groupname);
 		CompanyVo c_vo = company_dao.selectOne(map);
-		vo.setC_idx(c_vo.getIdx());
+		if(c_vo.getId()>100) {
+			vo.setC_idx(c_vo.getIdx());
+			
+			map.clear();
+			map.put("idx", vo.getIdx());
+			
+			res = user_dao.update(vo);
+		}
 		
-		map.clear();
-		map.put("idx", vo.getIdx());
-		
-		int res = user_dao.update(vo);
-
 		String result = "ng";
 		if (res != 0) {
 			result = "ok";

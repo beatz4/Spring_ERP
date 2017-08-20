@@ -412,7 +412,7 @@
 					f.submit();
 
 				} else {
-					alert('회원수정 실패!!\r\n관리자에게 문의하세요.');
+					alert('그룹이 아닌 부서를 선택해주세요!');
 				}
 			},
 			error : function(request, status, error) {
