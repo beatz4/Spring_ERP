@@ -19,8 +19,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	
 	<select id="grade_one" resultType="vo.GradeVo"
-		parameterType="int">
-		select * from grade where g_idx = #{ idx }	
+		parameterType="map">
+		select * from grade 
+		<trim prefix="where" prefixOverrides="and|or">
+			<if test="g_idx != null">
+				g_idx = #{ g_idx }	
+			</if>
+			<if test="g_position != null">
+				and g_position = #{ g_position }
+			</if>
+		</trim>
 	</select>
     
 </mapper>

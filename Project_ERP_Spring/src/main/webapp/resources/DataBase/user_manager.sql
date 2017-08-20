@@ -21,6 +21,18 @@ create table user_manager (
 	c_idx		int						-- 외래키 (company : 소속 조직(팀))
 )
 
+update user_manager set 
+ 		    name =  '홍길동',
+ 			regnumber = '990101-1122112',
+ 			password = '1111',
+ 			address = '대한민국',
+ 			email = 'admin@erp.com',
+ 			phone = '010-000-1111',
+ 			g_idx = 4,
+ 			c_idx = 1
+ 			where idx= 4
+
+
 -- 테이블 삭제
 drop table user_manager
 

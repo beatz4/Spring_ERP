@@ -50,6 +50,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  			#{ g_idx },
  			#{ c_idx } )
  	</insert>
+ 	
+ 	<update id="modify_user" parameterType="java.util.Map" >
+ 		update user_manager set 
+ 		    name = #{ name },
+ 			regnumber = #{ regnumber },
+ 			password = #{ password },
+ 			address = #{ address },
+ 			email = #{ email },
+ 			phone = #{ phone },
+ 			g_idx = #{ g_idx },
+ 			c_idx = #{ c_idx }
+ 			where idx = #{ idx }
+ 	</update>
 
 	<!-- 팝업리스트 출력 -->
     <select id="popup_condition_list" resultType="vo.UserVo" parameterType="java.util.Map">
