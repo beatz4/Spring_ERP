@@ -53,7 +53,7 @@
 					</a></li>
 					<li><a
 						href="${ pageContext.request.contextPath }/SystemAdmin/board_manager.do">
-							<i class="fa fa-bars fa-fw"></i> 게시판 관리
+							<i class="fa fa-bars fa-fw"></i> 근태 관리
 					</a></li>
 				</ul>
 			</div>
