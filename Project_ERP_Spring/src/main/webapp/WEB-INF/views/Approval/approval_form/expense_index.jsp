@@ -24,9 +24,9 @@
 	</div>
 	<form role="form">
 		<div class="row" style="height: 180px;">
-			<div class="panel-body" style="height: 100%;" id="approval_line">
+			<div class="panel-body" style="height: 100%;">
 				<div class="col-lg-5 col-lg-offset-7" style="height: 100%;">
-					<table width="100%" class="table table-striped table-bordered table-hover" height="100%">
+					<table width="100%" class="table table-striped table-bordered table-hover" height="100%" id="approval_line">
 						<tr height="18%">			
 							<td align="center" rowspan="3" style="vertical-align: middle;" width="8%">결재</td>
 							<td></td>
