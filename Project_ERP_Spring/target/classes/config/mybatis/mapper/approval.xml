@@ -12,6 +12,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="list_app_type" resultType="vo.approval.App_ExpenseVo">
 		select * from t_expense
 	</select>
+	
+	<select id="company_select" resultType="vo.CompanyVo">
+		select * from company order by idx
+	</select>
 
 </mapper>
 

@@ -63,7 +63,6 @@
 	<beans:bean class="com.ic.erp.ApprovalController">
 		<beans:property name="app_dao" ref="app_dao"/>
 		<beans:property name="user_dao" ref="user_dao"/>
-		<beans:property name="company_dao" ref="company_dao"/>
 	</beans:bean>
 	
 </beans:beans>

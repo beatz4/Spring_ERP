@@ -14,3 +14,5 @@ alter table document_type add constraint pk_doc_idx primary key (doc_idx)
 alter table document_type add constraint fk_doc_user_idx foreign key (idx) references user_manager(idx)
 
 drop table document_type
+
+select * from company where isParent=1 order by idx

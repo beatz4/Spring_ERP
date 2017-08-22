@@ -26,7 +26,7 @@
 		<div class="row" style="height: 180px;">
 			<div class="panel-body" style="height: 100%;">
 				<div class="col-lg-5 col-lg-offset-7" style="height: 100%;">
-					<table width="100%" class="table table-striped table-bordered table-hover" height="100%" id="approval_line">
+					<table width="100%" class="table table-striped table-bordered table-hover" height="100%" id="approval_line" type="button" data-target=".bs-example-modal-lg">
 						<tr height="18%">			
 							<td align="center" rowspan="3" style="vertical-align: middle;" width="8%">결재</td>
 							<td></td>
@@ -51,6 +51,13 @@
 			</div>
 		</div>
 	</form>
+	<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  		<div class="modal-dialog modal-lg">
+    		<div class="modal-content">
+      			...
+    		</div>
+ 		 </div>
+	</div>
 	<form role="form">
 		<div class="row">
 			<div class="col-lg-12">
@@ -335,10 +342,25 @@
 	     format: "yyyy/mm/dd",
 	     language: "kr"
 	 });
-	 $('#approval_line').on('click', function(){
-		 window.open("insert_app_line.do", "pop", "width=1200,height=800,history=no,resizable=no,status=no,scrollbars=yes,menubar=no");
-	 });
 	 
+	 
+	 var popupX = (window.screen.width / 2) - (1200 / 2);
+	// 만들 팝업창 좌우 크기의 1/2 만큼 보정값으로 빼주었음
+
+	 var popupY= (window.screen.height /2) - (800 / 2);
+	// 만들 팝업창 상하 크기의 1/2 만큼 보정값으로 빼주었음
+
+	/* window.open('', '', 'status=no, height=800, width=1200, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY); */
+	 
+	  $('#approval_line').on('click', function(){
+		  
+		 $('.bs-example-modal-lg').focus();
+		 window.open("insert_app_line.do", "pop", 'status=no, height=800, width=1200, resizable=no, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY); 
+	 }); 
+	 
+	  /* $('#app').on('shown.bs.modal', function () {
+		  $('#myInput').focus()
+	  }); */
 	   
  });	
 

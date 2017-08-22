@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
+import vo.CompanyVo;
 import vo.UserVo;
 import vo.approval.App_DocVo;
 import vo.approval.App_ExpenseVo;
@@ -42,6 +43,15 @@ public class ApprovalDao {
 		return list;
 	}
 
+	public List<CompanyVo> company_select() {
+		// TODO Auto-generated method stub
+		List<CompanyVo> list = null;
+		
+		list = sqlSession.selectList("company_select");
+		
+		return list;
+	}
+
 	/*public List<UserVo> selectlist_expense(int idx) {
 		// TODO Auto-generated method stub
 		List<UserVo> list ;
@@ -50,5 +60,6 @@ public class ApprovalDao {
 		
 		return list;
 	}*/
-
+	
+	
 }
