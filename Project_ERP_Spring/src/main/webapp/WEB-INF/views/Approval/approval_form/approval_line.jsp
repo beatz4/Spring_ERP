@@ -43,6 +43,7 @@
 						
 							<ul class="nav" id="side-menu">
 								<c:forEach var="com" items="${list }">
+								
 								<c:if test="${com.parent_idx eq '0' }">
 								<li>
 			                        <a href="#" name="copanyname">${com.name }<span class="fa arrow"></span></a>
@@ -72,7 +73,16 @@
 						결재선지정
 					</div>
 					<div class="panel-body">
-				
+					
+						<div class="navbar-default" role="navigation">
+						<div class="navbar-collapse">
+						
+							<ul class="nav" name="company_line_list">
+								<a href="#"><span class="fa arrow"></span></a>
+			                </ul>
+			            </div>
+			       	</div>
+					
 					</div>
 				</div>
 			</div>
@@ -98,8 +108,29 @@
 		
 		$('[name=company_user]').on('click',function(){
 			
-			var idx = $(this).class();
-			alert(idx);
+			var idx =$(this).attr('class');
+			$.ajax({
+				url : "approval_line_list.do",
+				data :{'idx' : idx},
+				success :function(data){
+					
+					$('[name=company_line_list] li').remove();
+					var user_data = eval(data);
+					console.log(user_data);
+					if(user_data.length!=0){
+						for(var i = 0; i < user_data.length ; i++){
+							var g_name = "<li><a href='#''>"+user_data[i].g_position+"<span class='fa arrow'></span></a></li><ul class='nav nav-second-level'><li id='"+user_data[i].g_idx+"'><a name='company_user_name'>"+user_data[i].name+"</a></li></ul>";
+							$('[name=company_line_list]').append(g_name);
+							
+						}
+					}else{
+						$('[name=company_line_list]').append("<li>조직원이 없습니다.</li>");
+					}	
+					
+				}	
+				
+			});
+			
 		});
 		
 	});

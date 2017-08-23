@@ -16,6 +16,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="company_select" resultType="vo.CompanyVo">
 		select * from company order by idx
 	</select>
+	
+	<select id="company_user_list" resultType="vo.UserVo" parameterType="int">
+		select * from user_view where c_idx=#{idx}
+	</select>
 
 </mapper>
 

@@ -1,5 +1,6 @@
 package com.ic.erp;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import dao.ApprovalDao;
 import dao.CompanyDao;
@@ -114,6 +116,24 @@ public class ApprovalController {
 		model.addAttribute("list", list);
 		
 		return VIEW_PATH+"approval_form/approval_line.jsp";
+	}
+	
+	
+	@RequestMapping("/Approval/approval_line_list.do")
+	@ResponseBody
+	public List approval_line_list(int idx){
+		
+		List<UserVo> list = app_dao.company_select(idx);
+		List<UserVo> user_list = new ArrayList<UserVo>();
+		
+		for(UserVo vo : list){
+			vo = new UserVo(vo.getIdx(), vo.getG_idx(), vo.getName(), vo.getG_position(), vo.getG_level());
+			user_list.add(vo);
+			
+		}
+		
+		return user_list;
+		
 	}
 	
 }
