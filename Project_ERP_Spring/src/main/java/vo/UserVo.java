@@ -22,6 +22,23 @@ public class UserVo implements Serializable {
 	// 소속 그룹
 	int c_idx;
 	String c_name;
+	
+	//Jsonconverter 쓰기위한 constructor
+	public UserVo() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	//approval_line 담을 constructor
+	public UserVo(int idx, int g_idx, String name, String g_position, int g_level) {
+		super();
+		this.idx = idx;
+		this.g_idx = g_idx;
+		this.name = name;
+		this.g_position = g_position;
+		this.g_level = g_level;
+	}
+
+
 
 	public String getC_name() {
 		return c_name;
