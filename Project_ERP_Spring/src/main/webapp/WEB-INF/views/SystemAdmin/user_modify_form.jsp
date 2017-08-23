@@ -398,7 +398,7 @@
 				'address' : address,
 				'email' : email,
 				'phone' : phone,
-				'position' : position,
+				'g_dix' : position,
 				'groupname' : selectGroup,
 				'idx' : idx
 			}, //파라미터

@@ -456,7 +456,7 @@
 				'address' : address,
 				'email' : email,
 				'phone' : phone,
-				'position' : position,
+				'g_idx' : position,
 				'groupname' : selectGroup
 			}, //파라미터
 			success : function(data) {
