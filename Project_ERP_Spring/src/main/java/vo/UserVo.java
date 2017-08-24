@@ -29,13 +29,15 @@ public class UserVo implements Serializable {
 	}
 	
 	//approval_line ¥„¿ª constructor
-	public UserVo(int idx, int g_idx, String name, String g_position, int g_level) {
+	public UserVo(int idx, int g_idx, String name, String g_position, int g_level, String c_name, int c_idx) {
 		super();
 		this.idx = idx;
 		this.g_idx = g_idx;
 		this.name = name;
 		this.g_position = g_position;
 		this.g_level = g_level;
+		this.c_name = c_name;
+		this.c_idx = c_idx;
 	}
 
 

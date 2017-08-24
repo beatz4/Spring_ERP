@@ -127,7 +127,7 @@ public class ApprovalController {
 		List<UserVo> user_list = new ArrayList<UserVo>();
 		
 		for(UserVo vo : list){
-			vo = new UserVo(vo.getIdx(), vo.getG_idx(), vo.getName(), vo.getG_position(), vo.getG_level());
+			vo = new UserVo(vo.getIdx(), vo.getG_idx(), vo.getName(), vo.getG_position(), vo.getG_level(), vo.getC_name(), vo.getC_idx());
 			user_list.add(vo);
 			
 		}
