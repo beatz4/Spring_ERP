@@ -115,7 +115,7 @@ public class ApprovalController {
 		
 		model.addAttribute("list", list);
 		
-		return VIEW_PATH+"approval_form/approval_line.jsp";
+		return VIEW_PATH+"/approval_line.jsp";
 	}
 	
 	

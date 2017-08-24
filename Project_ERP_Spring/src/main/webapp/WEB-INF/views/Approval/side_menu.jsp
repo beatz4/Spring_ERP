@@ -137,7 +137,7 @@
                          	</ul>
 					</li>
 					<li>
-						<a href="${ pageContext.request.contextPath }/SystemAdmin/board_manager.do">
+						<a href="${ pageContext.request.contextPath }/Approval/insert_app_line.do">
 							<i class="fa fa-sitemap fa-fw"></i> 결재선 관리
 						</a>
 					</li>

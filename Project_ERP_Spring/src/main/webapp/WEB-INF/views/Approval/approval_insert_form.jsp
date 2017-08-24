@@ -45,25 +45,15 @@
 
 	<div id="page-wrapper">
 		<div class="container">
-		<c:if test="${param.doc_idx == 1 }">
-			<%@include file="approval_form/expense_index.jsp" %>
-		</c:if>
-		<c:if test="${param.doc_idx == 2 }">
-			<%@include file="approval_form/expense_index.jsp" %>
-		</c:if>
-		<c:if test="${param.doc_idx == 3 }">
-			<%@include file="approval_form/expense_index.jsp" %>
-		</c:if>
-		
-		<div class="panel-body">
-			<div class="row">
-				<div class="col-lg-12">
-						
-				</div>
-				<!-- /.col-lg-12 -->
-			</div>
-			<!-- /.row -->
-			</div>
+			<c:if test="${param.doc_idx == 1 }">
+				<%@include file="approval_form/expense_index.jsp" %>
+			</c:if>
+			<c:if test="${param.doc_idx == 2 }">
+				<%@include file="approval_form/expense_index.jsp" %>
+			</c:if>
+			<c:if test="${param.doc_idx == 3 }">
+				<%@include file="approval_form/expense_index.jsp" %>
+			</c:if>
 		</div>
 		<!-- /.container-fluid -->
 	</div>

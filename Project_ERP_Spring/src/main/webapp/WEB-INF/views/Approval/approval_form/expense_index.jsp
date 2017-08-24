@@ -51,18 +51,13 @@
 			</div>
 		</div>
 	</form>
-	<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-  		<div class="modal-dialog modal-lg">
-    		<div class="modal-content">
-      			...
-    		</div>
- 		 </div>
-	</div>
+	
 	<form role="form">
 		<div class="row">
-			<div class="col-lg-12">
+			<!-- <div class="col-lg-12"> -->
 				<div class="panel panel-default">
 					<div class="panel-body">
+						<div class="col-lg-12">
 						<table width="100%"
 							class="table table-striped table-bordered table-hover"
 							id="approval_1">
@@ -76,6 +71,7 @@
 											style="font-size: 15px" name="c_name" value="${app_user_list.c_name }" disabled>
 									</div>
 								</td>
+							
 								<th width="10%" class="text-center"
 									style="vertical-align: middle;">성명</th>
 								<td class="text-center" width="23%"
@@ -85,6 +81,7 @@
 											style="font-size: 15px" name="name" value="${app_user_list.name }" disabled>
 									</div>
 								</td>
+							
 								<th width="10%" class="text-center"
 									style="vertical-align: middle;">*신청날짜</th>
 								<td width="23%" style="vertical-align: middle;">
@@ -94,6 +91,32 @@
                                 </td>
 							</tr>
 						</table>
+						</div>
+				<!-- <div class="col-lg-6" style="height: 154px;">
+					<table width="100%" class="table table-striped table-bordered table-hover" height="100%" id="approval_line" type="button" data-target=".bs-example-modal-lg">
+						<tr height="18%">			
+							<td align="center" rowspan="3" style="vertical-align: middle;" width="8%">결재</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr>			
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr height="18%">			
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+					</table>
+				</div> -->
+						
+					<div class="col-lg-12">
 						<table width="100%"
 							class="table table-striped table-bordered table-hover"
 							id="approval_2">
@@ -152,6 +175,8 @@
 							</tr>
 
 						</table>
+					</div>
+					<div class="col-lg-12">
 						<table width="100%"
 							class="table table-striped table-bordered table-hover" id="approval_content" >
 							<tr>
@@ -176,9 +201,10 @@
 							</tr>
 						</table>
 					</div>
+					</div>
 				</div>
 			</div>
-		</div>
+		<!-- </div> -->
 		<div class="col-lg-12" align="center">
 			<button type="button" id="formadd" class="btn btn-primary">추가하기</button>
 			<button type="button" class="btn btn-primary" onclick="expense_add(this.form);">기안하기</button>
@@ -350,18 +376,12 @@
 	 var popupY= (window.screen.height /2) - (800 / 2);
 	// 만들 팝업창 상하 크기의 1/2 만큼 보정값으로 빼주었음
 
-	/* window.open('', '', 'status=no, height=800, width=1200, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY); */
-	 
 	  $('#approval_line').on('click', function(){
 		  
 		 $('.bs-example-modal-lg').focus();
 		 window.open("insert_app_line.do", "pop", 'status=no, height=800, width=1200, resizable=no, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY); 
 	 }); 
 	 
-	  /* $('#app').on('shown.bs.modal', function () {
-		  $('#myInput').focus()
-	  }); */
-	   
  });	
 
 </script> 
