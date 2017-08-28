@@ -61,6 +61,15 @@ public class ApprovalDao {
 		return list;
 	}
 
+	public UserVo select_user_one(int idx) {
+		// TODO Auto-generated method stub
+		UserVo vo = null;
+		
+		vo = sqlSession.selectOne("app_check_one", idx);
+		
+		return vo;
+	}
+
 	/*public List<UserVo> selectlist_expense(int idx) {
 		// TODO Auto-generated method stub
 		List<UserVo> list ;

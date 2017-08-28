@@ -136,4 +136,16 @@ public class ApprovalController {
 		
 	}
 	
+	@RequestMapping("/Approval/check_line.do")
+	@ResponseBody
+	public UserVo check_line(int idx){
+		
+		UserVo vo = app_dao.select_user_one(idx);
+		
+		System.out.println(vo);
+		
+		return vo;
+		
+	}
+	
 }
