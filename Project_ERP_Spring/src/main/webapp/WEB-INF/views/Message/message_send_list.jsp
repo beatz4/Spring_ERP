@@ -85,17 +85,17 @@
 				<div align="left" style="padding-bottom: 10px">
 				  <button style="width: 80px;" type="button" class="btn" onclick="select_delete();">삭제</button>      
 				</div>
-				<div class="panel panel-default" style="margin: 0; min-width: 1250px;">
+				<div class="panel panel-default" style="margin: 0;">
 					<div class="panel-body" style="height: 590px">
-						<table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
+						<table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example" style="text-align: center;">
 							<thead>
 								<tr>
-									<th width="5%"  style="min-width: 50px"><input id="th_checkAll" name="checkAll" type="checkbox" onclick="checkAll();"></th>
-							        <th width="7.5%"  style="min-width: 100px">받은사람</th>
-							        <th width="57.5%"  style="min-width: 400px">제목</th>
-							        <th width="10%"  style="min-width: 100px">보낸날짜</th>
-							        <th width="10%"  style="min-width: 100px">받은날짜</th>
-							        <th width="10%"  style="min-width: 50px">읽었는지 여부</th>
+									<th width="2%"  style="text-align: center;"><input id="th_checkAll" name="checkAll" type="checkbox" onclick="checkAll();"></th>
+							        <th width="8%"  style="text-align: center;">받은사람</th>
+							        <th width="63%"  style="text-align: center;">제목</th>
+							        <th width="10%"  style="text-align: center;">보낸날짜</th>
+							        <th width="10%"  style="text-align: center;">받은날짜</th>
+							        <th width="5%"  style="text-align: center;">수신 여부</th>
 								</tr>
 							</thead>
 							

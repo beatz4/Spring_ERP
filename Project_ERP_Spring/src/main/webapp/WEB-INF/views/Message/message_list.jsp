@@ -156,15 +156,15 @@
 				  <button style="width: 80px;" type="button" class="btn" onclick="select_box();">보관</button>   
 				  <button style="width: 80px;" type="button" class="btn" onclick="reply();">답장</button>      
 				</div>
-				<div class="panel panel-default" style="margin: 0; min-width: 900px;">
+				<div class="panel panel-default" style="margin: 0;">
 					<div class="panel-body" style="height: 590px;">
-						<table class="table table-striped table-bordered table-hover" id="dataTables">
+						<table class="table table-striped table-bordered table-hover" id="dataTables" style="text-align: center;">
 							<thead>
 								<tr>
-									<th width="5%" style="min-width: 50px"><input id="th_checkAll" name="checkAll" type="checkbox" onclick="checkAll();"></th>
-							        <th width="7.5%"  style="min-width: 100px">보낸사람</th>
-							        <th width="67.5%"  style="min-width: 400px">제목</th>
-							        <th width="20%"  style="min-width: 100px">받은날짜</th>
+									<th width="2%" style="text-align: center;"><input id="th_checkAll" name="checkAll" type="checkbox" onclick="checkAll();"></th>
+							        <th width="8%" style="text-align: center;">보낸사람</th>
+							        <th width="80%" style="text-align: center;">제목</th>
+							        <th width="10%" style="text-align: center;">받은날짜</th>
 								</tr>
 							</thead>
 							
