@@ -101,94 +101,68 @@
 	<jsp:include page="message_index.jsp" />
 	
 	<!-- 본문 내용 -->
-	<div id="page-wrapper" style="height: 900px;">
+	<div id="page-wrapper"  style="min-width: 500px;">
 		<div class="container-fluid">
-			<div class="row">
-				<div class="col-lg-12">					
-					
-					<!-- page내용 -->
-					
-					<div class="container"  style="width: 950px;">
-					  <div class="panel panel-default"  style="margin:0">
-					    <div class="panel-heading">쪽지쓰기</div>
-					    <div class="panel-body">
-					    
-					    	<form name="f">
-								<table id="send_table">
-									<tbody style="width: 65%;">
-										<tr>
-											<td>	
-												<div style="width: 755px;float: left;">	
-											      <label for="usr" style="margin-top: 20px;">받는사람</label>
-											      <input style="width: 100%;" type="text" class="form-control" id="pInput" name="recv_id" value="${ param.send_id ? '' : param.send_id }">		
-												</div>
-												<div style="float: right;padding-top: 45px">
-												  <button style="width: 90px;" type="button" class="btn" onclick="popupOpen()">주소록</button>
-												</div>
-											</td>
-										</tr>
-										<tr>
-											<td>	
-												<div style="width: 850px;">
-											      <label for="usr" style="margin-top: 20px;">제목</label>
-											      <input style="width: 100%;" type="text" class="form-control" id="usr" name="title">
-												</div>
-											</td>
-										</tr>
-										<tr>
-											<td>
-												<div style="width: 850px;">									     
-											      
-											      <label for="comment" style="margin-top: 50px;">내용</label>
-											      
-											      <!-- CKEditor + 이미지 업로드기능 설정하기 -->
-													<textarea name="content" rows="15" cols="80"></textarea>
-														<script>
-															// Replace the <textarea id="editor1"> with a CKEditor
-															// instance, using default configuration.
-															CKEDITOR.replace( 'content', {
-															filebrowserUploadUrl: '${pageContext.request.contextPath}/ckeditorImageUpload.do'
-															});
-																
-															CKEDITOR.on('dialogDefinition', function( ev ){
-														            var dialogName = ev.data.name;
-														            var dialogDefinition = ev.data.definition;
-														          
-														            switch (dialogName) {
-														                case 'image': //Image Properties dialog
-																              //dialogDefinition.removeContents('info');
-																              dialogDefinition.removeContents('Link');
-																              dialogDefinition.removeContents('advanced');
-																              break;
-															    }
-															 });
-														</script>
-														
-													<div style="width: 100%; margin-top: 15px;" align="right">
-													  <button style="width: 80px;" type="button" class="btn" onclick="send(this.form)">보내기</button>
-													  <button style="width: 80px;" type="reset" class="btn">리셋</button>	
-													</div>
-												</div>
-											</td>
-										</tr>
+			<!-- page내용 -->
+			<div style="padding-top: 40px;">
+			  <div class="panel panel-default"  style="margin:0; width: 58%;">
+			    <div class="panel-heading">쪽지쓰기</div>
+			    <div class="panel-body">
+			    	<form name="f">
+			    		<table style="width: 100%;">
+			    			<tr>
+			    				<td>
+									<div>	
+								      <label for="usr" style="margin-top: 20px;">받는사람</label>
+								      <input style="width: 100%;" type="text" class="form-control" id="pInput" name="recv_id" value="${ param.send_id ? '' : param.send_id }">		
+									</div>
+								</td>
+								<td  style="padding-top: 45px; text-align: center; padding-left: 15px; width: 100px;">
+									<div>
+									  <button style="width: 100%;" type="button" class="btn" onclick="popupOpen()">주소록</button>
+									</div>
+								</td>
+							</tr>
+						</table>
+						<div style="width: 100%;">
+					      <label for="usr" style="margin-top: 20px;">제목</label>
+					      <input style="width: 100%;" type="text" class="form-control" id="usr" name="title">
+						</div>
+						<div style="width: 100%;">	
+					      <label for="comment" style="margin-top: 30px;">내용</label>
+					      
+					      <!-- CKEditor + 이미지 업로드기능 설정하기 -->
+							<textarea name="content" rows="15" cols="80"></textarea>
+								<script>
+									// Replace the <textarea id="editor1"> with a CKEditor
+									// instance, using default configuration.
+									CKEDITOR.replace( 'content', {
+									filebrowserUploadUrl: '${pageContext.request.contextPath}/ckeditorImageUpload.do'
+									});
 										
-									</tbody>
-								</table>
-							</form>
-					    
-					    </div>
-					  </div>
-					</div>
-					
-				</div>
-				<!-- /.col-lg-12 -->
+									CKEDITOR.on('dialogDefinition', function( ev ){
+								            var dialogName = ev.data.name;
+								            var dialogDefinition = ev.data.definition;
+								          
+								            switch (dialogName) {
+								                case 'image': //Image Properties dialog
+										              //dialogDefinition.removeContents('info');
+										              dialogDefinition.removeContents('Link');
+										              dialogDefinition.removeContents('advanced');
+										              break;
+									    }
+									 });
+								</script>
+							<div style="width: 100%; margin-top: 15px;" align="right">
+							  <button style="width: 80px;" type="button" class="btn" onclick="send(this.form)">보내기</button>
+							  <button style="width: 80px;" type="reset" class="btn">리셋</button>	
+							</div>
+						</div>
+					</form>
+			    </div>
+			  </div>
 			</div>
-			<!-- /.row -->
 		</div>
-		<!-- /.container-fluid -->
 	</div>
-	<!-- /#page-wrapper -->
-	
-	
 </body>
 </html>

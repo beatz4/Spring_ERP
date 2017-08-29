@@ -112,13 +112,11 @@
 
 </head>
 <body>
-	
 	<!-- 본문 내용 -->
 	<div id="page-wrapper" style="height: 515px; padding-top: 20px">
 		<!-- 검색 -->
 		    <div class="row" style="margin-bottom: 20px;">    
 		        <div class="col-xs-8 col-xs-offset-2">
-				    
                        <div class="input-group custom-search-form" style="width: 80%; margin-left: 45px;">
 	                       <select style="width: 25%; font-size: 10pt;" id=search class="form-control">
 	                            <option value="">전체</option>
@@ -133,62 +131,50 @@
                                       <span class="glyphicon glyphicon-search"></span>
                                     </button>
                                 </span>
-                        </div>		                
-	                 
+                        </div>		
 		        </div>
 			</div>
-		
 		<!-- 리스트 -->
-		<div class="row">
-			<div class="col-lg-12">
-				<div class="panel panel-default" style="margin: 0; min-width: 515px;">
-					<div class="panel-body" style="height: 515px;">
-						<table class="table table-striped table-bordered table-hover" id="dataTables-example">
-							<thead>
-								<tr>
-									<th width="5%"><input id="th_checkAll" name="checkAll" type="checkbox" onclick="checkAll();"></th>
-							        <th width="10%">부서</th>
-							        <th width="10%">직책</th>
-							        <th width="10%">이름</th>
-							        <th width="10%">아이디</th>
-								</tr>
-							</thead>
-							
-							<c:if test="${ empty list }">
-								<tr>
-									<td colspan="5" align="center"><p style="color:balck;">사원정보가 없습니다.<p></td>
-								</tr>
-							</c:if>
-							
-							<tbody>
-								<c:forEach var="vo" items="${ list }">
-									<tr>
-										<td><input id="checkRow" type="checkbox" name="checkRow" value="${ vo.id }"></td>
-								        <td>${ vo.c_name }</td>
-								        <td>${ vo.g_position }</td>
-								        <td>${ vo.name }</td>
-								        <td>${ vo.id }</td>
-									</tr> 
-								</c:forEach> 
-							</tbody>
-                        </table>
-                        
-					</div>
-				</div>
-			<!-- /.col-lg-12 -->
-				
-				<!-- 페이징 메뉴 -->
-				<div style="height: 10px;" align="center">${ pageHtml }</div>
-	            <div align="right" style="padding-bottom: 10px; padding-top: 10px">
-				  <button style="width: 80px;" type="button" class="btn" onclick="select_check();">선택</button>        
-				  <input type="hidden" id="cInput" value="${ param.input }">
-				</div>  
+		<div class="panel panel-default" style="margin: 0; min-width: 515px;">
+			<div class="panel-body" style="height: 515px;">
+				<table class="table table-striped table-bordered table-hover" id="dataTables-example">
+					<thead>
+						<tr>
+							<th width="5%"><input id="th_checkAll" name="checkAll" type="checkbox" onclick="checkAll();"></th>
+					        <th width="10%">부서</th>
+					        <th width="10%">직책</th>
+					        <th width="10%">이름</th>
+					        <th width="10%">아이디</th>
+						</tr>
+					</thead>
+					
+					<c:if test="${ empty list }">
+						<tr>
+							<td colspan="5" align="center"><p style="color:balck;">사원정보가 없습니다.<p></td>
+						</tr>
+					</c:if>
+					
+					<tbody>
+						<c:forEach var="vo" items="${ list }">
+							<tr>
+								<td><input id="checkRow" type="checkbox" name="checkRow" value="${ vo.id }"></td>
+						        <td>${ vo.c_name }</td>
+						        <td>${ vo.g_position }</td>
+						        <td>${ vo.name }</td>
+						        <td>${ vo.id }</td>
+							</tr> 
+						</c:forEach> 
+					</tbody>
+                      </table>
+                      
 			</div>
-		<!-- /.row -->
 		</div>
-	<!-- /.container-fluid -->
-	</div>
-	<!-- /#page-wrapper -->
-	
+		<!-- 페이징 메뉴 -->
+		<div style="height: 10px;" align="center">${ pageHtml }</div>
+          <div align="right" style="padding-bottom: 10px; padding-top: 10px">
+		  <button style="width: 80px;" type="button" class="btn" onclick="select_check();">선택</button>        
+		  <input type="hidden" id="cInput" value="${ param.input }">
+		  </div>  
+	    </div>
 </body>
 </html>

@@ -72,65 +72,52 @@
 	<jsp:include page="message_index.jsp" />
 	
 	<!-- 본문 내용 -->
-	<div id="page-wrapper" style="height: 900px;">
+	<div id="page-wrapper">
 		<div class="row">
 			<div class="col-lg-12">
 				<h1 class="page-header">보낸쪽지함</h1>
 			</div>
-			<!-- /.col-lg-12 -->
 		</div>
-		<!-- /.row -->
-		<div class="row">
-			<div class="col-lg-12">
-				<div align="left" style="padding-bottom: 10px">
-				  <button style="width: 80px;" type="button" class="btn" onclick="select_delete();">삭제</button>      
-				</div>
-				<div class="panel panel-default" style="margin: 0;">
-					<div class="panel-body" style="height: 590px">
-						<table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example" style="text-align: center;">
-							<thead>
-								<tr>
-									<th width="2%"  style="text-align: center;"><input id="th_checkAll" name="checkAll" type="checkbox" onclick="checkAll();"></th>
-							        <th width="8%"  style="text-align: center;">받은사람</th>
-							        <th width="63%"  style="text-align: center;">제목</th>
-							        <th width="10%"  style="text-align: center;">보낸날짜</th>
-							        <th width="10%"  style="text-align: center;">받은날짜</th>
-							        <th width="5%"  style="text-align: center;">수신 여부</th>
-								</tr>
-							</thead>
-							
-							<c:if test="${ empty list }">
-								<tr>
-									<td colspan="6" align="center"><p style="color:balck;">쪽지가 없습니다.<p></td>
-								</tr>
-							</c:if>
-							
-							<tbody>
-								<c:forEach var="vo" items="${ list }">
-									<tr>
-										 <td><input id="checkRow" type="checkbox" name="checkRow" value="${ vo.idx }"></td>
-										 <td><a href="insert_form.do?send_id=${ vo.recv_id }">${ vo.recv_id }</a></td>
-										 <td><a href="send_view.do?idx=${ vo.idx }&select=${ param.select }">${ vo.title }</a></td>
-										 <td>${ vo.send_date }</td>
-								      	 <td>${ vo.recv_date }</td>
-										 <td>${ vo.send_state }</td>
-									</tr> 
-								</c:forEach> 
-							</tbody>
-                        </table>                   						
-					</div>
-				</div>
-			<!-- /.col-lg-12 -->
-				
-				<!-- 페이징 메뉴 -->
-				<div align="center">${ pageHtml }</div>
-			
+		<div align="left" style="padding-bottom: 10px">
+		  <button style="width: 80px;" type="button" class="btn" onclick="select_delete();">삭제</button>      
+		</div>
+		<div class="panel panel-default" style="margin: 0; min-width: 500px; min-height: 590px;">
+			<div class="panel-body">
+				<table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example" style="text-align: center;">
+					<thead>
+						<tr>
+							<th width="2%"  style="text-align: center;"><input id="th_checkAll" name="checkAll" type="checkbox" onclick="checkAll();"></th>
+					        <th width="8%"  style="text-align: center;">받은사람</th>
+					        <th width="63%"  style="text-align: center;">제목</th>
+					        <th width="10%"  style="text-align: center;">보낸날짜</th>
+					        <th width="10%"  style="text-align: center;">받은날짜</th>
+					        <th width="5%"  style="text-align: center;">수신 여부</th>
+						</tr>
+					</thead>
+					
+					<c:if test="${ empty list }">
+						<tr>
+							<td colspan="6" align="center"><p style="color:balck;">쪽지가 없습니다.<p></td>
+						</tr>
+					</c:if>
+					
+					<tbody>
+						<c:forEach var="vo" items="${ list }">
+							<tr>
+								 <td><input id="checkRow" type="checkbox" name="checkRow" value="${ vo.idx }"></td>
+								 <td><a href="insert_form.do?send_id=${ vo.recv_id }">${ vo.recv_id }</a></td>
+								 <td><a href="send_view.do?idx=${ vo.idx }&select=${ param.select }">${ vo.title }</a></td>
+								 <td>${ vo.send_date }</td>
+						      	 <td>${ vo.recv_date }</td>
+								 <td>${ vo.send_state }</td>
+							</tr> 
+						</c:forEach> 
+					</tbody>
+                </table>                   						
 			</div>
-		<!-- /.row -->
 		</div>
-	<!-- /.container-fluid -->
+		<!-- 페이징 메뉴 -->
+		<div align="center">${ pageHtml }</div>
 	</div>
-	<!-- /#page-wrapper -->
-	
 </body>
 </html>
