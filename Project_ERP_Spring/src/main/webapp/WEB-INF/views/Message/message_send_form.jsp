@@ -14,7 +14,7 @@
 	<link rel="stylesheet" type="text/css" href="${ pageContext.request.contextPath }/resources/css/sweetalert.css">
 	
 	<!-- 선언 및 값 체크하기 -->
-	<script src="${pageContext.request.contextPath}/resources/ExternalLib/msg_ckeditor/ckeditor.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/ExternalLib/full_ckeditor/ckeditor.js"></script>
 	
 	<script type="text/javascript">
 		function send(f){
@@ -132,7 +132,7 @@
 					      <label for="comment" style="margin-top: 30px;">내용</label>
 					      
 					      <!-- CKEditor + 이미지 업로드기능 설정하기 -->
-							<textarea name="content" rows="15" cols="80"></textarea>
+							<textarea name="content"></textarea>
 								<script>
 									// Replace the <textarea id="editor1"> with a CKEditor
 									// instance, using default configuration.
