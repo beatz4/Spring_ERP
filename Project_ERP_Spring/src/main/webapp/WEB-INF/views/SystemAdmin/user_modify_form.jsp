@@ -40,10 +40,10 @@
 	<!-- 주 메뉴 -->
 	<jsp:include page="../main/main_index.jsp" />
 	<!-- 사용자 정보, 서브 메뉴 -->
-	<jsp:include page="system_index.jsp" />
+	<jsp:include page="../main/side_menu.jsp" />
 
 	<div id="page-wrapper">
-		<div class="row">
+		<div class="row" style="padding-top: 20px;">
 			<div class="col-lg-12">
 				<h1 class="page-header">신규 사원 정보</h1>
 			</div> 

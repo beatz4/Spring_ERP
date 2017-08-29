@@ -20,7 +20,7 @@
 <jsp:include page="../main/side_menu.jsp" />
 
 	<div id="page-wrapper">
-		<div class="row">
+		<div class="row" style="padding-top: 20px;">
 			<div class="col-lg-8">
 				<h1 class="page-header">조직 구성</h1>
 			</div>
