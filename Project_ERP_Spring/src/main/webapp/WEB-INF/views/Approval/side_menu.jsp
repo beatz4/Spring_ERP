@@ -107,34 +107,34 @@
 			<div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1" align="center">
 				<ul class="nav navbar-nav">
 					<li>
-						<a href="doc_type.do">작성 하기
-						<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-send"></span></a>
+						<a href="${ pageContext.request.contextPath }/Approval/doc_type.do">작성 하기
+						<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-edit"></span></a>
 					</li>
 					
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">내가 받은 결제
-						<span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-cog"></span></a>
-						<ul class="dropdown-menu forAnimate" role="menu">
-							<li><a href="#">결재 대기</a></li>
-							<li><a href="#">미결재 문서</a></li>
-							<li><a href="#">결재 완료 문서</a></li>
-							<li><a href="#">반려 문서</a></li>
+						<span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-save-file"></span></a>
+						<ul class="dropdown-menu forAnimate" role="menu" style="text-align: center;">
+							<li style="border: 0;"><a href="#">결제 대기</a></li>
+							<li style="border: 0;"><a href="#">미결제 문서</a></li>
+							<li style="border: 0;"><a href="#">결제 완료 문서</a></li>
+							<li style="border: 0;"><a href="#">반려 문서</a></li>
 						</ul>
 					</li>
 					
 					<li class="dropdown">
-						<a href="${ pageContext.request.contextPath }/SystemAdmin/position_manager.do" class="dropdown-toggle" data-toggle="dropdown">내가 올린 결재
-						<span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-cog"></span></a>
-						<ul class="dropdown-menu forAnimate" role="menu">
-							<li><a href="#">결재 대기</a></li>
-							<li><a href="#">미결재 문서</a></li>
-							<li><a href="#">결재 완료 문서</a></li>
-							<li><a href="#">반려 문서</a></li>
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">내가 올린 결제
+						<span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-open-file"></span></a>
+						<ul class="dropdown-menu forAnimate" role="menu" style="border: 0; text-align: center;">
+							<li style="border: 0;"><a href="#">결제 대기</a></li>
+							<li style="border: 0;"><a href="#">미결제 문서</a></li>
+							<li style="border: 0;"><a href="#">결제 완료 문서</a></li>
+							<li style="border: 0;"><a href="#">반려 문서</a></li>
 						</ul>
 					</li>
 	
 					<li>
-						<a href="${ pageContext.request.contextPath }/Approval/insert_app_line.do">결재선 관리
+						<a href="${ pageContext.request.contextPath }/Approval/insert_app_line.do">결제선 관리
 						<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-inbox"></span></a>
 					</li>
 				</ul>

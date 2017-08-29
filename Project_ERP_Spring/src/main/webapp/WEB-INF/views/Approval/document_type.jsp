@@ -34,7 +34,7 @@
 	<!-- 사이드 메뉴 불러오기 -->
 	<jsp:include page="side_menu.jsp" />
 
-	<div id="page-wrapper" style="margin: 0; margin-left: 200px;">
+	<div id="page-wrapper">
 		<div class="row">
 			<div class="col-lg-12">
 				<h5 class="page-header"><i class="fa fa-archive fa-fw"></i> 기안문서 </h5>

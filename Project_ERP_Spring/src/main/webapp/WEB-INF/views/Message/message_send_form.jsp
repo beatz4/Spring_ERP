@@ -101,11 +101,11 @@
 	<jsp:include page="message_index.jsp" />
 	
 	<!-- 본문 내용 -->
-	<div id="page-wrapper" style="margin: 0; margin-left: 200px;min-width: 500px;">
+	<div id="page-wrapper">
 		<div class="container-fluid">
 			<!-- page내용 -->
-			<div style="padding-top: 40px;">
-			  <div class="panel panel-default"  style="margin:0; width: 58%;">
+			<div style="padding-top: 80px;">
+			  <div class="panel panel-default" style="margin:0; width: 58%;">
 			    <div class="panel-heading">쪽지쓰기</div>
 			    <div class="panel-body">
 			    	<form name="f">

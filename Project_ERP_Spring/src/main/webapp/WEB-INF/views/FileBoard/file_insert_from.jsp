@@ -26,7 +26,7 @@
 	<jsp:include page="file_board_index.jsp" />
 	
 	<!-- 본문 내용 -->
-	<div id="page-wrapper"  style="margin: 0; margin-left: 200px; height: 900px; min-width: 700px;">
+	<div id="page-wrapper">
 		<!-- page내용 -->
 		<div class="container"  style="width: 50%;">
 		  <div class="panel panel-default"  style="margin:0">

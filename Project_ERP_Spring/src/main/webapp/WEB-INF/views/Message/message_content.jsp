@@ -75,85 +75,71 @@
 	<jsp:include page="message_index.jsp" />
 	
 	<!-- 본문 내용 -->
-	<div id="page-wrapper" style="height: 900px; margin: 0; margin-left: 200px;">
+	<div id="page-wrapper">
 		<div class="container-fluid">
-			<div class="row">
-				<div class="col-lg-12">
-					
-					<!-- page내용 -->
-					
-					<div class="container"  style="width: 950px;">
-					  <div class="panel panel-default"  style="margin:0">
-					    <div class="panel-heading">받은쪽지</div>
-					    <div class="panel-body">
-					    
-					    	<form name="f" method="get" action="insert.do">
-								<table  id="send_table">
-									<tbody style="width: 65%;">
-										<tr>
-											<td>
-												<div style="width: 850px;">
-											      <label for="usr">보낸사람</label>
-											      <div class="panel panel-default">
-											      	<div style="width: 100%; height: 35px; font-size: 20px; text-align: left; margin-left: 10px; overflow: auto; padding-top: 3px;">${ vo.send_id }</div>
-											      </div>
-											    </div>
-											</td>
-										</tr>
-										<tr>
-											<td>
-												<div style="width: 850px;">
-											      <label for="usr">제목</label>
-											      <div class="panel panel-default">
-											      	<div style="width: 100%; height: 35px; font-size: 20px; text-align: left; margin-left: 10px; overflow: auto; padding-top: 3px;">${ vo.title }</div>
-											      </div>
-											    </div>
-											</td>
-										</tr>
-										<tr>
-											<td>
-												<div style="width: 850px; margin-top: 10px;">
-											      <label for="usr">보낸날짜</label>
-											      <div class="panel panel-default">
-											      	<div style="width: 100%; height: 35px; font-size: 20px; text-align: left; margin-left: 10px; overflow: auto; padding-top: 3px;">${ vo.send_date }</div>
-											      </div>
-											    </div>
-											</td>
-										</tr>
-										<tr>
-											<td>	
-											    <div style="width: 850px; margin-top: 10px;">
-											      <label for="comment">내용</label>
-											    	<div class="panel panel-default">
-											    		<div class="panel-body" style="width: 100%; height: 380px; overflow: auto; font-size: 20px;">${ vo.content }</div>	
-											    	</div>
-											    	<div style="width: 100%; margin-top: 15px;" align="right" >
-													  <input type="hidden" id="select" value="${ param.select }">
-														  <button type="button" class="btn btn-default" onclick="content_del()">삭제</button>
-														  <button type="button" class="btn btn-default" onclick="reply()">답장</button>	
-													  <c:if test="${ param.select eq 'list' }">
-														  <button type="button" class="btn btn-default" onclick="box()">보관</button>	
-													  </c:if>
-													</div>
-											    </div>
-											</td>
-										</tr>
-									</tbody>
-								</table>
-							</form>
-					    
-					    </div>
-					  </div>
-					</div>
-					
-				</div>
-				<!-- /.col-lg-12 -->
+			<!-- page내용 -->
+			<div style="padding-top: 80px;">
+			  <div class="panel panel-default" style="margin:0; width: 58%;">
+			    <div class="panel-heading">받은쪽지</div>
+			    <div class="panel-body">			    
+			    	<form name="f" method="get" action="insert.do">
+						<table  id="send_table" style="width: 100%;">
+							<tr>
+								<td style="width:100%;">
+								   <div style="width: 49%; float: left;">
+								      <label for="usr">받은ID</label>
+								      <div class="panel panel-default">
+								      	<div style="width: 100%; height: 28px; font-size: 15px; text-align: left; margin-left: 10px; overflow: auto; padding-top: 3px;">${ vo.recv_id }</div>
+								      </div>
+							      </div>
+							      <div style="width: 49%; float: right;">
+								      <label for="usr">보낸ID</label>
+								      <div class="panel panel-default">
+								      	<div style="width: 100%; height: 28px; font-size: 15px; text-align: left; margin-left: 10px; overflow: auto; padding-top: 3px;">${ vo.send_id }</div>
+								      </div>
+							      </div>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<div style="width: 83%; float: left;">
+								      <label for="usr">제목</label>
+								      <div class="panel panel-default">
+								      	<div style="width: 100%; height: 28px; font-size: 15px; text-align: left; margin-left: 10px; overflow: auto; padding-top: 3px;">${ vo.title }</div>
+								      </div>
+								    </div>
+								    <div style="width: 15%; float: right;">
+								      <label for="usr">보낸날짜</label>
+								      <div class="panel panel-default">
+								      	<div style="width: 100%; height: 28px; font-size: 15px; text-align: left; margin-left: 10px; overflow: auto; padding-top: 3px;">${ vo.send_date }</div>
+								      </div>
+								    </div>
+								</td>
+							</tr>
+							<tr>
+								<td>	
+								    <div style="width: 100%;">
+								      <label for="comment">내용</label>
+								    	<div class="panel panel-default">
+								    		<div class="panel-body" style="width: 100%; height: 500px; overflow: auto; font-size: 15px;">${ vo.content }</div>	
+								    	</div>
+								    	<div style="width: 100%; margin-top: 15px;" align="right" >
+										  <input type="hidden" id="select" value="${ param.select }">
+											  <button type="button" class="btn btn-default" onclick="content_del()">삭제</button>
+											  <button type="button" class="btn btn-default" onclick="reply()">답장</button>	
+										  <c:if test="${ param.select eq 'list' }">
+											  <button type="button" class="btn btn-default" onclick="box()">보관</button>	
+										  </c:if>
+										</div>
+								    </div>
+								</td>
+							</tr>
+						</table>
+					</form>
+			    </div>
+			  </div>
 			</div>
-			<!-- /.row -->
 		</div>
-		<!-- /.container-fluid -->
 	</div>
-	<!-- /#page-wrapper -->
-	
 </body>
 </html>
