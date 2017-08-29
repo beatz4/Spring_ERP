@@ -182,18 +182,30 @@ td{
 		if(a_line_name== null || a_line_name == ""){
 			a_line_name = "내결재선_1";
 		}
+		var idx_one = 0;
+		var idx_two = 0;
+		var idx_three =0;
+		var idx_four = 0;
 		
 		if($(".g_position_1").attr("id") != null ){
-			var idx_1 = $(".g_position_1").attr("id");
-			var idx_2 = $(".g_position_2").attr("id");
-			var idx_3 = $(".g_position_3").attr("id");
-			var idx_4 = $(".g_position_4").attr("id");
+			idx_one = $(".g_position_1").attr("id");
 		}
+		if( $(".g_position_2").attr("id")!= null){
+			idx_two = $(".g_position_2").attr("id");
+		}
+		if($(".g_position_3").attr("id") != null){
+			idx_three = $(".g_position_3").attr("id");
+		}
+		if($(".g_position_4").attr("id") != null){
+			idx_four = $(".g_position_4").attr("id");
+		}
+		
 		
 		$.ajax({
 			url : "app_line_insert.do",
-			data : {'a_line_name':a_line_name, 'idx_1': idx_1, "idx_2":idx_2, "idx_3":idx_3, "idx_4":idx_4},
-			success:function(){
+			data : {'a_line_name':a_line_name, 'idx_one': idx_one, "idx_two":idx_two, "idx_three":idx_three, "idx_four":idx_four},
+			success:function(data){
+					alert(data);
 					
 			}		
 		})

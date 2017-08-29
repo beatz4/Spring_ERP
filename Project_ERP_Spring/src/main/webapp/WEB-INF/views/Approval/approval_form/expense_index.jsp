@@ -26,7 +26,7 @@
 		<div class="row" style="height: 180px;">
 			<div class="panel-body" style="height: 100%;">
 				<div class="col-lg-5 col-lg-offset-7" style="height: 100%;">
-					<table width="100%" class="table table-striped table-bordered table-hover" height="100%" id="approval_line" type="button" data-target=".bs-example-modal-lg">
+					<table width="100%" class="table table-striped table-bordered table-hover" height="100%" onclick="app_line();">
 						<tr height="18%">			
 							<td align="center" rowspan="3" style="vertical-align: middle;" width="8%">결재</td>
 							<td></td>
@@ -91,30 +91,7 @@
                                 </td>
 							</tr>
 						</table>
-						</div>
-				<!-- <div class="col-lg-6" style="height: 154px;">
-					<table width="100%" class="table table-striped table-bordered table-hover" height="100%" id="approval_line" type="button" data-target=".bs-example-modal-lg">
-						<tr height="18%">			
-							<td align="center" rowspan="3" style="vertical-align: middle;" width="8%">결재</td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr>			
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-						<tr height="18%">			
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
-					</table>
-				</div> -->
+					</div>
 						
 					<div class="col-lg-12">
 						<table width="100%"
@@ -213,6 +190,9 @@
 	
 
 <script>
+	function app_line(){
+		
+	}
 
 	function expense_add(f){
 		

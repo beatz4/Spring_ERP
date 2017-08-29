@@ -24,7 +24,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="app_check_one" resultType="vo.UserVo" parameterType="int">
 		select * from user_view where idx=#{idx}
 	</select>
-
+	
+	<insert id="app_line_insert" parameterType="java.util.Map">
+		insert into a_line values(seq_a_line_idx.nextVal, #{idx}, #{idx_one}, #{idx_two}, #{idx_three}, #{idx_four}, #{a_line_name}, sysdate )
+	</insert>
+	
 </mapper>
 
 

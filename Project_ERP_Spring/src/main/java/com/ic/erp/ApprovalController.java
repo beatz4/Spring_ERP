@@ -168,11 +168,22 @@ public class ApprovalController {
 	public String app_line_insert(App_LineVo vo, HttpSession session){
 		
 		UserVo user_vo = (UserVo)session.getAttribute("user");
-		int idx = user_vo.getIdx();
-		System.out.println(idx);
-		System.out.println(vo.getA_line_name());
+
+		Map map = new HashMap();
+		map.put("idx", user_vo.getIdx());
+		map.put("idx_one", vo.getIdx_one());
+		map.put("idx_two", vo.getIdx_two());
+		map.put("idx_three", vo.getIdx_three());
+		map.put("idx_four", vo.getIdx_four());
+		map.put("a_line_name", vo.getA_line_name());
 		
-		return "";
+		int res = app_dao.app_insert_line(map);
+		
+		String result ="success";
+		if(res == -1){
+			result = "fail";
+		}
+		return result;
 	}
 	
 	

@@ -70,6 +70,15 @@ public class ApprovalDao {
 		return vo;
 	}
 
+	public int app_insert_line(Map map) {
+		// TODO Auto-generated method stub
+		int res = 0;
+		
+		res = sqlSession.insert("app_line_insert", map);
+		
+		return res;
+	}
+
 	/*public List<UserVo> selectlist_expense(int idx) {
 		// TODO Auto-generated method stub
 		List<UserVo> list ;

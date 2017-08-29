@@ -2,43 +2,40 @@ package vo.approval;
 
 public class App_LineVo {
 
-	int a_line_idx, idx, idx_1, idx_2, idx_3, idx_4;
+	int a_line_idx, idx, idx_one, idx_two, idx_three, idx_four;
 	String a_line_name, a_line_regdate;
 	
-	
-	public int getIdx_1() {
-		return idx_1;
+	public int getIdx_one() {
+		return idx_one;
 	}
 
-	public void setIdx_1(int idx_1) {
-		this.idx_1 = idx_1;
+	public void setIdx_one(int idx_one) {
+		this.idx_one = idx_one;
 	}
 
-	public int getIdx_2() {
-		return idx_2;
+	public int getIdx_two() {
+		return idx_two;
 	}
 
-	public void setIdx_2(int idx_2) {
-		this.idx_2 = idx_2;
+	public void setIdx_two(int idx_two) {
+		this.idx_two = idx_two;
 	}
 
-	public int getIdx_3() {
-		return idx_3;
+	public int getIdx_three() {
+		return idx_three;
 	}
 
-	public void setIdx_3(int idx_3) {
-		this.idx_3 = idx_3;
+	public void setIdx_three(int idx_three) {
+		this.idx_three = idx_three;
 	}
 
-	public int getIdx_4() {
-		return idx_4;
+	public int getIdx_four() {
+		return idx_four;
 	}
 
-	public void setIdx_4(int idx_4) {
-		this.idx_4 = idx_4;
+	public void setIdx_four(int idx_four) {
+		this.idx_four = idx_four;
 	}
-
-	
 
 	public int getA_line_idx() {
 		return a_line_idx;
