@@ -49,7 +49,7 @@ td{
 	<!-- 사이드 메뉴 불러오기 -->
 	<jsp:include page="side_menu.jsp" />
 
-	<div id="page-wrapper" style="margin: 0; margin-left: 200px;">
+	<div id="page-wrapper">
 		<!-- <div class="container"> -->
 			<div class="row">
 			<div class="col-lg-12" align="center">
@@ -60,8 +60,13 @@ td{
 			<div class="col-lg-12" align="center" >
 					<div class="panel panel-default">
 						<div class="panel-heading">How to use...</div>
-						<div class="panel-body" style="height: 100%;">
-						사용방법 : 부서 선택 후 결재선에 등록할 성명을 끌어서 결재선 표에 놔두면 됩니다.
+							<div class="panel-body">
+								<div align="left" style="width: 700px">
+								① 결재선 삽입 : 부서 선택 후 결재선에 등록할 성명을 끌어서 원하는 순서 직급위에 놔두면 됩니다.</br>
+								② 취소 : 등록 취소 하고 싶은 직원의 직위를 두번 클릭하면 됩니다.</br>
+								③ 전체취소: 결재선제목을 두번 클릭시 전체취소 되고 새로고침 됩니다.</br>
+								④ 등록 : 모든 결재선 성함을 채웠으면 등록버튼을 눌러 저장합니다.
+								</div>
 						</div>
 					</div>
 			</div> 
@@ -111,7 +116,7 @@ td{
 			<div class="row">
 				<div class="col-lg-12" align="center">
 					<div class="panel panel-default">
-						<div class="panel-heading">결재선</div>
+						<div class="panel-heading" ondblclick="window.location.reload()">결재선</div>
 						<form role="form">
 						<div class="panel-body" style="height: 100%;">
 							
@@ -119,26 +124,26 @@ td{
 									class="table table-striped table-bordered table-hover" ondrop="drop_handler(event);" ondragover="dragover_handler(event);" >
 									<tr height="70px;">
 										<th width="20%"
-											style="vertical-align: middle; text-align: center;">직위</th>
-										<td width="20%" class="g_position_1" style="vertical-align: middle;" ></td>
-										<td width="20%" class="g_position_2" style="vertical-align: middle;" ></td>
-										<td width="20%" class="g_position_3" style="vertical-align: middle;" ></td>
-										<td width="20%" class="g_position_4" style="vertical-align: middle;" ></td>
+											style="vertical-align: middle; text-align: center;">직급</th>
+										<td width="20%" class="g_position_1" style="vertical-align: middle;"></td>
+										<td width="20%" class="g_position_2" style="vertical-align: middle;"></td>
+										<td width="20%" class="g_position_3" style="vertical-align: middle;"></td>
+										<td width="20%" class="g_position_4" style="vertical-align: middle;"></td>
 									</tr>
-									<tr height="70px;">
+									<tr height="70px;" >
 										<th style="vertical-align: middle; text-align: center;">성명</th>
-										<td class="name_1" style="vertical-align: middle;"></td>
-										<td class="name_2" style="vertical-align: middle;"></td>
-										<td class="name_3" style="vertical-align: middle;"></td>
-										<td class="name_4" style="vertical-align: middle;"></td>
+										<td class="name_g_position_1" style="vertical-align: middle;"></td>
+										<td class="name_g_position_2" style="vertical-align: middle;"></td>
+										<td class="name_g_position_3" style="vertical-align: middle;"></td>
+										<td class="name_g_position_4" style="vertical-align: middle;"></td>
 									</tr>
 								</table>
 							
-							<a class="btn btn-default btn-lg" id="app_line_insert" onclick="return false;">
+							<a class="btn btn-default btn-lg" onclick="app_line_insert()">
                         		등록
                        		</a>
-                       		<a class="btn btn-default btn-lg" id="app_line_exit" onclick="href='main_page.do'">
-                        		취소
+                       		<a class="btn btn-default btn-lg" onclick="main()">
+                        		메인
                        		</a>
 						</div>
 						</form>
@@ -172,63 +177,124 @@ td{
 	
 	
 	<script>
+	function app_line_insert(){
+		var a_line_name = prompt("제목을 입력하세요:", "내결제선_1");
+		if(a_line_name== null || a_line_name == ""){
+			a_line_name = "내결재선_1";
+		}
+		
+		if($(".g_position_1").attr("id") != null ){
+			var idx_1 = $(".g_position_1").attr("id");
+			var idx_2 = $(".g_position_2").attr("id");
+			var idx_3 = $(".g_position_3").attr("id");
+			var idx_4 = $(".g_position_4").attr("id");
+		}
+		
+		$.ajax({
+			url : "app_line_insert.do",
+			data : {'a_line_name':a_line_name, 'idx_1': idx_1, "idx_2":idx_2, "idx_3":idx_3, "idx_4":idx_4},
+			success:function(){
+					
+			}		
+		})
+		 
+		
+	}
+	
+	
+	function main(){
+		
+		var cf = confirm("모두 취소하고 전자결재 매인페이지로 돌아가시겠습니가?");
+		if( cf == true){
+			location.href="main_page.do";
+		}
+	}
+	
+	
+	function dblclick_handler([className]){
+		
+		var cf = confirm("등록을 취소하시겠습니까?");
+		if(cf == true){
+			var g_position_class = "."+className;
+			var name_class =".name_"+className;
+			$(g_position_class).text("");
+			var name_idx=$(g_position_class).attr("id");
+			console.log(name_idx)
+			$(name_class).text(""); 
+			$("#"+name_idx).attr("draggable", true);
+		}
+	}
+	
 	
 	function dragstart_handler(ev){
 		
 		ev.dataTransfer.setData("text/plain", ev.target.id);
-		ev.dropEffect = "copy";
-		
-		for(var i = 1; i < 5; i++){
-			if(Number($(".g_position_"+i).attr('name')) >= Number($("#"+ev.target.id).attr('class'))){
-				alert("전에 등록한 직원 직급보다 높은 직원을 등록해야합니다.");
-				return;
-			}
-		}
+		ev.dropEffect = "move";
 		
 	}
 	
 	function dragover_handler(ev) {
 		 ev.preventDefault();
 		 // Set the dropEffect to move
-		 ev.dataTransfer.dropEffect = "copy";
+		 ev.dataTransfer.dropEffect = "move";
 		 
 		}
 		function drop_handler(ev) {
+		var idx_check = 0;
+		var idx_check_name = ev.target.className;
+		var idx_check_str = ev.target.className.substr(11,1);
+		if(idx_check_str >= 2){
+			idx_check_name = ".g_position_"+(idx_check_str-1);
+			idx_check = $(idx_check_name).attr('id');
+			console.log(idx_check);
+		}
+
+		if($("."+ev.target.className).text() != ""){
+			idx_check = $(idx_check_name).attr('id');
+			console.log(idx_check);
+		}
+		
 		ev.dataTransfer.dropEffect = "copy";
 		var idx = ev.dataTransfer.getData("text");
+		
 		$.ajax({
 			url : "check_line.do",
-			data : {'idx' : idx },
+			data : {'idx' : idx , 'idx_check' : idx_check},
 			success:function(data){
-				
-					console.log(data);
-				
-					var id = "", id2=""; 
-				
-					if($(".g_position_1").text()==""){
-						id = ".g_position_1";
-						id2 = ".name_1";
-						
-					}else if($(".g_position_1").text()!="" && $(".g_position_2").text()==""){
-						id = ".g_position_2";
-						id2 = ".name_2";
-						
-					}else if($(".g_position_2").text()!="" && $(".g_position_3").text()==""){
-						id = ".g_position_3";
-						id2 = ".name_3";
-						
-					}else if($(".g_position_3").text()!="" && $(".g_position_4").text()==""){
-						id = ".g_position_4";
-						id2 = ".name_4";
-						
-					}
 					
-					if(id != "" && id2 !=""){
-						$(id).attr("name", data.g_level);
-						$(id).attr("id",idx);
-						$(id).attr("ondblclick",app_line_re(event));
-						$(id).append(data.g_position);
-						$(id2).append(data.name);
+					var user_check = eval(data);
+					var g_position_class = "."+ev.target.className;
+					var name_class =".name_"+ev.target.className; 
+					
+					if(user_check[0].result == "ok"){
+						var cf = "";
+						if(g_position_class.indexOf("name")!=-1){
+							alert("직위에 내려놔야 등록이 가능합니다.");
+							return;
+						}
+						
+						if( $(g_position_class).attr('name') < user_check[0].g_level){
+							cf = confirm("새로 등록 하시겠습니까?");
+						}else{
+							cf = confirm("등록 하시겠습니까?");
+						}
+						 	
+							if(cf == true){
+								$(g_position_class).text("");
+								$(name_class).text("");
+								$(g_position_class).attr("name", user_check[0].g_level);
+								$(g_position_class).attr("id", user_check[0].idx);
+								$(g_position_class).append(user_check[0].g_position);
+								$(name_class).append(user_check[0].name);
+								$(g_position_class).attr("ondblclick","dblclick_handler([className])")
+								$("#"+user_check[0].idx).attr("draggable", false);
+							}
+						
+								
+					}else if(user_check[0].result =="nok"){
+						
+						alert("전에 등록한 근무자보다 높은 직급의 사람만 등록 가틍 합니다.");
+						
 					}
 					
 				}
@@ -254,10 +320,9 @@ td{
 						
 						$('[name=company_line_list]').append("<div data-addui='accordion'><div role='header'>"+user_data[0].c_name+"</div><div role='content'><table class='table table-striped table-bordered table-hover' name='user_name'><tr align='center' height='60px;'><th style='vertical-align: middle; text-align: center;'>직위</th><th style='vertical-align: middle; text-align: center;'>성명</th></tr></table></div></div>");
 						for(var i = 0; i < user_data.length ; i++){
-							
 							var g_name = "<tr height='30px;'><td style='vertical-align: middle; text-align: center;'>"+user_data[i].g_position+"</td><td style='vertical-align: middle; text-align: center;' name='user_data_name' id='"+user_data[i].idx+"' draggable='true' ondragstart='dragstart_handler(event);' class='"+user_data[i].g_level+"'>"+user_data[i].name+"</td></tr>"
 							$('[name=user_name]').append(g_name);
-							
+							/* $('.'+user_data[i].g_level).attr('name', ); */
 						}
 						s.type = "text/javascript";
 						

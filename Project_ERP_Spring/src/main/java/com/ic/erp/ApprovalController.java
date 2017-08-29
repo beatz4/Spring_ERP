@@ -138,14 +138,42 @@ public class ApprovalController {
 	
 	@RequestMapping("/Approval/check_line.do")
 	@ResponseBody
-	public UserVo check_line(int idx){
+	public List check_line(int idx, int idx_check, Model model){
 		
+		String result = "ok";
 		UserVo vo = app_dao.select_user_one(idx);
+		List<UserVo> user = new ArrayList<UserVo>();
 		
-		System.out.println(vo);
+		if(idx_check != 0){
+			/*int idx_ckeck_int=Integer.parseInt(idx_check);*/
+			UserVo check_vo = app_dao.select_user_one(idx_check);
+			
+			if(vo.getG_level() < check_vo.getG_level()){
+				result = "nok";
+			
+			}else if(vo.getG_level() >= check_vo.getG_level()){
+				result = "ok";
+				
+			}
+		}
 		
-		return vo;
+		vo = new UserVo(result,vo.getIdx(), vo.getG_idx(), vo.getName(), vo.getG_position(), vo.getG_level(), vo.getC_idx(), vo.getC_name());
+		user.add(vo);
+		
+		return user;
 		
 	}
+	@RequestMapping("/Approval/app_line_insert.do")
+	@ResponseBody
+	public String app_line_insert(App_LineVo vo, HttpSession session){
+		
+		UserVo user_vo = (UserVo)session.getAttribute("user");
+		int idx = user_vo.getIdx();
+		System.out.println(idx);
+		System.out.println(vo.getA_line_name());
+		
+		return "";
+	}
+	
 	
 }

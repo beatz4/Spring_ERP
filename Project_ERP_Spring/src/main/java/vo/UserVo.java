@@ -14,6 +14,17 @@ public class UserVo implements Serializable {
 	String id;
 	String password;
 	String regdate;
+	String result;
+	
+	
+
+	public String getResult() {
+		return result;
+	}
+
+	public void setResult(String result) {
+		this.result = result;
+	}
 
 	// 직급
 	String g_position;
@@ -39,8 +50,20 @@ public class UserVo implements Serializable {
 		this.c_name = c_name;
 		this.c_idx = c_idx;
 	}
-
-
+	
+	//approval_line check_id 담을 constructor
+	public UserVo(String result, int idx, int g_idx, String name, String g_position, int g_level, int c_idx,
+			String c_name) {
+		super();
+		this.idx = idx;
+		this.g_idx = g_idx;
+		this.name = name;
+		this.result = result;
+		this.g_position = g_position;
+		this.g_level = g_level;
+		this.c_idx = c_idx;
+		this.c_name = c_name;
+	}
 
 	public String getC_name() {
 		return c_name;
