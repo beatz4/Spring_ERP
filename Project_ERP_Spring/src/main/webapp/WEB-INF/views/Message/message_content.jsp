@@ -75,7 +75,7 @@
 	<jsp:include page="message_index.jsp" />
 	
 	<!-- 본문 내용 -->
-	<div id="page-wrapper" style="height: 900px;">
+	<div id="page-wrapper" style="height: 900px; margin: 0; margin-left: 200px;">
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-lg-12">

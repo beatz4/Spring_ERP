@@ -31,12 +31,8 @@
 	<!-- 주 메뉴, 사용자 메뉴 -->
 	<jsp:include page="main_index.jsp" />
 
-	<!-- 서브 메뉴 -->
-	<!-- 임시 방편으로 넣어둠 -->
-	<jsp:include page="side_menu.jsp" />
-
 	<!-- 본문 내용 -->
-	<div id="page-wrapper">
+	<div id="page-wrapper" style="margin: 0;">
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-lg-12">

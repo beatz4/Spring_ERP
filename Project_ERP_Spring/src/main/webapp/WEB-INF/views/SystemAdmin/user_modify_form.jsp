@@ -42,7 +42,7 @@
 	<!-- 사용자 정보, 서브 메뉴 -->
 	<jsp:include page="system_index.jsp" />
 
-	<div id="page-wrapper">
+	<div id="page-wrapper" style="margin: 0; margin-left: 200px;">
 		<div class="row">
 			<div class="col-lg-12">
 				<h1 class="page-header">신규 사원 정보</h1>

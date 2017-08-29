@@ -32,6 +32,10 @@
 	href="${ pageContext.request.contextPath }/resources/ExternalLib/bootstrap/css/font-awesome.min.css"
 	rel="stylesheet" type="text/css">
 
+<!-- dropFunction -->
+<script
+	src="${ pageContext.request.contextPath }/resources/js/dropFunction.js"></script>
+	
 <!-- jQuery -->
 <script
 	src="${ pageContext.request.contextPath }/resources/ExternalLib/bootstrap/js/jquery.min.js"></script>
@@ -89,7 +93,56 @@
 	</c:forEach>
 -->
 
-	<div id="wrapper">
+	<nav class="navbar navbar-inverse sidebar" role="navigation" style="margin:0; margin-top:30px;">
+	    <div class="container-fluid">
+	    	<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-sidebar-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">전자결제</a>
+			</div>
+			<div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1" align="center">
+				<ul class="nav navbar-nav">
+					<li>
+						<a href="doc_type.do">작성 하기
+						<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-send"></span></a>
+					</li>
+					
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">내가 받은 결제
+						<span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-cog"></span></a>
+						<ul class="dropdown-menu forAnimate" role="menu">
+							<li><a href="#">결재 대기</a></li>
+							<li><a href="#">미결재 문서</a></li>
+							<li><a href="#">결재 완료 문서</a></li>
+							<li><a href="#">반려 문서</a></li>
+						</ul>
+					</li>
+					
+					<li class="dropdown">
+						<a href="${ pageContext.request.contextPath }/SystemAdmin/position_manager.do" class="dropdown-toggle" data-toggle="dropdown">내가 올린 결재
+						<span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-cog"></span></a>
+						<ul class="dropdown-menu forAnimate" role="menu">
+							<li><a href="#">결재 대기</a></li>
+							<li><a href="#">미결재 문서</a></li>
+							<li><a href="#">결재 완료 문서</a></li>
+							<li><a href="#">반려 문서</a></li>
+						</ul>
+					</li>
+	
+					<li>
+						<a href="${ pageContext.request.contextPath }/Approval/insert_app_line.do">결재선 관리
+						<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-inbox"></span></a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<%-- <div id="wrapper">
 		<!-- Navigation -->
 		<div class="navbar-default sidebar" role="navigation">
 			<div class="sidebar-nav navbar-collapse">
@@ -149,6 +202,6 @@
 		<!-- Page Content -->
 		<!-- 좌측 wrapper 태그가 들어오면 세로 나눔선이 생긴다. -->
 	</div>
-	<!-- Wrapper -->
+	<!-- Wrapper --> --%>
 </body>
 </html>

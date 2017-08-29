@@ -79,7 +79,42 @@
 	</c:forEach>
 -->
 
-	<div id="wrapper">
+	<nav class="navbar navbar-inverse sidebar" role="navigation" style="margin:0; margin-top:30px;">
+	    <div class="container-fluid">
+    		<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-sidebar-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">쪽지함</a>
+			</div>
+			<div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1" align="center">
+				<ul class="nav navbar-nav">
+					<li>
+						<a href="${ pageContext.request.contextPath }/Message/insert_form.do?select=insert_form">쪽지쓰기
+						<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-send"></span></a>
+					</li>
+					<li>
+						<a href="${ pageContext.request.contextPath }/Message/list.do?select=list">받은쪽지함
+						<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-collapse-down"></span></a>
+					</li>
+					<li>
+						<a href="${ pageContext.request.contextPath }/Message/send_list.do?select=send_list">보낸쪽지함
+						<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-collapse-up"></span></a>
+					</li>
+					<li>
+						<a href="${ pageContext.request.contextPath }/Message/box_list.do?select=box_list">쪽지보관함
+						<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-inbox"></span></a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	
+	<%-- <div id="wrapper">
 		<!-- Navigation -->
 		<div class="navbar-default sidebar" role="navigation">
 			<div class="sidebar-nav navbar-collapse">
@@ -114,6 +149,6 @@
 		<!-- 좌측 wrapper 태그가 들어오면 세로 나눔선이 생긴다. -->
 		
 	</div>
-	<!-- Wrapper -->
+	<!-- Wrapper --> --%>
 </body>
 </html>

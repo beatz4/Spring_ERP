@@ -73,7 +73,7 @@
 	<jsp:include page="message_index.jsp" />
 	
 	<!-- 본문 내용 -->
-	<div id="page-wrapper">
+	<div id="page-wrapper"  style="margin: 0; margin-left: 200px;">
 		<div class="row">
 			<div class="col-lg-12">
 				<h1 class="page-header">받은쪽지함</h1>

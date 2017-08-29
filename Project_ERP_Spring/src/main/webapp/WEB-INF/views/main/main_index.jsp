@@ -34,13 +34,70 @@
 
 		if (confirm('정말 로그아웃 하시겠습니까?') == true) {
 			location.href = '${ pageContext.request.contextPath }/main/login.do';
+		}else{
+			location.href="${ pageContext.request.contextPath }/main/main.do";
 		}
 	}
 </script>
 
 </head>
 <body>
-	<div id="wrapper">
+
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+	  <div class="navbar-header">
+	    <a class="navbar-brand" href="${ pageContext.request.contextPath }/main/main.do">Project ERP</a>
+	    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+	      <span class="icon-bar"></span>
+	      <span class="icon-bar"></span>
+	      <span class="icon-bar"></span>
+	    </button>
+	  </div>
+	  <div class="navbar-collapse collapse">
+	    <ul class="nav navbar-nav">
+	      <li><a href="${ pageContext.request.contextPath }/Approval/main_page.do">전자결제</a></li>
+	      <li><a href="${ pageContext.request.contextPath }/FileBoard/file_board.do">자료실</a></li>
+	      <li><a href="${ pageContext.request.contextPath }/Message/list.do?select=list">쪽지함</a></li>
+	      <c:if test="${ user.id == 'admin' }">
+	      	<li><a href="${ pageContext.request.contextPath }/SystemAdmin/user_manager.do">시스템관리</a></li>
+	      </c:if>
+	    </ul>
+	    <div class="navbar-header navbar-right">
+	      	
+	  	</div>
+	  	 <ul class="nav navbar-nav navbar-right">
+	  	 	<li><a href="#" class="navbar-link">Username</a></li>
+		    <li><a href="javascript:void(0)" id="signout" onclick="logout()"><span class="glyphicon glyphicon-lock"></span> Sign Out</a></li>
+		 </ul>
+	  </div>
+	</nav>
+	
+	<div class="container-fluid">
+	  Current viewport width:<span id="monitor"></span>
+	</div>
+		
+<%-- 
+	<nav class="navbar navbar-default navbar-static-top navbar-inverse" role="navigation" style="margin: 0;">
+		<div class="container-fluid">
+		    <div class="navbar-header">
+		        <a href="${ pageContext.request.contextPath }/main/main.do" class="navbar-brand">Project ERP</a>
+		    </div>
+		    <div id="navbar-menu" class="collapse navbar-collapse">
+		        <ul class="nav navbar-nav">
+		            <li><a href="${ pageContext.request.contextPath }/Approval/main_page.do">전자결제</a></li>
+		            <li><a href="${ pageContext.request.contextPath }/FileBoard/file_board.do">자료실</a></li>
+		            <li><a href="${ pageContext.request.contextPath }/Message/list.do?select=list">쪽지함</a></li>
+		            <c:if test="${ user.id == 'admin' }">
+		            	<li><a href="${ pageContext.request.contextPath }/SystemAdmin/user_manager.do">시스템관리</a></li>
+		            </c:if>
+		        </ul>
+		        <ul class="nav navbar-nav navbar-right">
+		            <li><a href="javascript:void(0)" id="signout" onclick="logout()"><span class="glyphicon glyphicon-lock"></span> Sign Out</a></li>
+		        </ul>
+		    </div>
+		</div>
+	</nav> --%>
+
+	<%-- <div id="wrapper">
 
 		<!-- Navigation -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
@@ -124,7 +181,7 @@
 			todo : 각 링크 연결
 			  -->
 		</nav>
-	</div>
+	</div> --%>
 	
 <!-- jQuery -->
 <script src="${ pageContext.request.contextPath }/resources/ExternalLib/bootstrap/js/jquery.min.js"></script>

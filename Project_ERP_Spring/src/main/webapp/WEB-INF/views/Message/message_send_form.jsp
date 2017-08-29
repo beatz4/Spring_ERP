@@ -101,7 +101,7 @@
 	<jsp:include page="message_index.jsp" />
 	
 	<!-- 본문 내용 -->
-	<div id="page-wrapper"  style="min-width: 500px;">
+	<div id="page-wrapper" style="margin: 0; margin-left: 200px;min-width: 500px;">
 		<div class="container-fluid">
 			<!-- page내용 -->
 			<div style="padding-top: 40px;">

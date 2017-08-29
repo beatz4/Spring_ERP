@@ -43,7 +43,7 @@
 
 	<!-- 본문 내용 -->
 
-	<div id="page-wrapper">
+	<div id="page-wrapper" style="margin: 0; margin-left: 200px;">
 		<div class="container">
 			<c:if test="${param.doc_idx == 1 }">
 				<%@include file="approval_form/expense_index.jsp" %>

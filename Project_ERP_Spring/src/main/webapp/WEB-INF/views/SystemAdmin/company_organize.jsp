@@ -19,7 +19,7 @@
 <!-- 사용자 정보, 서브 메뉴 -->
 <jsp:include page="../main/side_menu.jsp" />
 
-	<div id="page-wrapper">
+	<div id="page-wrapper" style="margin: 0; margin-left: 200px;">
 		<div class="row">
 			<div class="col-lg-8">
 				<h1 class="page-header">조직 구성</h1>
