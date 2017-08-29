@@ -50,12 +50,13 @@ td{
 	<jsp:include page="side_menu.jsp" />
 
 	<div id="page-wrapper">
-		<div class="container">
-			
+		<!-- <div class="container"> -->
+			<div class="row">
 			<div class="col-lg-12" align="center">
 				<h1 class="page-header">결재선 관리</h1>
 			</div>
-			
+			</div>
+			<div class="row">
 			<div class="col-lg-12" align="center" >
 					<div class="panel panel-default">
 						<div class="panel-heading">How to use...</div>
@@ -64,7 +65,8 @@ td{
 						</div>
 					</div>
 			</div> 
-		
+			</div>
+			<div class="row">
 			<!-- 좌측 트리 -->
 			<div class="col-lg-6" align="center">
 				<div class="panel panel-default">
@@ -105,29 +107,23 @@ td{
 					<div class="panel-body" name="company_line_list" style="height: 350px; overflow:auto;"></div>
 				</div>
 			</div>
-			
-			
-						
-			
-			
-			<form role="form">
-				<div class="row" style="height: 180px;">
+			</div>
+			<div class="row">
+				<div class="col-lg-12" align="center">
 					<div class="panel panel-default">
+						<div class="panel-heading">결재선</div>
+						<form role="form">
 						<div class="panel-body" style="height: 100%;">
-							<div class="col-lg-12" style="height: 100%;">
+							
 								<table width="100%"
-									class="table table-striped table-bordered table-hover" ondrop="drop_handler(event);" ondragover="dragover_handler(event);">
-									<tr align="center" height="60px;">
-										<th colspan="5"
-											style="vertical-align: middle; text-align: center;")>결재선</th>
-									</tr>
+									class="table table-striped table-bordered table-hover" ondrop="drop_handler(event);" ondragover="dragover_handler(event);" >
 									<tr height="70px;">
 										<th width="20%"
 											style="vertical-align: middle; text-align: center;">직위</th>
-										<td width="20%" class="g_position_1" style="vertical-align: middle;"></td>
-										<td width="20%" class="g_position_2" style="vertical-align: middle;"></td>
-										<td width="20%" class="g_position_3" style="vertical-align: middle;"></td>
-										<td width="20%" class="g_position_4" style="vertical-align: middle;"></td>
+										<td width="20%" class="g_position_1" style="vertical-align: middle;" ></td>
+										<td width="20%" class="g_position_2" style="vertical-align: middle;" ></td>
+										<td width="20%" class="g_position_3" style="vertical-align: middle;" ></td>
+										<td width="20%" class="g_position_4" style="vertical-align: middle;" ></td>
 									</tr>
 									<tr height="70px;">
 										<th style="vertical-align: middle; text-align: center;">성명</th>
@@ -137,12 +133,20 @@ td{
 										<td class="name_4" style="vertical-align: middle;"></td>
 									</tr>
 								</table>
-							</div>
+							
+							<a class="btn btn-default btn-lg" id="app_line_insert" onclick="return false;">
+                        		등록
+                       		</a>
+                       		<a class="btn btn-default btn-lg" id="app_line_exit" onclick="href='main_page.do'">
+                        		취소
+                       		</a>
 						</div>
+						</form>
 					</div>
+				
 				</div>
-			</form>
-		</div>
+			</div>
+		<!-- </div> -->
 	</div>
 
 
@@ -202,11 +206,8 @@ td{
 					var id = "", id2=""; 
 				
 					if($(".g_position_1").text()==""){
-						
-						console.log(data.g_position);
 						id = ".g_position_1";
 						id2 = ".name_1";
-						
 						
 					}else if($(".g_position_1").text()!="" && $(".g_position_2").text()==""){
 						id = ".g_position_2";
@@ -224,23 +225,18 @@ td{
 					
 					if(id != "" && id2 !=""){
 						$(id).attr("name", data.g_level);
+						$(id).attr("id",idx);
+						$(id).attr("ondblclick",app_line_re(event));
 						$(id).append(data.g_position);
 						$(id2).append(data.name);
 					}
 					
-					
-					
 				}
-			
 		 }); 
-		 
+		
 	}
-
-	
 	
 	$(document).ready(function(){
-		/* $("[data-toggle='app_line']").draggalbe(); */
-		
 		
 		$('[name=company_user]').on('click',function(){
 			
