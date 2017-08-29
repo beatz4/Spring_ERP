@@ -3,6 +3,19 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+<%
+	Cookie[] cookie = request.getCookies();
+	String id = "";
+	if(cookie != null){
+		for(int i=0; i<cookie.length; i++){
+			if(cookie[i].getName().trim().equals("id")){
+				//System.out.println(cookie[i].getValue());
+				id = cookie[i].getValue();
+			}
+		}
+	}
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,7 +43,13 @@
 <link
 	href="${ pageContext.request.contextPath }/resources/ExternalLib/bootstrap/css/font-awesome.min.css"
 	rel="stylesheet" type="text/css">
-	
+
+<!-- login CSS -->	
+<link href="${ pageContext.request.contextPath }/resources/css/login_action.css" rel="stylesheet" type="text/css">
+
+<!-- login particles.js -->
+<script type="text/javascript" src="${ pageContext.request.contextPath }/resources/js/particles.js"></script>
+
 <!-- jQuery -->
 <script src="${ pageContext.request.contextPath }/resources/ExternalLib/bootstrap/js/jquery.min.js"></script>
 
@@ -56,6 +75,7 @@
 		
 		var id = $("#id").val();
 		var password = $("#password").val();
+		var saveId = $("#saveId").prop("checked");
 		 
 		if (id == '') {
 			alert('아이디를 입력하세요!!');
@@ -71,7 +91,7 @@
 
 		// 첫 시작 페이지로 login 페이지를 설정하였으므로 url을 바꾸어준다.
 		var url = "${ pageContext.request.contextPath }/main/check_login.do";
-		var param = "id=" + id + "&password=" + password;
+		var param = "id=" + id + "&password=" + password +"&saveId=" + saveId;
 
 		sendRequest(url, param, resultFn_login, "GET");
 	}
@@ -106,8 +126,31 @@
 
 </head>
 <body>
-
 <form>
+	<div class="container">
+		<div id="login-box">
+			<div class="logo">
+				<h1 class="logo-caption"><span class="tweak">P</span>roject<span class="tweak"> ERP</span></h1> 
+				<img class="img img-responsive img-circle center-block"/>
+				<h1 class="logo-caption"><span class="tweak">L</span>ogin</h1>
+			</div>
+			<div class="controls">
+				<input class="form-control" placeholder="id" name="id" id="id" value="<%=id %>" autofocus />
+				<input class="form-control" placeholder="Password" id="password"
+										name="password" type="password" onkeypress="if(event.keyCode==13) {login(this.form);}" />
+				<div class="checkbox" style="color: white;">
+	    	    	<label>
+	    	    		<input id="saveId" name="saveId" type="checkbox" <% if(id.length()>1) out.println("checked"); %>> Remember Me
+	    	    	</label>
+			    </div>
+				<button type="button" class="btn btn-default btn-block btn-custom" onclick="login(this.form);">Login</button>
+			</div>
+		</div>
+	</div>
+	<div id="particles-js"></div>
+</form>
+
+<!-- <form>
 	<div class="container">
 		<div class="row">
 			<div class="col-md-4 col-md-offset-4">
@@ -134,7 +177,7 @@
 			</div> 
 		</div>
 	</div>
-</form>
+</form> -->
 
 </body>
 </html>

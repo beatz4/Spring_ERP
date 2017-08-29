@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,7 +64,21 @@ public class MainMenuController {
 	//로그인체크
 	@RequestMapping("/main/check_login.do")
 	@ResponseBody
-	public String login_check(String id, String password){
+	public String login_check(HttpServletResponse response, String id, String password, String saveId){
+		
+		Cookie cookie = null;
+		
+		if(saveId.equals("true")){
+			cookie = new Cookie("id", java.net.URLEncoder.encode(id));
+			cookie.setMaxAge(60*60*24*365);
+			cookie.setPath("/");
+			response.addCookie(cookie);
+		}else{
+			cookie = new Cookie("id", null);
+			cookie.setMaxAge(0);
+			cookie.setPath("/");
+			response.addCookie(cookie);
+		}
 		
 		String result = "ok";
 		
@@ -78,7 +94,6 @@ public class MainMenuController {
 			if (vo == null) {
 				result = "pw_ng";
 			} else {
-
 				// session에 user 저장
 				session.setAttribute("user", vo);
 			}
