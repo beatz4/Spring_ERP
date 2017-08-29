@@ -1,11 +1,7 @@
 -- 시퀸스 생성
-create sequence seq_message_idx START WITH 1 INCREMENT BY 1
+create sequence seq_message_idx
 -- 시퀸스 삭제
 drop sequence seq_message_idx
-
--- 시퀸스 초기화 : 증가값과 nextVal를 이용해 0으로 맞추어준다
-select seq_message_idx.nextval from dual
-alter sequence seq_message_idx increment by 1
 
 -- 테이블 생성
 create table message(
