@@ -19,5 +19,6 @@
 		<mapper resource="config/mybatis/mapper/user.xml" />
 		<mapper resource="config/mybatis/mapper/company.xml" />
 		<mapper resource="config/mybatis/mapper/approval.xml" />
+		<mapper resource="config/mybatis/mapper/file_board.xml" />
 	</mappers>
 </configuration>

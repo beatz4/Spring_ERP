@@ -88,7 +88,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#">쪽지함</a>
+				<a class="navbar-brand" href="${ pageContext.request.contextPath }/Message/list.do?select=list"">쪽지함</a>
 			</div>
 			<div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1" align="center">
 				<ul class="nav navbar-nav">

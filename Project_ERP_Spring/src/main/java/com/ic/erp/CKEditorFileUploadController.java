@@ -37,7 +37,7 @@ public class CKEditorFileUploadController {
         try{
  
             String fileName = upload.getOriginalFilename();           
-            String web_path = "/resources/upload/";
+            String web_path = "/resources/image/";
             String abs_path = application.getRealPath(web_path);
             //String uploadPath = "저장경로/" + fileName;//저장경로
             File f = new File(abs_path,fileName);

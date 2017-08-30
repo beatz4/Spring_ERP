@@ -65,4 +65,13 @@
 		<beans:property name="user_dao" ref="user_dao"/>
 	</beans:bean>
 	
+	<beans:bean class="com.ic.erp.FileBoardController">
+		<beans:property name="file_dao">
+			<beans:ref bean="file_dao"/>
+		</beans:property>
+		<beans:property name="user_dao">
+			<beans:ref bean="user_dao"/>
+		</beans:property>
+	</beans:bean>
+	
 </beans:beans>
