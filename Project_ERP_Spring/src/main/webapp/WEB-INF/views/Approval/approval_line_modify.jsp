@@ -124,22 +124,22 @@ td{
 										<tr height="70px;">
 											<th width="20%"
 												style="vertical-align: middle; text-align: center;">직급</th>
-											<td width="20%" class="g_position_1" style="vertical-align: middle;"></td>
-											<td width="20%" class="g_position_2" style="vertical-align: middle;"></td>
-											<td width="20%" class="g_position_3" style="vertical-align: middle;"></td>
-											<td width="20%" class="g_position_4" style="vertical-align: middle;"></td>
+											<td width="20%" class="g_position_1" style="vertical-align: middle;" name="${vo.g_level_one }" id="${vo.idx_one }" ondblclick = "dblclick_handler([className])">${vo.g_position_one }</td>
+											<td width="20%" class="g_position_2" style="vertical-align: middle;" name="${vo.g_level_two }" id="${vo.idx_two }" ondblclick = "dblclick_handler([className])">${vo.g_position_two }</td>
+											<td width="20%" class="g_position_3" style="vertical-align: middle;" name="${vo.g_level_three }" id="${vo.idx_three }" ondblclick = "dblclick_handler([className])">${vo.g_position_three }</td>
+											<td width="20%" class="g_position_4" style="vertical-align: middle;" name="${vo.g_level_four }" id="${vo.idx_four }" ondblclick = "dblclick_handler([className])">${vo.g_position_four }</td>
 										</tr>
 										<tr height="70px;" >
 											<th style="vertical-align: middle; text-align: center;">성명</th>
-											<td class="name_g_position_1" style="vertical-align: middle;"></td>
-											<td class="name_g_position_2" style="vertical-align: middle;"></td>
-											<td class="name_g_position_3" style="vertical-align: middle;"></td>
-											<td class="name_g_position_4" style="vertical-align: middle;"></td>
+											<td class="name_g_position_1" style="vertical-align: middle;">${vo.user_name_one }</td>
+											<td class="name_g_position_2" style="vertical-align: middle;">${vo.user_name_two }</td>
+											<td class="name_g_position_3" style="vertical-align: middle;">${vo.user_name_three }</td>
+											<td class="name_g_position_4" style="vertical-align: middle;">${vo.user_name_four }</td>
 										</tr>
 									</table>
 								
-								<a class="btn btn-default btn-lg" onclick="app_line_insert()">
-	                        		등록
+								<a class="btn btn-default btn-lg" onclick="app_line_modify()">
+	                        		수정
 	                       		</a>
 	                       		<a class="btn btn-default btn-lg" onclick="main()">
 	                        		메인
@@ -171,23 +171,20 @@ td{
 	<script src="${ pageContext.request.contextPath }/resources/ExternalLib/bootstrap/js/addAccordion.js"></script>
 	
 	<script>
-	function app_line_insert(){
-		
-		var a_line_name = prompt("제목을 입력하세요:","내결재선_1");
+	function app_line_modify(){
+		var a_line_name = prompt("제목을 입력하세요:", "${vo.a_line_name}");
 		
 		if(a_line_name){
 			
-			if(a_line_name== null || a_line_name == "" || a_line_name=="내결재선_1"){
-				var today = new Date();
-				var localeTime  =  today.toLocaleTimeString();
-				a_line_name = "내결재선_1_"+localeTime;
+			if(a_line_name== null || a_line_name == "" || a_line_name == "${vo.a_line_name}"){
+				a_line_name = "${vo.a_line_name}";
 			}
 			
 			var idx_one = 0;
 			var idx_two = 0;
 			var idx_three = 0;
 			var idx_four = 0;
-			
+			var a_line_idx = ${vo.a_line_idx};
 			if($(".g_position_1").attr("id") != null ){
 				idx_one = $(".g_position_1").attr("id");
 			}
@@ -201,23 +198,26 @@ td{
 				idx_four = $(".g_position_4").attr("id");
 			}
 			
+			
 			$.ajax({
-				url : "app_line_insert.do",
-				data : {'a_line_name':a_line_name, 'idx_one': idx_one, "idx_two":idx_two, "idx_three":idx_three, "idx_four":idx_four},
+				url : "app_line_mod.do",
+				data : {'a_line_name':a_line_name, 'idx_one': idx_one, "idx_two":idx_two, "idx_three":idx_three, "idx_four":idx_four, "a_line_idx":a_line_idx},
 				success:function(data){
 						if(data == "success"){
-							alert("등록하였습니다.");
+							alert("수정하였습니다.");
 							location.href ="app_line.do";
-						}	
+						}			
 				}	
 				
 			})	 
+			
 		}else{
 			alert("취소 되었습니다.");
-			
 		}
 		
+		
 	}
+	
 	
 	function main(){
 		
@@ -227,6 +227,7 @@ td{
 		}
 	}
 	
+	
 	function dblclick_handler([className]){
 		
 		var cf = confirm("등록을 취소하시겠습니까?");
@@ -235,10 +236,12 @@ td{
 			var name_class =".name_"+className;
 			$(g_position_class).text("");
 			var name_idx=$(g_position_class).attr("id");
+			console.log(name_idx)
 			$(name_class).text(""); 
 			$("#"+name_idx).attr("draggable", true);
 		}
 	}
+	
 	
 	function dragstart_handler(ev){
 		
@@ -253,9 +256,8 @@ td{
 		 ev.dataTransfer.dropEffect = "move";
 		 
 		}
-		
-		//성명을 내려놨을때의 효과
 		function drop_handler(ev) {
+			
 		var idx_check_front = 0;
 		var idx_check_back = 0;
 		var idx_check_name = ev.target.className;
@@ -272,13 +274,12 @@ td{
 			idx_check_front = $(idx_check_name).attr('id');
 			
 		}
-		
 		ev.dataTransfer.dropEffect = "copy";
 		var idx = ev.dataTransfer.getData("text");
 		
 		$.ajax({
 			url : "check_line.do",
-			data : {'idx' : idx , 'idx_check_front' : idx_check_front, 'idx_check_back' : idx_check_back},
+			data : {'idx' : idx , 'idx_check' : idx_check},
 			success:function(data){
 					
 					var user_check = eval(data);
@@ -312,7 +313,7 @@ td{
 								
 					}else if(user_check[0].result =="nok"){
 						
-						alert("전에 등록한 근무자보다 높은 직급의 사람만 등록 가능 합니다.");
+						alert("전에 등록한 근무자보다 높은 직급의 사람만 등록 가틍 합니다.");
 						
 					}else if(user_check[0].result =="bnok"){
 						

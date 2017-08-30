@@ -6,10 +6,6 @@ public class App_LineVo {
 	int a_line_idx, idx, idx_one, idx_two, idx_three, idx_four;
 	String a_line_name, a_line_regdate;
 	
-	//생성후 View를 위한 VO
-	
-	
-	
 	public int getIdx_one() {
 		return idx_one;
 	}
@@ -67,7 +63,7 @@ public class App_LineVo {
 	}
 
 	public String getA_line_regdate() {
-		return a_line_regdate;
+		return a_line_regdate.substring(2, 10).replaceAll("-", ".");
 	}
 
 	public void setA_line_regdate(String a_line_regdate) {

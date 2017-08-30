@@ -17,7 +17,7 @@ select * from
 --app_line_view 생성
 create or replace view app_line_view_1
 as
-select a.idx, a.a_line_idx, a.idx_one, u.name user_name_one, u.g_level g_level_one, u.g_position g_position_one, u.c_name c_name_one    from USER_VIEW u inner join a_line a on u.idx = a.idx_one;
+select a.a_line_name, a.idx, a.a_line_idx, a.idx_one, u.name user_name_one, u.g_level g_level_one, u.g_position g_position_one, u.c_name c_name_one    from USER_VIEW u inner join a_line a on u.idx = a.idx_one;
 create or replace view app_line_view_2
 as
 select a.a_line_idx a_line_idx_two, a.idx_two, u.name user_name_two, u.g_level g_level_two, u.g_position g_position_two, u.c_name c_name_two    from USER_VIEW u inner join a_line a on u.idx = a.idx_two;
@@ -43,6 +43,8 @@ drop view app_line_view_1;
 drop view app_line_view_2;
 drop view app_line_view_3;
 drop view app_line_view_4;
+
+delete from A_LINE where a_line_idx = 8
 
 commit
 --개인키 설정

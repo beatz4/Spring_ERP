@@ -32,6 +32,7 @@
 	src="${ pageContext.request.contextPath }/resources/ExternalLib/bootstrap/js/sb-admin-2.js"></script>
 
 <script>
+	
 	function del_user() {
 		/* 사용자 삭제 - ajax (jquery) */
 
@@ -78,36 +79,7 @@
 		});
 	}
 	
-	function mod_user() {
-		/* 사용자 수정 - ajax (jquery) */
-
-		/* 체크된 element 정보를 담을 변수 */
-		var param = "";
-		var count = 0;
-
-		$("input:checkbox:checked").each(function() {
-			// 해당 배열에 checkbox의 value(사번)을 넣어준다.
-			if( param == "" )
-				param = "index="+$(this).parent().children("#chk_user").val();
-	        else 
-	        	param = param + "&index="+$(this).parent().children("#chk_user").val();
-			
-			count++;
-		});
-		
-		if( count == 0 ) {
-			alert('선택된 사용자가 없습니다.');
-			return;
-		}
-		
-		if( count > 1 ) {
-			alert('수정할 한명의 사용자를 선택하세요.');
-			return;
-		}
-
-		location.href='modify_form.do?'+param;
-		
-	}
+	
 </script>
 
 </head>
@@ -134,38 +106,19 @@
 						<table width="100%" class="table table-striped table-bordered table-hover" id="dataTables">
 							<thead>
 								<tr>
-									<th>선택</th>
-									<th>목차</th>
-									<th>제목</th>
-									<th>생성날짜</th>
+									<th width="5%">선택</th>
+									<th style="text-align: center;">제목</th>
+									<th width="10%">생성날짜</th>
 								</tr>
 							</thead>
 							<tbody>
 								<c:forEach var="vo" items="${ list }">
 									<tr>
-										<c:choose>
-											<c:when test="${ vo.id eq 'admin'}">
-												<td id="chk_user">
-													<input id="chk_user" type="checkbox" name="checkbox" value="${ vo.idx }" 
-															disabled="disabled">
-												</td>
-											</c:when>
-											<c:otherwise>
-												<td id="chk_user">
-													<input id="chk_user" type="checkbox" name="checkbox" value="${ vo.idx }">
-												</td>
-											</c:otherwise>
-										</c:choose>
-										
-										<td id="index">${ vo.idx }</td>
-										<td>${ vo.c_name }</td>
-										<td>${ vo.name }</td>
-										<td>${ vo.id }</td>
-										<td>${ vo.password }</td>
-										<td>${ vo.address }</td>
-										<td>${ vo.email }</td>
-										<td>${ vo.phone }</td>
-										<td>${ vo.regdate }</td>
+										<td id="chk_user" align="center">
+											<input id="chk_user" type="checkbox" name="checkbox" value="${ vo.a_line_idx }">
+										</td>
+										<td style="text-align: center;"><a href="app_line_mod_form.do?a_line_idx=${vo.a_line_idx}">${ vo.a_line_name }</a></td>
+										<td>${ vo.a_line_regdate }</td>
 										
 									</tr> 
 								</c:forEach> 
@@ -175,11 +128,6 @@
                         <div class="well">
                         	<!-- 사용자 추가 button -->
                         	<a class="btn btn-default btn-lg" href="insert_app_line.do">결재선 추가</a>
-                        	<a class="btn btn-default btn-lg" target="_blank" 
-                        		href="javascript:void(0);"
-                        		onclick="mod_app_line()">
-                        			결재선 수정
-                      		</a>
                         	<a class="btn btn-default btn-lg" target="_blank" 
                         		href="javascript:void(0);"
                         		onclick="del_app_line()">

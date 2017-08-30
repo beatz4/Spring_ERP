@@ -23,6 +23,7 @@ import vo.UserVo;
 import vo.approval.App_DocVo;
 import vo.approval.App_ExpenseVo;
 import vo.approval.App_Expense_ContentVo;
+import vo.approval.App_LineViewVo;
 import vo.approval.App_LineVo;
 import vo.approval.Doc_TypeVo;
 
@@ -115,8 +116,15 @@ public class ApprovalController {
 	
 	//∞·¿Áº± Controller
 	@RequestMapping("/Approval/app_line.do")
-	public String app_line(){
+	public String app_line(Model model){
 		
+		UserVo vo = (UserVo) session.getAttribute("user");
+		
+		int idx = vo.getIdx();
+		
+		List<App_LineVo> list = app_dao.app_line_list(idx);
+		
+		model.addAttribute("list", list);
 		
 		return VIEW_PATH+"/approval_line_list.jsp";
 	}
@@ -152,23 +160,36 @@ public class ApprovalController {
 	
 	@RequestMapping("/Approval/check_line.do")
 	@ResponseBody
-	public List check_line(int idx, int idx_check, Model model){
+	public List check_line(int idx, int idx_check_front, int idx_check_back, Model model){
 		
 		String result = "ok";
 		UserVo vo = app_dao.select_user_one(idx);
 		List<UserVo> user = new ArrayList<UserVo>();
 		
-		if(idx_check != 0){
+		if(idx_check_front != 0){
 			/*int idx_ckeck_int=Integer.parseInt(idx_check);*/
-			UserVo check_vo = app_dao.select_user_one(idx_check);
+			UserVo check_vo = app_dao.select_user_one(idx_check_front);
 			
-			if(vo.getG_level() < check_vo.getG_level()){
-				result = "nok";
-			
-			}else if(vo.getG_level() >= check_vo.getG_level()){
-				result = "ok";
+				if(vo.getG_level() < check_vo.getG_level()){
+					result = "nok";
 				
-			}
+				}else{
+					
+					if(idx_check_back != 0){
+						UserVo check_vo_back = app_dao.select_user_one(idx_check_back);
+						
+						if(vo.getG_level() > check_vo_back.getG_level()){
+							result="bnok";
+						}else{
+							result="ok";
+						}
+						
+					}else{
+						result="ok";
+					}
+			
+				}
+				
 		}
 		
 		vo = new UserVo(result,vo.getIdx(), vo.getG_idx(), vo.getName(), vo.getG_position(), vo.getG_level(), vo.getC_idx(), vo.getC_name());
@@ -177,6 +198,7 @@ public class ApprovalController {
 		return user;
 		
 	}
+	
 	@RequestMapping("/Approval/app_line_insert.do")
 	@ResponseBody
 	public String app_line_insert(App_LineVo vo){
@@ -200,5 +222,39 @@ public class ApprovalController {
 		return result;
 	}
 	
+	@RequestMapping(value ="/Approval/app_line_mod_form.do", produces="text/html;charset=utf-8")
+	public String app_line_mod(Model model, int a_line_idx){
+		
+		List<CompanyVo> list = app_dao.company_select();
+		
+		model.addAttribute("list", list);
+		
+		App_LineViewVo vo = app_dao.app_line_select_one(a_line_idx);
+		
+		model.addAttribute("vo", vo);
+		
+		return VIEW_PATH+"/approval_line_modify.jsp";
+	}
+	
+	@RequestMapping(value ="/Approval/app_line_mod.do", produces="text/html;charset=utf-8")
+	@ResponseBody
+	public String app_line_modify(App_LineVo vo){
+
+		Map map = new HashMap();
+		map.put("a_line_idx", vo.getA_line_idx());
+		map.put("idx_one", vo.getIdx_one());
+		map.put("idx_two", vo.getIdx_two());
+		map.put("idx_three", vo.getIdx_three());
+		map.put("idx_four", vo.getIdx_four());
+		map.put("a_line_name", vo.getA_line_name());
+		
+		int res = app_dao.app_update_line(map);
+		
+		String result ="success";
+		if(res == -1){
+			result = "fail";
+		}
+		return result;
+	}
 	
 }

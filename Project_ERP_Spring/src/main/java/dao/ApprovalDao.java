@@ -9,6 +9,7 @@ import vo.CompanyVo;
 import vo.UserVo;
 import vo.approval.App_DocVo;
 import vo.approval.App_ExpenseVo;
+import vo.approval.App_LineViewVo;
 import vo.approval.App_LineVo;
 import vo.approval.Doc_TypeVo;
 
@@ -75,6 +76,34 @@ public class ApprovalDao {
 		int res = 0;
 		
 		res = sqlSession.insert("app_line_insert", map);
+		
+		return res;
+	}
+
+	//user 결재선 목록
+	public List<App_LineVo> app_line_list(int idx) {
+		// TODO Auto-generated method stub
+		List<App_LineVo> list = null;
+		
+		list = sqlSession.selectList("app_line_list", idx);
+		
+		return list;
+	}
+
+	public App_LineViewVo app_line_select_one(int a_line_idx) {
+		// TODO Auto-generated method stub
+		App_LineViewVo vo = null;
+		
+		vo = sqlSession.selectOne("app_line_select_one", a_line_idx);
+		
+		return vo;
+	}
+
+	public int app_update_line(Map map) {
+		// TODO Auto-generated method stub
+		int res = 0;
+		
+		res = sqlSession.update("app_line_update", map);
 		
 		return res;
 	}
