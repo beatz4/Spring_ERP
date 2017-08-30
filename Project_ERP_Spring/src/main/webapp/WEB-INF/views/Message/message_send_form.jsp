@@ -104,7 +104,7 @@
 	<div id="page-wrapper">
 		<div class="container-fluid">
 			<!-- page내용 -->
-			<div style="padding-top: 80px;">
+			<div style="padding-top: 40px;">
 			  <div class="panel panel-default" style="margin:0; width: 58%;">
 			    <div class="panel-heading">쪽지쓰기</div>
 			    <div class="panel-body">

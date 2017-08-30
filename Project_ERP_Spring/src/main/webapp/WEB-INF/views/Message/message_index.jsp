@@ -78,8 +78,8 @@
 		${ m }<br>
 	</c:forEach>
 -->
-
-	<nav class="navbar navbar-inverse sidebar" role="navigation" style="margin:0; margin-top:30px;">
+	
+	<nav class="navbar navbar-inverse sidebar" role="navigation" style="margin:0;">
 	    <div class="container-fluid">
     		<div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-sidebar-navbar-collapse-1">

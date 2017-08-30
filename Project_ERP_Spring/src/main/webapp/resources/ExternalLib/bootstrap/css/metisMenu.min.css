@@ -1,5 +1,6 @@
     body,html{
-		height: 100%;
+		padding: 0px;
+		margin: 0px;
 	}
 
 	/* remove outer padding */
@@ -76,7 +77,7 @@
 			float: none;
 			width: auto;
 			margin-top: 0;
-			background-color: black;
+			background-color: #222222;
 			border: 0;
 			-webkit-box-shadow: none;
 			box-shadow: none;
@@ -95,7 +96,7 @@
 		/*gives sidebar width/height*/
 		nav.sidebar{
 			width: 250px;
-			height: 100%;
+			height: 28%;
 			margin-left: -160px;
 			float: left;
 			z-index: 8000;
@@ -149,3 +150,4 @@
 	section{
 		padding-left: 15px;
 	}
+	

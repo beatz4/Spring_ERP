@@ -43,7 +43,7 @@
 </head>
 <body>
 
-	<nav class="navbar navbar-inverse navbar-fixed-top">
+	<nav class="navbar navbar-inverse navbar-fixed-top" style="margin:0;position:static">
 	  <div class="navbar-header">
 	    <a class="navbar-brand" href="${ pageContext.request.contextPath }/main/main.do">Project ERP</a>
 	    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -70,10 +70,6 @@
 		 </ul>
 	  </div>
 	</nav>
-	
-	<div class="container-fluid">
-	  Current viewport width:<span id="monitor"></span>
-	</div>
 		
 <%-- 
 	<nav class="navbar navbar-default navbar-static-top navbar-inverse" role="navigation" style="margin: 0;">

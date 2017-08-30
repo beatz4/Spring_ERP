@@ -41,7 +41,7 @@
 	<jsp:include page="../main/side_menu.jsp" />
 
 	<div id="page-wrapper">
-		<div class="row" style="padding-top: 20px;">
+		<div class="row">
 			<div class="col-lg-12">
 				<h1 class="page-header">근태 관리 목록</h1>
 			</div>

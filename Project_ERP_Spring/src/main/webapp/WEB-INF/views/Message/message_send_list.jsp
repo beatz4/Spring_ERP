@@ -73,7 +73,7 @@
 	
 	<!-- 본문 내용 -->
 	<div id="page-wrapper">
-		<div class="row" style="padding-top: 20px;">
+		<div class="row">
 			<div class="col-lg-12">
 				<h1 class="page-header">보낸쪽지함</h1>
 			</div>

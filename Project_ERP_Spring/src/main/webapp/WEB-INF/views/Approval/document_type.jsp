@@ -35,7 +35,7 @@
 	<jsp:include page="side_menu.jsp" />
 
 	<div id="page-wrapper">
-		<div class="row" style="padding-top: 20px;">
+		<div class="row" >
 			<div class="col-lg-12">
 				<h5 class="page-header"><i class="fa fa-archive fa-fw"></i> 기안문서 </h5>
 				<h5><i></i></h5>

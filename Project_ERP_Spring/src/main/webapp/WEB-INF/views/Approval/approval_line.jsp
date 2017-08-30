@@ -49,7 +49,7 @@ td{
 	<!-- 사이드 메뉴 불러오기 -->
 	<jsp:include page="side_menu.jsp" />
 
-	<div id="page-wrapper" style="padding-top: 20px;">
+	<div id="page-wrapper">
 		<!-- <div class="container"> -->
 			<div class="row">
 			<div class="col-lg-12" align="center">

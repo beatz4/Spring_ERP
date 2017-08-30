@@ -43,7 +43,7 @@
 	<jsp:include page="../main/side_menu.jsp" />
 
 	<div id="page-wrapper">
-		<div class="row" style="padding-top: 20px;">
+		<div class="row">
 			<div class="col-lg-12">
 				<h1 class="page-header">신규 사원 정보</h1>
 			</div> 
