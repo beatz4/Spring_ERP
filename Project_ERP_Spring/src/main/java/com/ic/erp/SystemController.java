@@ -8,7 +8,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -38,6 +40,10 @@ public class SystemController {
 
 	@Autowired
 	HttpServletRequest request;
+	@Autowired
+	HttpSession session;
+	@Autowired
+	ServletContext application;
 
 	UserDao user_dao; // 유저 정보
 	GradeDao grade_dao; // 직급 정보

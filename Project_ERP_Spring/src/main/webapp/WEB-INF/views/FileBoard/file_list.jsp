@@ -31,7 +31,7 @@
 			</div>
 		</div>
 		<div align="left" style="padding-bottom: 10px">
-		  <button style="width: 80px;" type="button" class="btn" onclick="">글쓰기</button>      
+		  <button style="width: 80px;" type="button" class="btn" onclick="location.href='file_insert_form.do'">글쓰기</button>      
 		</div>
 		<div class="panel panel-default" style="margin: 0; min-width: 500px; min-height: 590px;">
 			<div class="panel-body">

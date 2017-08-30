@@ -16,9 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import dao.MainMenuDao;
+import dao.MessageDao;
 import dao.UserDao;
 import define.DefineType;
 import vo.MainMenuVo;
+import vo.MessageVo;
 import vo.UserVo;
 
 @Controller
@@ -28,6 +30,7 @@ public class MainMenuController {
 	
 	MainMenuDao mainmenu_dao;
 	UserDao user_dao;
+	MessageDao message_dao;
 
 	@Autowired
 	HttpServletRequest request;
@@ -51,6 +54,15 @@ public class MainMenuController {
 	public void setMainmenu_dao(MainMenuDao mainmenu_dao) {
 		this.mainmenu_dao = mainmenu_dao;
 	}
+	
+	public MessageDao getMessage_dao() {
+		return message_dao;
+	}
+
+	public void setMessage_dao(MessageDao message_dao) {
+		this.message_dao = message_dao;
+	}
+
 	
 	//·Î±×ÀÎ
 	@RequestMapping("/main/login.do")
@@ -107,6 +119,9 @@ public class MainMenuController {
 	public String main_menu(HttpServletRequest request){
 		
 		UserVo user = (UserVo)session.getAttribute("user");
+		
+		int new_msg = message_dao.message_recv_count(user.getId());
+		session.setAttribute("new_msg", new_msg);
 		
 		if( user == null ) {
 			return null;

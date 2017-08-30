@@ -52,4 +52,10 @@ public class FileBoardController {
 		return VIEW_PATH+"file_list.jsp";
 	}
 	
+	@RequestMapping("/FileBoard/file_insert_form.do")
+	public String file_insert_form(){
+		
+		return VIEW_PATH+"file_insert_form.jsp";
+	}
+	
 }

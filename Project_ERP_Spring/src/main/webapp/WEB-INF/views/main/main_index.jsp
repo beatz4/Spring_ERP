@@ -65,7 +65,10 @@
 	      	
 	  	</div>
 	  	 <ul class="nav navbar-nav navbar-right">
-	  	 	<li><a href="#" class="navbar-link">Username</a></li>
+	  	 	<li><a href="#" class="navbar-link">${ user.id }</a></li>
+	  	 	<%-- <c:if test="${ new_msg ne 0 }" > --%>
+	  	 		<li><a href="${ pageContext.request.contextPath }/Message/list.do?select=list" class="navbar-link">New Message(${ new_msg })</a></li>
+	  	 	<%-- </c:if> --%>
 		    <li><a href="javascript:void(0)" id="signout" onclick="logout()"><span class="glyphicon glyphicon-lock"></span> Sign Out</a></li>
 		 </ul>
 	  </div>

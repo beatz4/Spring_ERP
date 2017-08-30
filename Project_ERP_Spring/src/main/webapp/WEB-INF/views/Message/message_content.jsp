@@ -102,13 +102,23 @@
 							</tr>
 							<tr>
 								<td>
-									<div style="width: 83%; float: left;">
+									<div style="width: 100%; float: left;">
 								      <label for="usr">제목</label>
 								      <div class="panel panel-default">
 								      	<div style="width: 100%; height: auto; font-size: 15px; text-align: left; padding-left: 10px; padding-right: 10px; overflow: hidden; padding-top: 3px;">${ vo.title }</div>
 								      </div>
 								    </div>
-								    <div style="width: 15%; float: right;">
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<div style="width: 49%; float: left;">
+								      <label for="usr">받은날짜</label>
+								      <div class="panel panel-default">
+								      	<div style="width: 100%; height: auto; font-size: 15px; text-align: left; padding-left: 10px; padding-right: 10px; overflow: hidden; padding-top: 3px;">${ vo.recv_date }</div>
+								      </div>
+								    </div>
+									<div style="width: 49%; float: right;">
 								      <label for="usr">보낸날짜</label>
 								      <div class="panel panel-default">
 								      	<div style="width: 100%; height: auto; font-size: 15px; text-align: left; padding-left: 10px; padding-right: 10px; overflow: hidden; padding-top: 3px;">${ vo.send_date }</div>

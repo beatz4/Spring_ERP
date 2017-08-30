@@ -25,9 +25,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
     
     <!-- 쪽지 읽었을때 읽은상태와 본 날짜 입력 -->
+    <!-- message_send table -->
+    <update id="message_send_state" parameterType="java.util.Map">
+    	update message_send set recv_date=#{ recv_date }, send_state=#{ send_state } where idx=#{ idx }
+    </update>
+    
+    <!-- 쪽지 읽었을때 읽은상태와 본 날짜 입력 -->
     <!-- message table -->
     <update id="message_state" parameterType="java.util.Map">
-    	update message_send set recv_date=#{ recv_date }, send_state=#{ send_state } where idx=#{ idx }
+    	update message set recv_date=#{ recv_date }, send_state=#{ send_state } where idx=#{ idx }
     </update>
     
     
@@ -133,7 +139,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			where rank between #{ start } and #{ end }
     </select>
     
-   
+    <!-- message box row total -->
+    <select id="message_recv_count" parameterType="String" resultType="int">
+    	select count(*) from message where recv_date='미수신' and recv_id=#{ recv_id }
+    </select>
     
 </mapper>
 

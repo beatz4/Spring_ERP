@@ -111,6 +111,14 @@ public class MessageDao {
 		
 	    return res;
 	}
+	
+	public int msg_send_update_state(Map map){
+	    int res = 0;
+	
+	    res = sqlSession.update("message_send_state", map);
+		
+	    return res;
+	}
 
 	public int delete(int idx) {
 		int res = 0;
@@ -160,5 +168,13 @@ public class MessageDao {
 		return total;
 	}
 
+	public int message_recv_count(String recv_id){
+		int total = 0;
+		
+		total = sqlSession.selectOne("message_recv_count", recv_id);
+		
+		return total;
+		
+	}
 	
 }

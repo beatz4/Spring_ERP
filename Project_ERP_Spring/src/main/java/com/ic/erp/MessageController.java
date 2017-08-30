@@ -263,7 +263,7 @@ public class MessageController {
 	
 	@RequestMapping("Message/view.do")
 	public String view(int idx, Model model){
-		
+	
 		MessageVo vo = message_dao.selectOne(idx);
 		
 		if(vo.getSend_state().equals("¹Ì¼ö½Å")){
@@ -280,6 +280,12 @@ public class MessageController {
 			map.put("send_state", send_state);
 			
 			int res = message_dao.msg_update_state(map);
+				res = message_dao.msg_send_update_state(map);
+				
+			UserVo user = (UserVo)session.getAttribute("user");
+			
+			int new_msg = message_dao.message_recv_count(user.getId());
+			session.setAttribute("new_msg", new_msg);
 		}
 		
 		model.addAttribute("vo", vo);
@@ -309,6 +315,7 @@ public class MessageController {
 			int idx = Integer.parseInt(str);
 			
 			int res = message_dao.delete(idx);
+			
 		}
 		return "";
 	}
@@ -437,4 +444,5 @@ public class MessageController {
 		
 		return "redirect:insert_form.do";
 	}
+	
 }

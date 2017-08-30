@@ -76,6 +76,8 @@ from
 --전체레코드수
 select nvl(count(*),0) from message where recv_id='test' and msg_box='nobox'
 
+select count(*) from message where recv_date='미수신' and recv_id='admin'
+
 -- poplist 페이징
 select *
 from
