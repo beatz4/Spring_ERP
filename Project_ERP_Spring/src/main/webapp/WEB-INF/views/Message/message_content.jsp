@@ -62,9 +62,9 @@
 				});
 			
 		}
-	
-	</script>
 
+	</script>
+	
 </head>
 <body>
 
@@ -89,29 +89,29 @@
 								   <div style="width: 49%; float: left;">
 								      <label for="usr">받은ID</label>
 								      <div class="panel panel-default">
-								      	<div style="max-width: 100%; width: 100%; height: 28px; font-size: 15px; text-align: left; margin-left: 10px; overflow-y: auto; padding-top: 3px;">${ vo.recv_id }</div>
+								      	<div style="max-width: 100%; width: 100%; height: auto; font-size: 15px; text-align: left; padding-left: 10px; padding-right: 10px; overflow: hidden; padding-top: 3px;">${ vo.recv_id }</div>
 								      </div>
 							      </div>
 							      <div style="width: 49%; float: right;">
 								      <label for="usr">보낸ID</label>
 								      <div class="panel panel-default">
-								      	<div style="width: 100%; height: 28px; font-size: 15px; text-align: left; margin-left: 10px; overflow-y: auto; padding-top: 3px;">${ vo.send_id }</div>
+								      	<div style="width: 100%; height: auto; font-size: 15px; text-align: left; padding-left: 10px; padding-right: 10px; overflow: hidden; padding-top: 3px;">${ vo.send_id }</div>
 								      </div>
 							      </div>
 								</td>
 							</tr>
 							<tr>
 								<td>
-									<div style="width: 80%; float: left;">
+									<div style="width: 83%; float: left;">
 								      <label for="usr">제목</label>
 								      <div class="panel panel-default">
-								      	<div style="width: 100%; height: 28px; font-size: 15px; text-align: left; margin-left: 10px; overflow-y: auto; padding-top: 3px;">${ vo.title }</div>
+								      	<div style="width: 100%; height: auto; font-size: 15px; text-align: left; padding-left: 10px; padding-right: 10px; overflow: hidden; padding-top: 3px;">${ vo.title }</div>
 								      </div>
 								    </div>
-								    <div style="width: 18%; float: right;">
+								    <div style="width: 15%; float: right;">
 								      <label for="usr">보낸날짜</label>
 								      <div class="panel panel-default">
-								      	<div style="width: 100%; height: 28px; font-size: 15px; text-align: left; margin-left: 10px; padding-top: 3px;">${ vo.send_date }</div>
+								      	<div style="width: 100%; height: auto; font-size: 15px; text-align: left; padding-left: 10px; padding-right: 10px; overflow: hidden; padding-top: 3px;">${ vo.send_date }</div>
 								      </div>
 								    </div>
 								</td>
@@ -121,7 +121,7 @@
 								    <div style="width: 100%;">
 								      <label for="comment">내용</label>
 								    	<div class="panel panel-default">
-								    		<div class="panel-body" style="width: 100%; height: 500px; overflow-y: auto; font-size: 15px;">${ vo.content }</div>	
+								    		<div class="panel-body" style="width: 100%; height: 450px; overflow-y: auto; font-size: 15px;">${ vo.content }</div>	
 								    	</div>
 								    	<div style="width: 100%; margin-top: 15px;" align="right" >
 										  <input type="hidden" id="select" value="${ param.select }">

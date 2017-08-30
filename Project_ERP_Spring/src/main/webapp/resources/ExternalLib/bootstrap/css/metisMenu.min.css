@@ -1,6 +1,5 @@
     body,html{
-		padding: 0px;
-		margin: 0px;
+    	height: 100%;
 	}
 
 	/* remove outer padding */
@@ -96,7 +95,8 @@
 		/*gives sidebar width/height*/
 		nav.sidebar{
 			width: 250px;
-			height: 28%;
+			min-height: 1000px;
+			height: 100%;
 			margin-left: -160px;
 			float: left;
 			z-index: 8000;
