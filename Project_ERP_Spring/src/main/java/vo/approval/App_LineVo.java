@@ -2,8 +2,13 @@ package vo.approval;
 
 public class App_LineVo {
 
+	//생성 될때 쓰는 VO
 	int a_line_idx, idx, idx_one, idx_two, idx_three, idx_four;
 	String a_line_name, a_line_regdate;
+	
+	//생성후 View를 위한 VO
+	
+	
 	
 	public int getIdx_one() {
 		return idx_one;

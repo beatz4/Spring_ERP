@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +30,9 @@ import vo.approval.Doc_TypeVo;
 public class ApprovalController {
 	
 	final static String VIEW_PATH = "/WEB-INF/views/Approval/";
+	
+	@Autowired
+	HttpSession session;
 	
 	ApprovalDao app_dao;
 	
@@ -68,7 +72,7 @@ public class ApprovalController {
 	}
 	
 	@RequestMapping("/Approval/insert_form.do")
-	public String insert_form(int doc_idx, Model model, HttpSession session){
+	public String insert_form(int doc_idx, Model model){
 		
 		if(doc_idx==1){
 			UserVo user = (UserVo)session.getAttribute("user");
@@ -108,6 +112,16 @@ public class ApprovalController {
 		return "redirect:insert_form.do?doc_idx=1";
 	}
 	
+	
+	//∞·¿Áº± Controller
+	@RequestMapping("/Approval/app_line.do")
+	public String app_line(){
+		
+		
+		return VIEW_PATH+"/approval_line_list.jsp";
+	}
+	
+	
 	@RequestMapping(value ="/Approval/insert_app_line.do", produces="text/html;charset=utf-8")
 	public String insert_app_line(Model model){
 		
@@ -119,7 +133,7 @@ public class ApprovalController {
 	}
 	
 	
-	@RequestMapping("/Approval/approval_line_list.do")
+	@RequestMapping("/Approval/approval_line.do")
 	@ResponseBody
 	public List approval_line_list(int idx){
 		
@@ -165,7 +179,7 @@ public class ApprovalController {
 	}
 	@RequestMapping("/Approval/app_line_insert.do")
 	@ResponseBody
-	public String app_line_insert(App_LineVo vo, HttpSession session){
+	public String app_line_insert(App_LineVo vo){
 		
 		UserVo user_vo = (UserVo)session.getAttribute("user");
 

@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -118,43 +117,42 @@ td{
 					<div class="panel panel-default">
 						<div class="panel-heading" ondblclick="window.location.reload()">결재선</div>
 						<form role="form">
-						<div class="panel-body" style="height: 100%;">
-							
-								<table width="100%"
-									class="table table-striped table-bordered table-hover" ondrop="drop_handler(event);" ondragover="dragover_handler(event);" >
-									<tr height="70px;">
-										<th width="20%"
-											style="vertical-align: middle; text-align: center;">직급</th>
-										<td width="20%" class="g_position_1" style="vertical-align: middle;"></td>
-										<td width="20%" class="g_position_2" style="vertical-align: middle;"></td>
-										<td width="20%" class="g_position_3" style="vertical-align: middle;"></td>
-										<td width="20%" class="g_position_4" style="vertical-align: middle;"></td>
-									</tr>
-									<tr height="70px;" >
-										<th style="vertical-align: middle; text-align: center;">성명</th>
-										<td class="name_g_position_1" style="vertical-align: middle;"></td>
-										<td class="name_g_position_2" style="vertical-align: middle;"></td>
-										<td class="name_g_position_3" style="vertical-align: middle;"></td>
-										<td class="name_g_position_4" style="vertical-align: middle;"></td>
-									</tr>
-								</table>
-							
-							<a class="btn btn-default btn-lg" onclick="app_line_insert()">
-                        		등록
-                       		</a>
-                       		<a class="btn btn-default btn-lg" onclick="main()">
-                        		메인
-                       		</a>
-						</div>
+							<div class="panel-body" style="height: 100%;">
+								
+									<table width="100%"
+										class="table table-striped table-bordered table-hover" ondrop="drop_handler(event);" ondragover="dragover_handler(event);" >
+										<tr height="70px;">
+											<th width="20%"
+												style="vertical-align: middle; text-align: center;">직급</th>
+											<td width="20%" class="g_position_1" style="vertical-align: middle;"></td>
+											<td width="20%" class="g_position_2" style="vertical-align: middle;"></td>
+											<td width="20%" class="g_position_3" style="vertical-align: middle;"></td>
+											<td width="20%" class="g_position_4" style="vertical-align: middle;"></td>
+										</tr>
+										<tr height="70px;" >
+											<th style="vertical-align: middle; text-align: center;">성명</th>
+											<td class="name_g_position_1" style="vertical-align: middle;"></td>
+											<td class="name_g_position_2" style="vertical-align: middle;"></td>
+											<td class="name_g_position_3" style="vertical-align: middle;"></td>
+											<td class="name_g_position_4" style="vertical-align: middle;"></td>
+										</tr>
+									</table>
+								
+								<a class="btn btn-default btn-lg" onclick="app_line_insert()">
+	                        		등록
+	                       		</a>
+	                       		<a class="btn btn-default btn-lg" onclick="main()">
+	                        		메인
+	                       		</a>
+							</div>
 						</form>
 					</div>
 				
 				</div>
+				
 			</div>
-		<!-- </div> -->
+		
 	</div>
-
-
 
 	<!-- jQuery -->
 	<script
@@ -165,16 +163,12 @@ td{
 		src="${ pageContext.request.contextPath }/resources/ExternalLib/bootstrap/js/bootstrap.min.js"></script>
 
 	<!-- Metis Menu Plugin JavaScript -->
-	<script
-		src="${ pageContext.request.contextPath }/resources/ExternalLib/bootstrap/js/metisMenu.min.js"></script>
+	<script src="${ pageContext.request.contextPath }/resources/ExternalLib/bootstrap/js/metisMenu.min.js"></script>
 
 	<!-- Custom Theme JavaScript -->
-	<script
-		src="${ pageContext.request.contextPath }/resources/ExternalLib/bootstrap/js/sb-admin-2.js"></script>
+	<script src="${ pageContext.request.contextPath }/resources/ExternalLib/bootstrap/js/sb-admin-2.js"></script>
 	
 	<script src="${ pageContext.request.contextPath }/resources/ExternalLib/bootstrap/js/addAccordion.js"></script>
-	
-	
 	
 	<script>
 	function app_line_insert(){
@@ -205,11 +199,10 @@ td{
 			url : "app_line_insert.do",
 			data : {'a_line_name':a_line_name, 'idx_one': idx_one, "idx_two":idx_two, "idx_three":idx_three, "idx_four":idx_four},
 			success:function(data){
-					alert(data);
-					
-			}		
-		})
-		 
+					alert(data);			
+			}	
+			
+		})	 
 		
 	}
 	
@@ -320,7 +313,7 @@ td{
 			
 			var idx =$(this).attr('class');
 			$.ajax({
-				url : "approval_line_list.do",
+				url : "approval_line.do",
 				data :{'idx' : idx},
 				success :function(data){
 					
@@ -342,7 +335,6 @@ td{
 						
 						$('[name=company_line_list]').append(s);
 					
-						
 					}else{
 						$('[name=company_line_list]').append("<div class='panel panel-default'><div class='panel-heading'><h5>조직원이 없습니다</h5></div></div>");
 					}	
@@ -352,7 +344,6 @@ td{
 			});
 			
 		});
-		
 		
 	});
 	

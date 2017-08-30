@@ -11,7 +11,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 
-
 <!-- Bootstrap Core CSS -->
 <link
 	href="${ pageContext.request.contextPath }/resources/ExternalLib/bootstrap/css/bootstrap.min.css"
@@ -134,7 +133,7 @@
 					</li>
 	
 					<li>
-						<a href="${ pageContext.request.contextPath }/Approval/insert_app_line.do">결제선 관리
+						<a href="${ pageContext.request.contextPath }/Approval/app_line.do">결제선 관리
 						<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-inbox"></span></a>
 					</li>
 				</ul>
