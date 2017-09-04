@@ -29,6 +29,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		insert into a_line values(seq_a_line_idx.nextVal, #{idx}, #{idx_one}, #{idx_two}, #{idx_three}, #{idx_four}, #{a_line_name}, sysdate )
 	</insert>
 	
+	<select id="app_line_list" resultType="vo.approval.App_LineVo" parameterType="int">
+		select * from a_line where idx=#{idx}
+	</select>
+	
+	<select id="app_line_select_one" resultType="vo.approval.App_LineViewVo" parameterType="int">
+		select * from app_line_view where a_line_idx=#{a_line_idx}
+	</select>
+	
+	<update id="app_line_update" parameterType="java.util.Map">
+		update a_line 
+		set 
+		idx_one=#{idx_one}, 
+		idx_two=#{idx_two}, 
+		idx_three=#{idx_three}, 
+		idx_four=#{idx_four}, 
+		a_line_name=#{a_line_name}, 
+		a_line_regdate=sysdate
+		where a_line_idx = #{a_line_idx} 
+	</update>
+	
 </mapper>
 
 
