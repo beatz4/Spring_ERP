@@ -33,65 +33,27 @@
 
 <script>
 	
-	function del_user() {
-		/* 사용자 삭제 - ajax (jquery) */
-
-		/* 체크된 element 정보를 담을 변수 */
-		var param = "";
-		var count = 0;
-
-		$("input:checkbox:checked").each(function() {
-			// 해당 배열에 checkbox의 value(사번)을 넣어준다.
-			if( param == "" )
-				param = "index="+$(this).parent().children("#chk_user").val();
-	        else 
-	        	param = param + "&index="+$(this).parent().children("#chk_user").val();
-			
-			count++;
-		});
+	/* function app_index_line_index(){
 		
-		if( count == 0 ) {
-			alert('선택된 사용자가 없습니다.');
-			return;
-		}
+		window.clo
 		
-		// 삭제 확인
-		if (confirm(count + '명을 정말 삭제 하시겠습니까?') == false) { 
-			return;
-		}
-
-		// list를 ajax를 통해 delete.do servlet으로 전송
-		var url = "delete.do";
 		
-		$.ajax({
-			type : "POST",
-			url : url,
-			data : param,
-			dataType : 'text',
-			success : function(data) {
-	
-				document.location.href = "user_manager.do";
-			},
-			error : function(request, status, error) {
-				alert("code:" + request.status + "\n" + "message:"
-						+ request.responseText + "\n" + "error:" + error);
-			}
-		});
-	}
-	
+	} */
 	
 </script>
 
 </head>
 <body>
 	
-	<!-- 메뉴 불러오기 -->
-	<jsp:include page="../main/main_index.jsp" />
+	<div id="testDiv" style="display: none;">
+		<!-- 메뉴 불러오기 -->
+		<jsp:include page="../../main/main_index.jsp" />
 	
-	<!-- 사이드 메뉴 불러오기 -->
-	<jsp:include page="side_menu.jsp" />
+		<!-- 사이드 메뉴 불러오기 -->
+		<jsp:include page="../side_menu.jsp" />
+	</div>
 	
-	<div id="page-wrapper" style="height: 100%;">
+	<div id="page-wrapper" style="margin: 0px">
 		<div class="row" style="padding-top: 20px;">
 			<div class="col-lg-12">
 				<h1 class="page-header">결재선 목록</h1>
@@ -117,23 +79,14 @@
 										<td id="chk_user" align="center">
 											<input id="chk_user" type="checkbox" name="checkbox" value="${ vo.a_line_idx }">
 										</td>
-										<td style="text-align: center;"><a href="app_line_mod_form.do?a_line_idx=${vo.a_line_idx}">${ vo.a_line_name }</a></td>
+										<td style="text-align: center;"><a href="#" class="${vo.a_line_idx}" onclick="app_index_line_index();return false;">${ vo.a_line_name }</a></td>
 										<td>${ vo.a_line_regdate }</td>
 										
 									</tr> 
 								</c:forEach> 
 							</tbody>
                         </table>
-                         
-                        <div class="well" >
-                        	<!-- 사용자 추가 button -->
-                        	<a class="btn btn-default btn-lg" href="insert_app_line.do">결재선 추가</a>
-                        	<a class="btn btn-default btn-lg" target="_blank" 
-                        		href="javascript:void(0);"
-                        		onclick="del_app_line()">
-                        			결재선 삭제
-                      		</a>
-						</div>
+                      
 					</div>
 				</div>
 			<!-- /.col-lg-12 -->
@@ -168,12 +121,11 @@
 <script type="text/javascript">
 	$(document).ready(function() {
         $('#dataTables').DataTable({
-           	responsive: true 
+            responsive: true
         });
         
         $('#dataTables_wrapper .col-sm-6 #dataTables_filter').css("text-align","right");
         $('#dataTables_wrapper .col-sm-6 #dataTables_paginate').css("text-align","right");
-        
     });
 </script>
 

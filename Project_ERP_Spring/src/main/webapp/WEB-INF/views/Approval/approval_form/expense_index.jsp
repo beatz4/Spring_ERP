@@ -23,12 +23,12 @@
 		<!-- /.col-lg-12 -->
 	</div>
 	<form role="form">
-		<div class="row" style="height: 180px;">
+		<div class="row" style="height: 200px;">
 			<div class="panel-body" style="height: 100%;">
 				<div class="col-lg-5 col-lg-offset-7" style="height: 100%;">
 					<table width="100%" class="table table-striped table-bordered table-hover" height="100%" onclick="app_line();">
 						<tr height="18%">			
-							<td align="center" rowspan="3" style="vertical-align: middle;" width="8%">결재</td>
+							<td align="center" rowspan="4" style="vertical-align: middle;" width="8%">결재</td>
 							<td></td>
 							<td></td>
 							<td></td>
@@ -40,7 +40,13 @@
 							<td></td>
 							<td></td>
 						</tr>
-						<tr height="18%">			
+						<tr height="15%">			
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+						<tr height="15%">			
 							<td></td>
 							<td></td>
 							<td></td>
@@ -191,6 +197,14 @@
 
 <script>
 	function app_line(){
+		
+		var popupX = (window.screen.width / 2) - (1200 / 2);
+		// 만들 팝업창 좌우 크기의 1/2 만큼 보정값으로 빼주었음
+
+		var popupY= (window.screen.height /2) - (800 / 2);
+		// 만들 팝업창 상하 크기의 1/2 만큼 보정값으로 빼주었음
+							
+		window.open("app_line_index.do", "pop", 'status=no, height=800, width=1200, resizable=no, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY);
 		
 	}
 
@@ -350,11 +364,7 @@
 	 });
 	 
 	 
-	 var popupX = (window.screen.width / 2) - (1200 / 2);
-	// 만들 팝업창 좌우 크기의 1/2 만큼 보정값으로 빼주었음
-
-	 var popupY= (window.screen.height /2) - (800 / 2);
-	// 만들 팝업창 상하 크기의 1/2 만큼 보정값으로 빼주었음
+	
 
 	  $('#approval_line').on('click', function(){
 		  

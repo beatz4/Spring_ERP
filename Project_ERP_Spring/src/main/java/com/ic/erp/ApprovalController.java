@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -116,7 +117,7 @@ public class ApprovalController {
 	
 	//∞·¿Áº± Controller
 	@RequestMapping("/Approval/app_line.do")
-	public String app_line(Model model){
+	public String app_line(Model model){	
 		
 		UserVo vo = (UserVo) session.getAttribute("user");
 		
@@ -127,6 +128,20 @@ public class ApprovalController {
 		model.addAttribute("list", list);
 		
 		return VIEW_PATH+"/approval_line_list.jsp";
+	}
+	
+	@RequestMapping("/Approval/app_line_index.do")
+	public String app_line_index(Model model){	
+		
+		UserVo vo = (UserVo) session.getAttribute("user");
+		
+		int idx = vo.getIdx();
+		
+		List<App_LineVo> list = app_dao.app_line_list(idx);
+		
+		model.addAttribute("list", list);
+		
+		return VIEW_PATH+"/approval_form/approval_index_line_list.jsp";
 	}
 	
 	
