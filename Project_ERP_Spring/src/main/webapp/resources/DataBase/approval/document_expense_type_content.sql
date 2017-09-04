@@ -13,10 +13,10 @@ create table c_expense(
 					 	c_expense_proof			varchar2(100)	--Áõºù¼­·ù¸í	
 );
 
-select * from c_expense
+
 alter table c_expense add constraint pk_c_expense_idx primary key (c_expense_idx);
 
-
+select * from c_expense
 alter table c_expense add constraint fk_t_expense_idx foreign key (t_expense_idx) references t_expense(t_expense_idx)
 alter table c_expense drop constraint fk_t_expense_idx 
 

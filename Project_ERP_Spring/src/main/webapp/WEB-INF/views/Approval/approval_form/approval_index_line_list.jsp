@@ -48,6 +48,11 @@
 					 
 					 $(opener.document).find(".g_position_1").attr("name",data[0].a_line_idx);
 					 
+					 $(opener.document).find(".g_position_1").attr("data-toggle",data[0].idx_one);
+					 $(opener.document).find(".g_position_2").attr("data-toggle",data[0].idx_two);
+					 $(opener.document).find(".g_position_3").attr("data-toggle",data[0].idx_three);
+					 $(opener.document).find(".g_position_4").attr("data-toggle",data[0].idx_four);
+					 
 					 $(opener.document).find(".name_g_position_1").text(data[0].user_name_one);
 					 $(opener.document).find(".name_g_position_2").text(data[0].user_name_two);
 					 $(opener.document).find(".name_g_position_3").text(data[0].user_name_three);

@@ -3,6 +3,7 @@ create sequence seq_d_expense_idx;
 create table d_expense(
 					d_expense_idx 	   int,      	 --지출문서 idx
 					idx                int,      	 --작성자 idx
+					next_idx           int,          --다음 결재자 idx
 					app_d_idx 		   int,          --결재문서 idx
 					d_expense_regdate  date,     	 --작성날짜
 					d_expense_title    varchar2(50), --지출문서 제목
@@ -11,7 +12,12 @@ create table d_expense(
 					d_expense_acname   varchar2(10), --예금주
 					d_expense_total    varchar2(10), --총금액
 					d_expense_tpay     varchar2(10), --지급타입
-					ip                 varchar2(50)  --ip
+					app_one            int,			 --첫번째 결재자확인(0--대기, 1--결재, 2--반려)
+					app_two            int,			 --두번째 결재자확인(0--대기, 1--결재, 2--반려)
+					app_three          int,			 --세번째 결재자확인(0--대기, 1--결재, 2--반려)
+					app_four           int,			 --네번째 결재자확인(0--대기, 1--결재, 2--반려)
+					ip                 varchar2(50), --ip
+					d_condition        int           --결재상태 확인(1--결재대기, 2--반려, 3--결재완료)
 );
 
 --지출 문서 primary-key 생성

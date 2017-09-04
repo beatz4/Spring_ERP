@@ -212,17 +212,24 @@
 	function expense_add(f){
 		
 		var app_d_idx = $(".g_position_1").attr("name");
+		var next_idx = $(".g_position_2").attr("data_toggle");
 		var d_expense_regdate = f.d_expense_regdate.value;
 		var d_expense_title = f.d_expense_title.value;
 		var d_expense_date =f.d_expense_date.value;
 		var d_expense_acnumber = f.d_expense_acnumber.value;
 		var d_expense_acname = f.d_expense_acname.value;
-		var d_expense_total = $.number(f.d_expense_total.value);
+		var d_expense_total = f.d_expense_total.value;
 		var d_expense_tpay = f.d_expense_tpay.value;
+		var app_one = 1;
+		var app_two = 0;
+		var app_three =0;
+		var app_four = 0;
+		var d_condition = 0;
 		
 		$.ajax({
 			url : "expense_insert.do",
 			data: {'idx' 		       : ${app_user_list.idx},
+				   'next_idx'          : next_idx,
 				   'app_d_idx'		   : app_d_idx,
 				   'd_expense_regdate' : d_expense_regdate,
 				   'd_expense_title'   : d_expense_title,
@@ -246,9 +253,7 @@
 	
 	function expense_add_content(d_expense_idx){
 		
-		
 		var size = $("[name='t_expense_idx']").length;
-		
 		
 		for( var i = 0; i < size; i++)
 		{
