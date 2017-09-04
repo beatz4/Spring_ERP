@@ -1,4 +1,4 @@
-create sequence seq_d_expense_idx
+create sequence seq_d_expense_idx;
 
 create table d_expense(
 					d_expense_idx 	   int,      	 --지출문서 idx
@@ -9,13 +9,13 @@ create table d_expense(
 					d_expense_date     date,         --요청일
 					d_expense_acnumber varchar2(20), --계좌번호
 					d_expense_acname   varchar2(10), --예금주
-					d_expense_total    int,          --총금액
+					d_expense_total    varchar2(10), --총금액
 					d_expense_tpay     varchar2(10), --지급타입
 					ip                 varchar2(50)  --ip
-)
+);
 
 --지출 문서 primary-key 생성
-alter table d_expense add constraint pk_d_expense_idx primary key (d_expense_idx)
+alter table d_expense add constraint pk_d_expense_idx primary key (d_expense_idx);
 
 --지출 문서와 user_managerDB idx 연결
 alter table d_expense add constraint fk_d_expense_user_idx foreign key (idx) references user_manager(idx)
