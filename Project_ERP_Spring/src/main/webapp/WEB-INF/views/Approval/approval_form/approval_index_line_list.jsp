@@ -33,12 +33,35 @@
 
 <script>
 	
-	/* function app_index_line_index(){
-		
-		window.clo
-		
-		
-	} */
+		function index_line_insert(param){
+			
+			$.ajax({
+				
+				url: "index_line_insert.do",
+				data: {"a_line_idx" : param},
+				success:function(data){
+					
+					 $(opener.document).find(".g_position_1").text(data[0].g_position_one);
+					 $(opener.document).find(".g_position_2").text(data[0].g_position_two);
+					 $(opener.document).find(".g_position_3").text(data[0].g_position_three);
+					 $(opener.document).find(".g_position_4").text(data[0].g_position_four);
+					 
+					 $(opener.document).find(".g_position_1").attr("name",data[0].a_line_idx);
+					 
+					 $(opener.document).find(".name_g_position_1").text(data[0].user_name_one);
+					 $(opener.document).find(".name_g_position_2").text(data[0].user_name_two);
+					 $(opener.document).find(".name_g_position_3").text(data[0].user_name_three);
+					 $(opener.document).find(".name_g_position_4").text(data[0].user_name_four);
+					
+					 self.close();
+					 
+				}
+				
+				
+			});
+			
+			
+		}
 	
 </script>
 
@@ -79,7 +102,7 @@
 										<td id="chk_user" align="center">
 											<input id="chk_user" type="checkbox" name="checkbox" value="${ vo.a_line_idx }">
 										</td>
-										<td style="text-align: center;"><a href="#" class="${vo.a_line_idx}" onclick="app_index_line_index();return false;">${ vo.a_line_name }</a></td>
+										<td style="text-align: center;"><a href="#" onclick="index_line_insert(${vo.a_line_idx});">${ vo.a_line_name }</a></td>
 										<td>${ vo.a_line_regdate }</td>
 										
 									</tr> 
@@ -126,7 +149,9 @@
         
         $('#dataTables_wrapper .col-sm-6 #dataTables_filter').css("text-align","right");
         $('#dataTables_wrapper .col-sm-6 #dataTables_paginate').css("text-align","right");
+        
     });
+	
 </script>
 
 </body>

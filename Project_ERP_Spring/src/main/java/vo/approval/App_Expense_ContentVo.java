@@ -3,8 +3,19 @@ package vo.approval;
 public class App_Expense_ContentVo {
 
 	int t_expense_idx;
-	int c_expense_idx, c_expense_money;
-	String c_expense_date, c_expense_content, c_expense_customer, c_expense_mepay, c_expense_et, c_expense_proof;
+	int d_expense_idx;
+	int c_expense_idx;
+	String c_expense_date, c_expense_content, c_expense_customer, c_expense_mepay, c_expense_et, c_expense_proof, c_expense_money;
+
+	
+	
+	public int getD_expense_idx() {
+		return d_expense_idx;
+	}
+
+	public void setD_expense_idx(int d_expense_idx) {
+		this.d_expense_idx = d_expense_idx;
+	}
 
 	public int getT_expense_idx() {
 		return t_expense_idx;
@@ -22,11 +33,11 @@ public class App_Expense_ContentVo {
 		this.c_expense_idx = c_expense_idx;
 	}
 
-	public int getC_expense_money() {
+	public String getC_expense_money() {
 		return c_expense_money;
 	}
 
-	public void setC_expense_money(int c_expense_money) {
+	public void setC_expense_money(String c_expense_money) {
 		this.c_expense_money = c_expense_money;
 	}
 

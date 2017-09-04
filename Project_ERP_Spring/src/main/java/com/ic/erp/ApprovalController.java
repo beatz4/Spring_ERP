@@ -102,16 +102,39 @@ public class ApprovalController {
 		return VIEW_PATH+"approval_form/expense_content.jsp";
 	}
 	
-	@RequestMapping("/Approval/expense_content_insert.do")
-	public String expense_content(Model model, App_Expense_ContentVo vo){
-		
-		return "redirect:insert_form.do?doc_idx=1";
-	}
+	
 	
 	@RequestMapping("/Approval/expense_insert.do")
-	public String expense_insert(Model model, App_Expense_ContentVo vo){
+	@ResponseBody
+	public int expense_insert(Model model, App_ExpenseVo vo, HttpServletRequest request){
 		
-		return "redirect:insert_form.do?doc_idx=1";
+		System.out.println(vo.getD_expense_total());
+		
+		vo.setIp(request.getRemoteAddr());
+		
+		int res = app_dao.insert_expense(vo);
+		
+		int d_expense_idx = 0;
+		
+		if(res == 1){
+			
+			d_expense_idx = vo.getD_expense_idx();
+
+		}else{
+			
+			d_expense_idx = -1;
+		}
+		
+		return d_expense_idx;
+	}
+	
+	@RequestMapping("/Approval/expense_content_insert.do")
+	@ResponseBody
+	public int expense_content(Model model, App_Expense_ContentVo vo){
+		
+		int res = app_dao.insert_expense_content(vo);
+		
+		return res;
 	}
 	
 	
@@ -270,6 +293,19 @@ public class ApprovalController {
 			result = "fail";
 		}
 		return result;
+	}
+	
+	@RequestMapping("/Approval/index_line_insert.do")
+	@ResponseBody
+	public List index_line_insert(int a_line_idx){
+		
+		App_LineViewVo vo = app_dao.app_line_select_one(a_line_idx);
+		
+		List<App_LineViewVo> list = new ArrayList<App_LineViewVo>();
+		
+		list.add(vo);
+		
+		return list;
 	}
 	
 }

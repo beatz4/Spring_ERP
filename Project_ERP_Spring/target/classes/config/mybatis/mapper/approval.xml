@@ -49,6 +49,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where a_line_idx = #{a_line_idx} 
 	</update>
 	
+	<insert id="app_expense" parameterType="vo.approval.App_ExpenseVo" useGeneratedKeys="true" keyProperty="d_expense_idx">
+		<selectKey keyProperty="d_expense_idx" resultType="int" order="BEFORE">
+   			 select seq_d_expense_idx.nextVal FROM DUAL
+ 		</selectKey>
+		insert into d_expense values(#{d_expense_idx}, #{idx},#{app_d_idx}, #{d_expense_regdate}, #{d_expense_title}, #{d_expense_date}, #{d_expense_acnumber}, #{d_expense_acname}, #{d_expense_total}, #{d_expense_tpay}, #{ip})
+	</insert> 
+	
+	<insert id="app_expense_content" parameterType="vo.approval.App_Expense_ContentVo">
+		insert into c_expense values(seq_c_expense_idx.nextVal, #{t_expense_idx}, #{d_expense_idx}, #{c_expense_date},  #{c_expense_content}, #{c_expense_customer}, #{c_expense_money}, #{c_expense_mepay}, #{c_expense_et}, #{c_expense_proof})
+	</insert>
+	
 </mapper>
 
 

@@ -23,16 +23,16 @@
 		<!-- /.col-lg-12 -->
 	</div>
 	<form role="form">
-		<div class="row" style="height: 200px;">
+		<div class="row" style="height: 220px;">
 			<div class="panel-body" style="height: 100%;">
 				<div class="col-lg-5 col-lg-offset-7" style="height: 100%;">
 					<table width="100%" class="table table-striped table-bordered table-hover" height="100%" onclick="app_line();">
 						<tr height="18%">			
 							<td align="center" rowspan="4" style="vertical-align: middle;" width="8%">결재</td>
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
+							<td align="center" class="g_position_1" width="23%"></td>
+							<td align="center" class="g_position_2" width="23%"></td>
+							<td align="center" class="g_position_3" width="23%"></td>
+							<td align="center" class="g_position_4" width="23%"></td>
 						</tr>
 						<tr>			
 							<td></td>
@@ -41,10 +41,10 @@
 							<td></td>
 						</tr>
 						<tr height="15%">			
-							<td></td>
-							<td></td>
-							<td></td>
-							<td></td>
+							<td align="center" class="name_g_position_1"></td>
+							<td align="center" class="name_g_position_2"></td>
+							<td align="center" class="name_g_position_3"></td>
+							<td align="center" class="name_g_position_4"></td>
 						</tr>
 						<tr height="15%">			
 							<td></td>
@@ -56,9 +56,9 @@
 				</div>
 			</div>
 		</div>
-	</form>
 	
-	<form role="form">
+	
+	
 		<div class="row">
 			<!-- <div class="col-lg-12"> -->
 				<div class="panel panel-default">
@@ -196,6 +196,7 @@
 	
 
 <script>
+
 	function app_line(){
 		
 		var popupX = (window.screen.width / 2) - (1200 / 2);
@@ -210,17 +211,19 @@
 
 	function expense_add(f){
 		
+		var app_d_idx = $(".g_position_1").attr("name");
 		var d_expense_regdate = f.d_expense_regdate.value;
 		var d_expense_title = f.d_expense_title.value;
 		var d_expense_date =f.d_expense_date.value;
 		var d_expense_acnumber = f.d_expense_acnumber.value;
 		var d_expense_acname = f.d_expense_acname.value;
-		var d_expense_total = f.d_expense_total.value;
+		var d_expense_total = $.number(f.d_expense_total.value);
 		var d_expense_tpay = f.d_expense_tpay.value;
 		
 		$.ajax({
 			url : "expense_insert.do",
 			data: {'idx' 		       : ${app_user_list.idx},
+				   'app_d_idx'		   : app_d_idx,
 				   'd_expense_regdate' : d_expense_regdate,
 				   'd_expense_title'   : d_expense_title,
 				   'd_expense_date'    : d_expense_date,
@@ -230,22 +233,29 @@
 				   'd_expense_tpay'    : d_expense_tpay
 			},
 			success : function(data){
-				expense_add();
+				if(data != -1){
+					expense_add_content(data);
+				}else{
+					alert("오류 발생!!");
+				}
+				
 			}
 			
 		});
 	}
 	
-	function expense_add(){
+	function expense_add_content(d_expense_idx){
+		
 		
 		var size = $("[name='t_expense_idx']").length;
-		console.log(size);
+		
 		
 		for( var i = 0; i < size; i++)
 		{
 			$.ajax({
 				url : "expense_content_insert.do",
 				data : {'t_expense_idx' 	: $("[name=t_expense_idx]").eq(i).val(),
+						'd_expensd_idx'     : d_expense_idx,
 				        'c_expense_date'    : $("[name=c_expense_date]").eq(i).val(), 
 				        'c_expense_content' : $("[name=c_expense_content]").eq(i).val(),
 				        'c_expense_customer': $("[name=c_expense_customer]").eq(i).val(),

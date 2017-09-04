@@ -2,8 +2,8 @@ package vo.approval;
 
 public class App_ExpenseVo {
 	
-	int d_expense_idx, idx, app_d_idx, d_expense_total;
-	String d_expense_regdate, d_expense_title, d_expense_date, d_expense_acnumber, d_expense_acname, d_expense_tpay, ip;
+	int d_expense_idx, idx, app_d_idx;
+	String d_expense_regdate, d_expense_title, d_expense_date, d_expense_acnumber, d_expense_acname, d_expense_tpay, ip, d_expense_total;
 	int t_expense_idx;
 	String t_expense_title;
 	
@@ -31,11 +31,11 @@ public class App_ExpenseVo {
 		this.app_d_idx = app_d_idx;
 	}
 
-	public int getD_expense_total() {
+	public String getD_expense_total() {
 		return d_expense_total;
 	}
 
-	public void setD_expense_total(int d_expense_total) {
+	public void setD_expense_total(String d_expense_total) {
 		this.d_expense_total = d_expense_total;
 	}
 

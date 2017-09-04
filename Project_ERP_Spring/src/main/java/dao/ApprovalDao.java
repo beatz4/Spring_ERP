@@ -9,6 +9,7 @@ import vo.CompanyVo;
 import vo.UserVo;
 import vo.approval.App_DocVo;
 import vo.approval.App_ExpenseVo;
+import vo.approval.App_Expense_ContentVo;
 import vo.approval.App_LineViewVo;
 import vo.approval.App_LineVo;
 import vo.approval.Doc_TypeVo;
@@ -104,6 +105,24 @@ public class ApprovalDao {
 		int res = 0;
 		
 		res = sqlSession.update("app_line_update", map);
+		
+		return res;
+	}
+
+	public int insert_expense(App_ExpenseVo vo) {
+		// TODO Auto-generated method stub
+		int res = 0;
+		
+		res = sqlSession.insert("app_expense", vo);
+		
+		return res;
+	}
+
+	public int insert_expense_content(App_Expense_ContentVo vo) {
+		// TODO Auto-generated method stub
+		int res = 0;
+		
+		res = sqlSession.insert("app_expense_content", vo);
 		
 		return res;
 	}
