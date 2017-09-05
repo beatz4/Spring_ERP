@@ -3,12 +3,20 @@ package vo.approval;
 public class App_Expense_ContentVo {
 
 	int t_expense_idx;
+	String t_expense_title;
 	int d_expense_idx;
 	int c_expense_idx;
 	String c_expense_date, c_expense_content, c_expense_customer, c_expense_mepay, c_expense_et, c_expense_proof, c_expense_money;
 
 	
-	
+	public String getT_expense_title() {
+		return t_expense_title;
+	}
+
+	public void setT_expense_title(String t_expense_title) {
+		this.t_expense_title = t_expense_title;
+	}
+
 	public int getD_expense_idx() {
 		return d_expense_idx;
 	}

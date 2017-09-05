@@ -40,8 +40,13 @@ insert into d_expense values(seq_d_expense_idx.nextVal, 1, 1, sysdate, '', sysda
 select m.name, d.*
 
 select * from D_expense
-
+select * from d_expense where idx=1 and d_condition=2
 commit
+
+create or replace view d_expense_line_view
+as
+select a.*, d.* from
+(select * from a_line)a inner join d_expense d on a.a_line_idx = d.app_d_idx
 
 --시퀀스 삭제, 테이블삭제, user_fk삭제, app_d_fk삭제
 drop sequence seq_d_expense_idx;

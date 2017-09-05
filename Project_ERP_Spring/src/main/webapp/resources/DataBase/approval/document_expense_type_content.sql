@@ -16,7 +16,7 @@ create table c_expense(
 
 alter table c_expense add constraint pk_c_expense_idx primary key (c_expense_idx);
 
-select * from c_expense
+select * from c_expense 
 alter table c_expense add constraint fk_t_expense_idx foreign key (t_expense_idx) references t_expense(t_expense_idx)
 alter table c_expense drop constraint fk_t_expense_idx 
 
@@ -26,8 +26,13 @@ select d.*, t.*, c.* from d_expense d
 inner join t_expense t on d.d_expense_idx = t.d_expense_idx 
 inner join C_EXPENSE c on t.t_expense_idx = c.t_expense_idx
 
+create or replace view c_expense_view
+as 
+select c.* , t_expense_title from c_expense c inner join t_expense t on c.t_expense_idx = t.t_expense_idx;
+
 commit
 
+drop view c_exepense_view
 drop sequence seq_c_expense_idx;
 drop table c_expense
 

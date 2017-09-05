@@ -5,8 +5,40 @@ public class App_ExpenseVo {
 	int d_expense_idx, idx, app_d_idx, next_idx;
 	String d_expense_regdate, d_expense_title, d_expense_date, d_expense_acnumber, d_expense_acname, d_expense_tpay, ip, d_expense_total;
 	int t_expense_idx, app_one, app_two, app_three, app_four, d_condition;
-	String t_expense_title;
+	String t_expense_title, app_one_date, app_two_date, app_three_date, app_four_date;
 	
+	public String getApp_one_date() {
+		return app_one_date;
+	}
+
+	public void setApp_one_date(String app_one_date) {
+		this.app_one_date = app_one_date;
+	}
+
+	public String getApp_two_date() {
+		return app_two_date;
+	}
+
+	public void setApp_two_date(String app_two_date) {
+		this.app_two_date = app_two_date;
+	}
+
+	public String getApp_three_date() {
+		return app_three_date;
+	}
+
+	public void setApp_three_date(String app_three_date) {
+		this.app_three_date = app_three_date;
+	}
+
+	public String getApp_four_date() {
+		return app_four_date;
+	}
+
+	public void setApp_four_date(String app_four_date) {
+		this.app_four_date = app_four_date;
+	}
+
 	public int getNext_idx() {
 		return next_idx;
 	}
@@ -88,7 +120,7 @@ public class App_ExpenseVo {
 	}
 
 	public String getD_expense_regdate() {
-		return d_expense_regdate;
+		return d_expense_regdate.substring(2, 10).replaceAll("-", ".");
 	}
 
 	public void setD_expense_regdate(String d_expense_regdate) {

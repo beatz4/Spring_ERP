@@ -127,14 +127,53 @@ public class ApprovalDao {
 		return res;
 	}
 
-	/*public List<UserVo> selectlist_expense(int idx) {
+	public List<App_ExpenseVo> app_expense_list() {
 		// TODO Auto-generated method stub
-		List<UserVo> list ;
+		List<App_ExpenseVo> list = null;
 		
-		list = sqlSession.selectOne("app_user_list", idx);
+		list = sqlSession.selectList("app_expense_list");
 		
 		return list;
-	}*/
-	
+	}
+
+	public List<App_ExpenseVo> app_d_condition_list(int d_condition) {
+		// TODO Auto-generated method stub
+		List<App_ExpenseVo> list = null;
+		
+		list = sqlSession.selectList("app_d_condition_list", d_condition);
+		
+		System.out.println(list);
+		
+		return list;
+	}
+
+	public List<App_ExpenseVo> app_d_wationg_list(Map map) {
+		// TODO Auto-generated method stub
+		List<App_ExpenseVo> list = null;
+		
+		list = sqlSession.selectList("app_d_wating_list", map);
+		
+		System.out.println(list);
+		
+		return list;
+	}
+
+	public App_ExpenseVo app_expense_index(int d_expense_idx) {
+		// TODO Auto-generated method stub
+		App_ExpenseVo vo = null;
+		
+		vo = sqlSession.selectOne("app_expense_index", d_expense_idx);
+		
+		return vo;
+	}
+
+	public List<App_Expense_ContentVo> app_expense_content(int d_expense_idx) {
+		// TODO Auto-generated method stub
+		List<App_Expense_ContentVo> list = null;
+		
+		list = sqlSession.selectList("app_ex_content", d_expense_idx);
+		
+		return list;
+	}	
 	
 }

@@ -110,28 +110,21 @@
 						<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-edit"></span></a>
 					</li>
 					
-					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">내가 받은 결제
-						<span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-save-file"></span></a>
-						<ul class="dropdown-menu forAnimate" role="menu" style="text-align: center;">
-							<li style="border: 0;"><a href="#">결제 대기</a></li>
-							<li style="border: 0;"><a href="#">미결제 문서</a></li>
-							<li style="border: 0;"><a href="#">결제 완료 문서</a></li>
-							<li style="border: 0;"><a href="#">반려 문서</a></li>
-						</ul>
+					<li>
+						<a href="expense_list.do?d_condition=1&result=request">결재 요청 문서
+						<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-open-file"></span></a>
 					</li>
-					
-					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">내가 올린 결제
-						<span class="caret"></span><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-open-file"></span></a>
-						<ul class="dropdown-menu forAnimate" role="menu" style="border: 0; text-align: center;">
-							<li style="border: 0;"><a href="#">결제 대기</a></li>
-							<li style="border: 0;"><a href="#">미결제 문서</a></li>
-							<li style="border: 0;"><a href="#">결제 완료 문서</a></li>
-							<li style="border: 0;"><a href="#">반려 문서</a></li>
-						</ul>
+					<li>
+						<a href="expense_list.do?d_condition=1&result=wating">결재 대기 문서
+						<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-open-file"></span></a>
 					</li>
-	
+					<li>
+						<a href="expense_list.do?d_condition=3">결재 완료 문서
+						<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-open-file"></span></a>
+					</li>
+						<li><a href="expense_list.do?d_condition=2">반려 문서
+						<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-open-file"></span></a>
+					</li>
 					<li>
 						<a href="${ pageContext.request.contextPath }/Approval/app_line.do">결제선 관리
 						<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-inbox"></span></a>

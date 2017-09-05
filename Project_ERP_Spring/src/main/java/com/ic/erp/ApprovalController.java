@@ -73,6 +73,7 @@ public class ApprovalController {
 		return VIEW_PATH+"document_type.jsp";
 	}
 	
+	
 	@RequestMapping("/Approval/insert_form.do")
 	public String insert_form(int doc_idx, Model model){
 		
@@ -92,6 +93,7 @@ public class ApprovalController {
 		return VIEW_PATH+"approval_insert_form.jsp";
 	}
 	
+	//지출결의서 form 에서 content 추가
 	@RequestMapping(value ="/Approval/insert_content.do", produces="text/html;charset=utf-8")
 	public String insert_content(Model model){
 		
@@ -102,13 +104,12 @@ public class ApprovalController {
 		return VIEW_PATH+"approval_form/expense_content.jsp";
 	}
 	
-	
-	
+	//지출결의서 main data_insert
 	@RequestMapping("/Approval/expense_insert.do")
 	@ResponseBody
 	public int expense_insert(Model model, App_ExpenseVo vo, HttpServletRequest request){
 		
-		System.out.println(vo.getD_expense_total());
+		/*System.out.println(vo.getD_expense_total());*/
 		
 		vo.setIp(request.getRemoteAddr());
 		
@@ -119,22 +120,94 @@ public class ApprovalController {
 		if(res == 1){
 			
 			d_expense_idx = vo.getD_expense_idx();
-
-		}else{
-			
-			d_expense_idx = -1;
 		}
 		
 		return d_expense_idx;
 	}
 	
+	//지출결의서 중 content_insert
 	@RequestMapping("/Approval/expense_content_insert.do")
 	@ResponseBody
 	public int expense_content(Model model, App_Expense_ContentVo vo){
 		
+		System.out.println(vo.getD_expense_idx());
+		
 		int res = app_dao.insert_expense_content(vo);
 		
 		return res;
+	}
+	
+	//결재 요청, 대기, 완료, 반려 리스트
+	@RequestMapping("/Approval/expense_list.do")
+	public String waiting_expense(Model model, int d_condition, String result){
+		
+		UserVo user = (UserVo)session.getAttribute("user");
+		
+		int idx = user.getIdx();
+		
+		List<App_ExpenseVo> list = app_dao.app_expense_list();
+		
+		List<App_ExpenseVo> d_condition_list = new ArrayList<App_ExpenseVo>();
+		
+		for(App_ExpenseVo vo : list){
+				
+			if(vo.getIdx() == idx || vo.getNext_idx() == idx){
+					
+				if(d_condition == 1){
+						
+					if(vo.getIdx() == idx && result.equals("request")){
+							
+						d_condition_list = app_dao.app_d_condition_list(d_condition);
+							
+					}else if(vo.getNext_idx() == idx && result.equals("wating")){
+							
+						Map map = new HashMap();
+						map.put("d_condition", d_condition);
+						map.put("next_idx", idx);
+						d_condition_list = app_dao.app_d_wationg_list(map);
+						
+					}
+						
+				}else if(d_condition == 2){
+						
+					d_condition_list = app_dao.app_d_condition_list(d_condition);
+					
+				}else if(d_condition == 3){
+					
+					d_condition_list = app_dao.app_d_condition_list(d_condition);
+					
+				}
+				
+			}else{
+					
+				d_condition_list = null;
+					
+			}
+					
+		}
+		
+		model.addAttribute("list", d_condition_list);
+		
+		return VIEW_PATH+"/approval_form/app_list.jsp";
+	}
+	
+	//결재 요청, 대기, 반려, 완료 내용 보기
+	@RequestMapping("/Approval/app_expense_index.do")
+	public String app_expense_index(int d_expense_idx, Model model){
+		
+		App_ExpenseVo vo = app_dao.app_expense_index(d_expense_idx);
+		
+		model.addAttribute("vo", vo);
+		
+		List<App_Expense_ContentVo> list = app_dao.app_expense_content(d_expense_idx);
+		
+		model.addAttribute("content_vo", list);
+		
+		App_LineViewVo line_vo = app_dao.app_line_select_one(vo.getApp_d_idx());
+		
+		model.addAttribute("line_vo", line_vo);
+		
+		return VIEW_PATH+"/approval_form/app_expense_index.jsp";
 	}
 	
 	
@@ -307,5 +380,7 @@ public class ApprovalController {
 		
 		return list;
 	}
+	
+	
 	
 }

@@ -57,8 +57,6 @@
 			</div>
 		</div>
 	
-	
-	
 		<div class="row">
 			<!-- <div class="col-lg-12"> -->
 				<div class="panel panel-default">
@@ -212,7 +210,7 @@
 	function expense_add(f){
 		
 		var app_d_idx = $(".g_position_1").attr("name");
-		var next_idx = $(".g_position_2").attr("data_toggle");
+		var next_idx = $(".g_position_2").attr("data-toggle");
 		var d_expense_regdate = f.d_expense_regdate.value;
 		var d_expense_title = f.d_expense_title.value;
 		var d_expense_date =f.d_expense_date.value;
@@ -224,7 +222,7 @@
 		var app_two = 0;
 		var app_three =0;
 		var app_four = 0;
-		var d_condition = 0;
+		var d_condition = 1;
 		
 		$.ajax({
 			url : "expense_insert.do",
@@ -237,11 +235,18 @@
 				   'd_expense_acnumber': d_expense_acnumber,
 				   'd_expense_acname'  : d_expense_acname,
 				   'd_expense_total'   : d_expense_total,
-				   'd_expense_tpay'    : d_expense_tpay
+				   'd_expense_tpay'    : d_expense_tpay,
+				   'app_one'		   : app_one,
+				   'app_two'		   : app_two,
+				   'app_three'		   : app_three,
+				   'app_four'		   : app_four,
+				   'd_condition'	   : d_condition
+				   
 			},
 			success : function(data){
 				if(data != -1){
-					expense_add_content(data);
+					 console.log(data);
+					 expense_add_content(data); 
 				}else{
 					alert("오류 발생!!");
 				}
@@ -254,13 +259,13 @@
 	function expense_add_content(d_expense_idx){
 		
 		var size = $("[name='t_expense_idx']").length;
-		
+		console.log(d_expense_idx);
 		for( var i = 0; i < size; i++)
 		{
 			$.ajax({
 				url : "expense_content_insert.do",
 				data : {'t_expense_idx' 	: $("[name=t_expense_idx]").eq(i).val(),
-						'd_expensd_idx'     : d_expense_idx,
+						'd_expense_idx'     : d_expense_idx,
 				        'c_expense_date'    : $("[name=c_expense_date]").eq(i).val(), 
 				        'c_expense_content' : $("[name=c_expense_content]").eq(i).val(),
 				        'c_expense_customer': $("[name=c_expense_customer]").eq(i).val(),
@@ -270,7 +275,7 @@
 				        'c_expense_proof'   : $("[name=c_expense_proof]").eq(i).val()        
 				        },
 				success: function(data){
-					
+					 /* location.href="expense_list.do?d_condition=1&result=request";  */
 				}
 			}); 
 		} 	
@@ -377,15 +382,6 @@
 	     format: "yyyy/mm/dd",
 	     language: "kr"
 	 });
-	 
-	 
-	
-
-	  $('#approval_line').on('click', function(){
-		  
-		 $('.bs-example-modal-lg').focus();
-		 window.open("insert_app_line.do", "pop", 'status=no, height=800, width=1200, resizable=no, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY); 
-	 }); 
 	 
  });	
 
