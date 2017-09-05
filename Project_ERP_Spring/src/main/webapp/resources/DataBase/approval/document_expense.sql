@@ -13,9 +13,13 @@ create table d_expense(
 					d_expense_total    varchar2(10), --총금액
 					d_expense_tpay     varchar2(10), --지급타입
 					app_one            int,			 --첫번째 결재자확인(0--대기, 1--결재, 2--반려)
+					app_one_date       date,         --첫번째 결재 확인 날짜
 					app_two            int,			 --두번째 결재자확인(0--대기, 1--결재, 2--반려)
+					app_two_date       date,		 --두번째 결재 확인 날짜
 					app_three          int,			 --세번째 결재자확인(0--대기, 1--결재, 2--반려)
+					app_three_date     date,		 --세번째 결재 확인 날짜
 					app_four           int,			 --네번째 결재자확인(0--대기, 1--결재, 2--반려)
+					app_four_date      date,		 --네번째 결재 확인 날짜
 					ip                 varchar2(50), --ip
 					d_condition        int           --결재상태 확인(1--결재대기, 2--반려, 3--결재완료)
 );
