@@ -8,11 +8,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<style>
-	.form-group{
-		margin: 0;
-	}
-</style>
+
 </head>
 <body>
 	<!-- 메뉴 불러오기 -->
@@ -35,16 +31,56 @@
 							<table width="100%" class="table table-striped table-bordered table-hover" height="100%" onclick="app_line();">
 								<tr height="18%">			
 									<td align="center" rowspan="4" style="vertical-align: middle;" width="8%">결재</td>
-									<td align="center" class="g_position_1" width="23%">${line_vo.g_position_one }</td>
-									<td align="center" class="g_position_2" width="23%">${line_vo.g_position_two }</td>
-									<td align="center" class="g_position_3" width="23%">${line_vo.g_position_three }</td>
-									<td align="center" class="g_position_4" width="23%">${line_vo.g_position_four }</td>
+									<td align="center" class="g_position_1" width="23%" data-toggle="${line_vo.idx_one }" name="${vo.d_expense_idx }">${line_vo.g_position_one }</td>
+									<td align="center" class="g_position_2" width="23%" data-toggle="${line_vo.idx_two }">${line_vo.g_position_two }</td>
+									<td align="center" class="g_position_3" width="23%" data-toggle="${line_vo.idx_three }">${line_vo.g_position_three }</td>
+									<td align="center" class="g_position_4" width="23%" data-toggle="${line_vo.idx_four }">${line_vo.g_position_four }</td>
 								</tr>
-								<tr>			
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
+								<tr>
+									<c:choose>
+										<c:when test="${vo.app_one eq 1 }">
+											<td class="${vo.app_one }"><img src="${ pageContext.request.contextPath }/resources/image/success.jpg" width="70px" height="67px" ></td>
+										</c:when>
+										<c:when test="${vo.app_one eq 2 }">
+											<td class="${vo.app_one }"><img src="${ pageContext.request.contextPath }/resources/image/fail.png" width="70px" height="67px" ></td>
+										</c:when>
+										<c:otherwise>
+											<td class="${vo.app_one }"></td>
+										</c:otherwise>
+									</c:choose>
+									<c:choose>
+										<c:when test="${vo.app_two eq 1 }">
+											<td class="${vo.app_two }" style="margin: 0px"><img src="${ pageContext.request.contextPath }/resources/image/success.jpg" width="70px" height="67px" ></td>
+										</c:when>
+										<c:when test="${vo.app_two eq 2 }">
+											<td class="${vo.app_two }" style="margin: 0px"><img src="${ pageContext.request.contextPath }/resources/image/fail.png" width="70px" height="67px" ></td>
+										</c:when>
+										<c:otherwise>
+											<td class="${vo.app_one }"></td>
+										</c:otherwise>
+									</c:choose>
+									<c:choose>
+										<c:when test="${vo.app_three eq 1 }">
+											<td class="${vo.app_three }"><img src="${ pageContext.request.contextPath }/resources/image/success.jpg" width="70px" height="67px"></td>
+										</c:when>
+										<c:when test="${vo.app_one eq 2 }">
+											<td class="${vo.app_three }"><img src="${ pageContext.request.contextPath }/resources/image/fail.png" width="70px" height="67px"></td>
+										</c:when>
+										<c:otherwise>
+											<td class="${vo.app_three }"></td>
+										</c:otherwise>
+									</c:choose>
+									<c:choose>
+										<c:when test="${vo.app_four eq 1 }">
+											<td class="${vo.app_four }"><img src="${ pageContext.request.contextPath }/resources/image/success.jpg" width="70px" height="67px"></td>
+										</c:when>
+										<c:when test="${vo.app_four eq 2 }">
+											<td class="${vo.app_four }"><img src="${ pageContext.request.contextPath }/resources/image/fail.png" width="70px" height="67px"></td>
+										</c:when>
+										<c:otherwise>
+											<td class="${vo.app_one }"></td>
+										</c:otherwise>
+									</c:choose>
 								</tr>
 								<tr height="15%">			
 									<td align="center" class="name_g_position_1">${line_vo.user_name_one }</td>
@@ -53,10 +89,10 @@
 									<td align="center" class="name_g_position_4">${line_vo.user_name_four }</td>
 								</tr>
 								<tr height="15%">			
-									<td></td>
-									<td></td>
-									<td></td>
-									<td></td>
+									<td>${vo.app_one_date }</td>
+									<td>${vo.app_two_date }</td>
+									<td>${vo.app_three_date }</td>
+									<td>${vo.app_four_date }</td>
 								</tr>
 							</table>
 						</div>
@@ -78,7 +114,7 @@
 											style="vertical-align: middle;">
 											<div class="form-group">
 												<input class="form-control"
-													style="font-size: 15px" name="c_name" value="${app_user_list.c_name }" disabled>
+													style="font-size: 15px" name="c_name" value="${user_vo.c_name }" disabled>
 											</div>
 										</td>
 									
@@ -88,7 +124,7 @@
 											style="vertical-align: middle;">
 											<div class="form-group">
 												<input class="form-control"
-													style="font-size: 15px" name="name" value="${app_user_list.name }" disabled>
+													style="font-size: 15px" name="name" value="${user_vo.name }" disabled>
 											</div>
 										</td>
 									
@@ -244,10 +280,12 @@
 						</div>
 					</div>
 				<!-- </div> -->
-				<div class="col-lg-12" align="center">
-					<button type="button" id="formadd" class="btn btn-primary">추가하기</button>
-					<button type="button" class="btn btn-primary" onclick="expense_add(this.form);">기안하기</button>
-				</div>	
+				<c:if test="${vo.d_condition eq 1 and vo.next_idx eq 0}">
+					<div class="col-lg-12" align="center">
+						<button type="button" class="btn btn-primary" onclick="expense_app(this.form);">결재하기</button>
+						<button type="button" class="btn btn-primary" onclick="expense_cancle(this.form);">반려하기</button>
+					</div>
+				</c:if>
 			</form>
 		</div>
 	</div>
@@ -256,80 +294,130 @@
 	$(document).ready(function(){
 		
 		$("input").attr("readonly", true);
-		
-		
+		$("td").attr("align", "center");
+		$("td").css("vertical-align", "middle");
+		$(".form-group").css("margin","0");
 	});
-	function expense_add(f){
+	
+	function expense_app(f){
 		
-		var app_d_idx = $(".g_position_1").attr("name");
-		var next_idx = $(".g_position_2").attr("data_toggle");
-		var d_expense_regdate = f.d_expense_regdate.value;
-		var d_expense_title = f.d_expense_title.value;
-		var d_expense_date =f.d_expense_date.value;
-		var d_expense_acnumber = f.d_expense_acnumber.value;
-		var d_expense_acname = f.d_expense_acname.value;
-		var d_expense_total = f.d_expense_total.value;
-		var d_expense_tpay = f.d_expense_tpay.value;
-		var app_one = 1;
-		var app_two = 0;
-		var app_three =0;
-		var app_four = 0;
-		var d_condition = 1;
+		var cf = confirm("결재 하시겠습니까?")
 		
-		$.ajax({
-			url : "expense_insert.do",
-			data: {
-				   'next_idx'          : next_idx,
-				   'app_d_idx'		   : app_d_idx,
-				   'd_expense_regdate' : d_expense_regdate,
-				   'd_expense_title'   : d_expense_title,
-				   'd_expense_date'    : d_expense_date,
-				   'd_expense_acnumber': d_expense_acnumber,
-				   'd_expense_acname'  : d_expense_acname,
-				   'd_expense_total'   : d_expense_total,
-				   'd_expense_tpay'    : d_expense_tpay,
-				   'app_one'		   : app_one,
-				   'app_two'		   : app_two,
-				   'app_three'		   : app_three,
-				   'app_four'		   : app_four,
-				   'd_condition'	   : d_condition
-				   
-			},
-			success : function(data){
-				if(data != -1){
-					expense_add_content(data);
+		if(cf = true){
+			
+			var d_expense_idx = ${vo.d_expense_idx};
+			var next_idx = 0;
+			var app_one = 0;
+			var app_two = 0;
+			var app_three =0;
+			var app_four = 0;
+			var d_condition = 1;
+			
+			if(${vo.app_one} == 1){
+				next_idx = $(".g_position_3").attr("data-toggle");
+				app_one = 1;
+				app_two = 1;
+				if(next_idx != 0){
+					d_condition = 1;
 				}else{
-					alert("오류 발생!!");
+					d_condition = 3;
+				}
+			}
+			if(${vo.app_two} == 1){
+				next_idx = $(".g_position_4").attr("data-toggle");
+				app_one = 1;
+				app_two = 1;
+				app_three =1;
+				if(next_idx != 0){
+					d_condition = 1;
+				}else{
+					d_condition = 3;
+				}
+			}
+			if(${vo.app_three} == 1){
+				next_idx = 0;
+				app_one = 1;
+				app_two = 1;
+				app_three = 1;
+				app_four = 1;
+				d_condition = 3;
+			}
+					
+			$.ajax({
+				url : "expense_app.do",
+				data: {
+					   'd_expense_idx'     : d_expense_idx,
+					   'next_idx'          : next_idx,
+					   'app_one'		   : app_one,
+					   'app_two'		   : app_two,
+					   'app_three'		   : app_three,
+					   'app_four'		   : app_four,
+					   'd_condition'	   : d_condition
+					   
+				},
+				success : function(data){
+					console.log(data);
 				}
 				
-			}
-			
-		});
+			});
+		}
+		
 	}
-	
-	function expense_add_content(d_expense_idx){
+	function expense_cancle(f){
 		
-		var size = $("[name='t_expense_idx']").length;
 		
-		for( var i = 0; i < size; i++)
-		{
+		var cf = confirm("반려 하시겠습니까?")
+		
+		if(cf = true){
+			
+			var d_expense_idx = ${vo.d_expense_idx};
+			var next_idx = 0;
+			var app_one = 0;
+			var app_two = 0;
+			var app_three =0;
+			var app_four = 0;
+			var d_condition = 2;
+			
+			if(${vo.app_one} == 1){
+				next_idx = 0;
+				app_one = 1;
+				app_two = 2;
+				d_condition = 2;
+				
+			}
+			if(${vo.app_two} == 1){
+				next_idx = 0;
+				app_one = 1;
+				app_two = 1;
+				app_three =2;
+				d_condition = 2;
+			}
+			if(${vo.app_three} == 1){
+				next_idx = 0;
+				app_one = 1;
+				app_two = 1;
+				app_three = 1;
+				app_four = 2;
+				d_condition = 2;
+			}
 			$.ajax({
-				url : "expense_content_insert.do",
-				data : {'t_expense_idx' 	: $("[name=t_expense_idx]").eq(i).val(),
-						'd_expensd_idx'     : d_expense_idx,
-				        'c_expense_date'    : $("[name=c_expense_date]").eq(i).val(), 
-				        'c_expense_content' : $("[name=c_expense_content]").eq(i).val(),
-				        'c_expense_customer': $("[name=c_expense_customer]").eq(i).val(),
-				        'c_expense_money'   : $("[name=c_expense_money]").eq(i).val(),
-				        'c_expense_mepay'   : $("[name=c_expense_mepay]").eq(i).val(),
-				        'c_expense_et'   	: $("[name=c_expense_et]").eq(i).val(),
-				        'c_expense_proof'   : $("[name=c_expense_proof]").eq(i).val()        
-				        },
-				success: function(data){
-					
+				url : "expense_cancel.do",
+				data: {
+					   'd_expense_idx'     : d_expense_idx,
+					   'next_idx'          : next_idx,
+					   'app_one'		   : app_one,
+					   'app_two'		   : app_two,
+					   'app_three'		   : app_three,
+					   'app_four'		   : app_four,
+					   'd_condition'	   : d_condition
+					   
+				},
+				success : function(data){
+					console.log(data);
 				}
-			}); 
-		} 	
+				
+			});
+		}
 		
 	}
 

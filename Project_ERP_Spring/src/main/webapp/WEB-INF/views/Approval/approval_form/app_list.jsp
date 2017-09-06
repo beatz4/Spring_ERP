@@ -84,7 +84,17 @@
 											<input id="chk_user" type="checkbox" name="checkbox" value="${ vo.d_expense_idx }">
 										</td>
 										<td style="text-align: center;"><a href="app_expense_index.do?d_expense_idx=${vo.d_expense_idx }">${ vo.d_expense_title }</a></td>
-										<td style="text-align: center;">결재대기</td>
+										<c:choose>
+											<c:when test="${param.d_condition eq 1 }">
+												<td style="text-align: center;">결재대기</td>
+											</c:when>
+											<c:when test="${param.d_condition eq 2 }">
+												<td style="text-align: center;">반려</td>
+											</c:when>
+											<c:when test="${param.d_condition eq 3 }">
+												<td style="text-align: center;">결재완료</td>
+											</c:when>
+										</c:choose>
 										<td>${ vo.d_expense_regdate }</td>
 									</tr> 
 								</c:forEach> 

@@ -31,6 +31,18 @@
 <script
 	src="${ pageContext.request.contextPath }/resources/ExternalLib/bootstrap/js/sb-admin-2.js"></script>
 
+<!-- DataTables CSS -->
+<link href="${ pageContext.request.contextPath }/resources/ExternalLib/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet">
+
+<!-- DataTables Responsive CSS -->
+<link href="${ pageContext.request.contextPath }/resources/ExternalLib/bootstrap/css/dataTables.responsive.css" rel="stylesheet">
+
+<!-- Custom CSS -->
+<link href="${ pageContext.request.contextPath }/resources/ExternalLib/bootstrap/css/sb-admin-2.css" rel="stylesheet">
+
+<!-- Custom Fonts -->
+<link href="${ pageContext.request.contextPath }/resources/ExternalLib/bootstrap/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
 <style type="text/css">
 
@@ -124,14 +136,14 @@ td{
 										<tr height="70px;">
 											<th width="20%"
 												style="vertical-align: middle; text-align: center;">직급</th>
-											<td width="20%" class="g_position_1" style="vertical-align: middle;"></td>
+											<td width="20%" class="g_position_1" style="vertical-align: middle;" id="${user.idx }" ondblclick="dblclick_handler([className])">${user.g_position }</td>
 											<td width="20%" class="g_position_2" style="vertical-align: middle;"></td>
 											<td width="20%" class="g_position_3" style="vertical-align: middle;"></td>
 											<td width="20%" class="g_position_4" style="vertical-align: middle;"></td>
 										</tr>
 										<tr height="70px;" >
 											<th style="vertical-align: middle; text-align: center;">성명</th>
-											<td class="name_g_position_1" style="vertical-align: middle;"></td>
+											<td class="name_g_position_1" style="vertical-align: middle;">${user.name }</td>
 											<td class="name_g_position_2" style="vertical-align: middle;"></td>
 											<td class="name_g_position_3" style="vertical-align: middle;"></td>
 											<td class="name_g_position_4" style="vertical-align: middle;"></td>

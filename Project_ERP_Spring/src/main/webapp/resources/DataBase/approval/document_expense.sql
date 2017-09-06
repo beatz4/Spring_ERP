@@ -4,7 +4,7 @@ create table d_expense(
 					d_expense_idx 	   int,      	 --지출문서 idx
 					idx                int,      	 --작성자 idx
 					next_idx           int,          --다음 결재자 idx
-					app_d_idx 		   int,          --결재문서 idx
+					app_d_idx 		   int,          --결재선 idx
 					d_expense_regdate  date,     	 --작성날짜
 					d_expense_title    varchar2(50), --지출문서 제목
 					d_expense_date     date,         --요청일

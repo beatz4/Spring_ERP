@@ -8,7 +8,7 @@ public class App_ExpenseVo {
 	String t_expense_title, app_one_date, app_two_date, app_three_date, app_four_date;
 	
 	public String getApp_one_date() {
-		return app_one_date;
+		return app_one_date.substring(0, 10);
 	}
 
 	public void setApp_one_date(String app_one_date) {
@@ -16,6 +16,10 @@ public class App_ExpenseVo {
 	}
 
 	public String getApp_two_date() {
+		
+		if(app_two_date != null){
+			return app_two_date.substring(0, 10);
+		}
 		return app_two_date;
 	}
 
@@ -24,6 +28,10 @@ public class App_ExpenseVo {
 	}
 
 	public String getApp_three_date() {
+		
+		if(app_three_date != null){
+			return app_three_date.substring(0, 10);
+		}
 		return app_three_date;
 	}
 
@@ -32,6 +40,9 @@ public class App_ExpenseVo {
 	}
 
 	public String getApp_four_date() {
+		if(app_four_date != null){
+			return app_four_date.substring(0, 10);
+		}
 		return app_four_date;
 	}
 
@@ -136,7 +147,7 @@ public class App_ExpenseVo {
 	}
 
 	public String getD_expense_date() {
-		return d_expense_date;
+		return d_expense_date.substring(0, 10);
 	}
 
 	public void setD_expense_date(String d_expense_date) {

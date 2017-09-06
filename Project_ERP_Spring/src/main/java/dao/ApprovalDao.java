@@ -136,13 +136,11 @@ public class ApprovalDao {
 		return list;
 	}
 
-	public List<App_ExpenseVo> app_d_condition_list(int d_condition) {
+	public List<App_ExpenseVo> app_d_condition_list(Map map) {
 		// TODO Auto-generated method stub
 		List<App_ExpenseVo> list = null;
 		
-		list = sqlSession.selectList("app_d_condition_list", d_condition);
-		
-		System.out.println(list);
+		list = sqlSession.selectList("app_d_condition_list", map);
 		
 		return list;
 	}
@@ -174,6 +172,25 @@ public class ApprovalDao {
 		list = sqlSession.selectList("app_ex_content", d_expense_idx);
 		
 		return list;
+	}
+
+	public int expense_app_update(Map map) {
+		// TODO Auto-generated method stub
+		int res = 0;
+				
+		res = sqlSession.update("expense_app_update", map);
+		
+		return res;
+	}
+
+	public int expense_cancel_update(Map map) {
+		// TODO Auto-generated method stub
+		int res = 0;
+		
+		res = sqlSession.update("expense_cancel_update", map);
+		
+		return res;
+		
 	}	
 	
 }

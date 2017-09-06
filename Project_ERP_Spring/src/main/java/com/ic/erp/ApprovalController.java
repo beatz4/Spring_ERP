@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -130,7 +131,7 @@ public class ApprovalController {
 	@ResponseBody
 	public int expense_content(Model model, App_Expense_ContentVo vo){
 		
-		System.out.println(vo.getD_expense_idx());
+		/*System.out.println(vo.getD_expense_idx());*/
 		
 		int res = app_dao.insert_expense_content(vo);
 		
@@ -144,46 +145,44 @@ public class ApprovalController {
 		UserVo user = (UserVo)session.getAttribute("user");
 		
 		int idx = user.getIdx();
+		Map map = new HashMap();
+		map.put("idx", idx);
+		System.out.println(idx);
 		
 		List<App_ExpenseVo> list = app_dao.app_expense_list();
 		
 		List<App_ExpenseVo> d_condition_list = new ArrayList<App_ExpenseVo>();
 		
 		for(App_ExpenseVo vo : list){
-				
+			
 			if(vo.getIdx() == idx || vo.getNext_idx() == idx){
 					
 				if(d_condition == 1){
 						
 					if(vo.getIdx() == idx && result.equals("request")){
-							
-						d_condition_list = app_dao.app_d_condition_list(d_condition);
+						System.out.println(vo.getIdx());
+						map.put("d_condition", d_condition);
+						d_condition_list = app_dao.app_d_condition_list(map);
 							
 					}else if(vo.getNext_idx() == idx && result.equals("wating")){
 							
-						Map map = new HashMap();
-						map.put("d_condition", d_condition);
-						map.put("next_idx", idx);
-						d_condition_list = app_dao.app_d_wationg_list(map);
+						Map map2 = new HashMap();
+						map2.put("d_condition", d_condition);
+						map2.put("next_idx", idx);
+						d_condition_list = app_dao.app_d_wationg_list(map2);
 						
 					}
 						
 				}else if(d_condition == 2){
-						
-					d_condition_list = app_dao.app_d_condition_list(d_condition);
+					map.put("d_condition", d_condition);
+					d_condition_list = app_dao.app_d_condition_list(map);
 					
 				}else if(d_condition == 3){
-					
-					d_condition_list = app_dao.app_d_condition_list(d_condition);
+					map.put("d_condition", d_condition);
+					d_condition_list = app_dao.app_d_condition_list(map);
 					
 				}
-				
-			}else{
-					
-				d_condition_list = null;
-					
-			}
-					
+			}		
 		}
 		
 		model.addAttribute("list", d_condition_list);
@@ -199,6 +198,10 @@ public class ApprovalController {
 		
 		model.addAttribute("vo", vo);
 		
+		UserVo user_vo = app_dao.select_user_one(vo.getIdx()); 
+		
+		model.addAttribute("user_vo", user_vo);
+		
 		List<App_Expense_ContentVo> list = app_dao.app_expense_content(d_expense_idx);
 		
 		model.addAttribute("content_vo", list);
@@ -210,7 +213,55 @@ public class ApprovalController {
 		return VIEW_PATH+"/approval_form/app_expense_index.jsp";
 	}
 	
+	//결재 
+	@RequestMapping("/Approval/expense_app.do")
+	@ResponseBody
+	public String expense_app(App_ExpenseVo vo){
+		
+		Map map = new HashMap();
+		
+		map.put("d_expense_idx", vo.getD_expense_idx());
+		map.put("next_idx", vo.getNext_idx());
+		map.put("app_one", vo.getApp_one());
+		map.put("app_two", vo.getApp_two());
+		map.put("app_three", vo.getApp_three());
+		map.put("app_four", vo.getApp_four());
+		map.put("d_condition", vo.getD_condition());
+		
+		int res = app_dao.expense_app_update(map);
+		
+		String result ="seccess";
+		if(res != 1){
+			result ="fail";
+		}
+		
+		return result;
+	}
 	
+	//반려
+	@RequestMapping("/Approval/expense_cancel.do")
+	@ResponseBody
+	public String expense_cancel(App_ExpenseVo vo){
+		Map map = new HashMap();
+		
+		map.put("d_expense_idx", vo.getD_expense_idx());
+		map.put("next_idx", vo.getNext_idx());
+		map.put("app_one", vo.getApp_one());
+		map.put("app_two", vo.getApp_two());
+		map.put("app_three", vo.getApp_three());
+		map.put("app_four", vo.getApp_four());
+		map.put("d_condition", vo.getD_condition());
+		
+		int res = app_dao.expense_cancel_update(map);
+		
+		String result ="seccess";
+		if(res != 1){
+			result ="fail";
+		}
+		
+		return result;
+		
+	}
 	//결재선 Controller
 	@RequestMapping("/Approval/app_line.do")
 	public String app_line(Model model){	
@@ -247,6 +298,14 @@ public class ApprovalController {
 		List<CompanyVo> list = app_dao.company_select();
 		
 		model.addAttribute("list", list);
+		
+		UserVo vo = (UserVo) session.getAttribute("user");
+		
+		int idx = vo.getIdx();
+		
+		vo = app_dao.select_user_one(idx);
+		
+		model.addAttribute("user", vo);
 		
 		return VIEW_PATH+"/approval_line.jsp";
 	}

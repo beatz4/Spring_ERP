@@ -95,8 +95,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from d_expense
 	</select>
 	
-	<select id="app_d_condition_list" parameterType="int" resultType="vo.approval.App_ExpenseVo" >
-		select * from d_expense where d_condition=#{d_condition}
+	<select id="app_d_condition_list" parameterType="java.util.Map" resultType="vo.approval.App_ExpenseVo" >
+		select * from d_expense where d_condition=#{d_condition} and idx=#{idx}
 	</select>
 	
 	<select id="app_d_wating_list" parameterType="java.util.Map" resultType="vo.approval.App_ExpenseVo">
@@ -110,6 +110,53 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="app_ex_content" parameterType="int" resultType="vo.approval.App_Expense_ContentVo">
 		select * from c_expense_view where d_expense_idx = #{d_expense_idx}
 	</select>
+	
+	<update id="expense_app_update" parameterType="java.util.Map">
+		update d_expense 
+		set
+		next_idx=#{next_idx},
+		app_one=#{app_one}, 
+		app_two=#{app_two}, 
+		app_three=#{app_three}, 
+		app_four=#{app_four},
+		<choose>
+			<when test="app_two eq 1 and app_three eq 0">
+			app_two_date=sysdate,
+			</when>
+			<when test="app_three eq 1 and app_four eq 0">
+			app_three_date=sysdate,
+			</when>
+			<when test="app_four eq 1">
+			app_four_date=sysdate,
+			</when>
+		</choose>
+		d_condition=#{d_condition}
+		where d_expense_idx=#{d_expense_idx}
+	</update>
+	
+	<update id="expense_cancel_update" parameterType="java.util.Map">
+		update d_expense 
+		set
+		next_idx=#{next_idx},
+		app_one=#{app_one}, 
+		app_two=#{app_two}, 
+		app_three=#{app_three}, 
+		app_four=#{app_four},
+		<choose>
+			<when test="app_two eq 2 and app_three eq 0">
+			app_two_date=sysdate,
+			</when>
+			<when test="app_three eq 2 and app_four eq 0">
+			app_three_date=sysdate,
+			</when>
+			<when test="app_four eq 2">
+			app_four_date=sysdate,
+			</when>
+		</choose>
+		d_condition=#{d_condition}
+		where d_expense_idx=#{d_expense_idx}
+	</update>
+	
 </mapper>
 
 

@@ -50,7 +50,7 @@ public class App_Expense_ContentVo {
 	}
 
 	public String getC_expense_date() {
-		return c_expense_date;
+		return c_expense_date.substring(0, 10);
 	}
 
 	public void setC_expense_date(String c_expense_date) {

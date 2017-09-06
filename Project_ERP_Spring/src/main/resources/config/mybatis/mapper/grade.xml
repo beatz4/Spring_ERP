@@ -19,7 +19,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	
 	<select id="grade_one" resultType="vo.GradeVo"
-		parameterType="map">
+		parameterType="java.util.Map">
 		select * from grade 
 		<trim prefix="where" prefixOverrides="and|or">
 			<if test="g_idx != null">
