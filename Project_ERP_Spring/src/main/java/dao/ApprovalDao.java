@@ -191,6 +191,24 @@ public class ApprovalDao {
 		
 		return res;
 		
-	}	
+	}
+
+	public int app_d_condition_count(Map map) {
+		// TODO Auto-generated method stub
+		int res = 0;
+				
+		res = sqlSession.selectOne("expense_count", map);
+		
+		return res;
+	}
+	
+	public int app_d_condition_count2(Map map) {
+		// TODO Auto-generated method stub
+		int res = 0;
+				
+		res = sqlSession.selectOne("expense_count2", map);
+		
+		return res;
+	}
 	
 }

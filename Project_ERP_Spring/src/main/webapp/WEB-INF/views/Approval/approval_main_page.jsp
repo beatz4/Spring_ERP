@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -73,15 +74,43 @@
 						<table width="100%" class="table table-striped table-bordered table-hover" id="person_approval">
 								<tr>
 									<th width="20%" class="text-center">상신 문서</th>
-									<td class="text-center"></td>
+									<c:choose>
+										<c:when test="${count_1 eq null}">
+											<td class="text-center">0</td>
+										</c:when>
+										<c:otherwise>
+											<td class="text-center">${count_1}</td>
+										</c:otherwise>
+									</c:choose>
 									<th width="25%" class="text-center">결재 완료 문서</th>
-									<td class="text-center"></td>
+									<c:choose>
+										<c:when test="${count_3 eq null}">
+											<td class="text-center">0</td>
+										</c:when>
+										<c:otherwise>
+											<td class="text-center">${count_3}</td>
+										</c:otherwise>
+									</c:choose>
 								</tr>
 								<tr>
-									<th class="text-center">임시보관</th>
-									<td class="text-center"></td>
+									<th class="text-center">대기 문서</th>
+									<c:choose>
+										<c:when test="${count_1_1 eq null}">
+											<td class="text-center">0</td>
+										</c:when>
+										<c:otherwise>
+											<td class="text-center">${count_1_1}</td>
+										</c:otherwise>
+									</c:choose>
 									<th class="text-center">반려 문서</th>
-									<td class="text-center"></td>
+									<c:choose>
+										<c:when test="${count_2 eq null}">
+											<td class="text-center">0</td>
+										</c:when>
+										<c:otherwise>
+											<td class="text-center">${count_2}</td>
+										</c:otherwise>
+									</c:choose>
 								</tr>
                         </table>
 					</div>
@@ -102,22 +131,20 @@
 						<table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
 							<thead class="text-center">
 								<tr>
-									<th width="12%" class="text-center">품의번호</th>
 									<th width="10%" class="text-center">문서 분류</th>
-									<th width="50%" class="text-center">제목</th>
+									<th width="62%" class="text-center">제목</th>
 									<th width="10%" class="text-center">기안자</th>
 									<th width="10%" class="text-center">기안일</th>
 									<th width="8%" class="text-center">상태</th>
 								</tr>
 							</thead>
 							<tbody>
-								<c:forEach var="vo" items="${ list }" begin="0" end="2">
+								<c:forEach var="vo" items="${ list_1 }" begin="0" end="2">
 									<tr class="text-center">
-										<td>-기획팀-2017-06-20-001</td>
 										<td>지출결의서</td>
-										<td>2017-07-19 회식비 지출</td>
-										<td>XXX</td>
-										<td>2017-07-20</td>
+										<td>${vo.d_expense_title }</td>
+										<td></td>
+										<td>${vo.d_expense_regdate }</td>
 										<td>상신</td>
 									</tr> 
 								</c:forEach> 
@@ -141,22 +168,20 @@
 						<table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
 							<thead>
 								<tr>
-									<th width="12%" class="text-center">품의번호</th>
 									<th width="10%" class="text-center">문서 분류</th>
-									<th width="50%" class="text-center">제목</th>
+									<th width="62%" class="text-center">제목</th>
 									<th width="10%" class="text-center">기안자</th>
 									<th width="10%" class="text-center">기안일</th>
 									<th width="8%" class="text-center">상태</th>
 								</tr>
 							</thead>
 							<tbody>
-								<c:forEach var="vo" items="${ list }" begin="0" end="2">
+								<c:forEach var="vo" items="${ list_3 }" begin="0" end="2">
 									<tr class="text-center">
-										<td>-기획팀-2017-06-20-001</td>
 										<td>지출결의서</td>
-										<td>2017-07-19 회식비 지출</td>
-										<td>XXX</td>
-										<td>2017-07-20</td>
+										<td>${vo.d_expense_title }</td>
+										<td></td>
+										<td>${vo.d_expense_regdate }</td>
 										<td>완료</td>
 									</tr> 
 								</c:forEach>
@@ -180,9 +205,8 @@
 						<table width="100%" class="table table-striped table-bordered table-hover" id="dataTables">
 							<thead>
 								<tr>
-									<th width="12%" class="text-center">품의번호</th>
 									<th width="10%" class="text-center">문서 분류</th>
-									<th width="50%" class="text-center">제목</th>
+									<th width="62%" class="text-center">제목</th>
 									<th width="10%" class="text-center">기안자</th>
 									<th width="10%" class="text-center">기안일</th>
 									<th width="8%" class="text-center">상태</th>
@@ -191,11 +215,10 @@
 							<tbody>
 								<c:forEach var="vo" items="${ list }" begin="0" end="2">
 									<tr class="text-center">
-										<td>-기획팀-2017-06-20-001</td>
 										<td>지출결의서</td>
-										<td>2017-07-19 회식비 지출</td>
-										<td>XXX</td>
-										<td>2017-07-20</td>
+										<td>${vo.d_expense_title }</td>
+										<td></td>
+										<td>${vo.d_expense_regdate }</td>
 										<td>반려</td>
 									</tr> 
 								</c:forEach> 

@@ -157,6 +157,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where d_expense_idx=#{d_expense_idx}
 	</update>
 	
+	<select id="expense_count" parameterType="java.util.Map" resultType="int">
+		select count(*) from d_expense where idx=#{idx} and d_condition=#{d_condition}
+	</select>
+	
+	<select id="expense_count2" parameterType="java.util.Map" resultType="int">
+		select count(*) from d_expense where next_idx=#{next_idx} and d_condition=#{d_condition}
+	</select>
+	
 </mapper>
 
 

@@ -101,7 +101,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#">전자결제</a>
+				<a class="navbar-brand" href="main_page.do">전자결제</a>
 			</div>
 			<div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1" align="center">
 				<ul class="nav navbar-nav">

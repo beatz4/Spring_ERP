@@ -39,7 +39,9 @@ alter table d_expense add constraint fk_d_expense_app_d_idx foreign key(app_d_id
 insert into d_expense values(seq_d_expense_idx.nextVal, 1, 1, sysdate, '', sysdate, '', '', '', 0, '')
 select m.name, d.*
 
-select * from D_expense
+select count(*) from d_expense where d_condition=1 and idx=1
+
+
 select * from d_expense where idx=1 and d_condition=2
 commit
 

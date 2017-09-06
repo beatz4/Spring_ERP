@@ -58,7 +58,58 @@ public class ApprovalController {
 	}
 
 	@RequestMapping("/Approval/main_page.do")
-	public String main(){
+	public String main(Model model){
+		
+		UserVo user = (UserVo)session.getAttribute("user");
+		
+		int idx = user.getIdx();
+		Map map = new HashMap();
+		map.put("idx", idx);
+		
+		List<App_ExpenseVo> list = app_dao.app_expense_list();
+		
+		for(App_ExpenseVo vo : list){
+			
+			if(vo.getIdx() == idx || vo.getNext_idx() == idx){
+					
+				if(vo.getD_condition() == 1){
+						
+					if(vo.getIdx() == idx ){
+						System.out.println(vo.getIdx());
+						map.put("d_condition", 1);
+						List<App_ExpenseVo> d_condition_list_1 = app_dao.app_d_condition_list(map);
+						int count_1 = app_dao.app_d_condition_count(map);
+						model.addAttribute("count_1", count_1);
+						model.addAttribute("list_1", d_condition_list_1);
+						
+					}else if(vo.getNext_idx() == idx){
+							
+						Map map2 = new HashMap();
+						map2.put("d_condition", 1);
+						map2.put("next_idx", idx);
+						List<App_ExpenseVo> d_condition_list_1_1 = app_dao.app_d_wationg_list(map2);
+						int count_1_1 = app_dao.app_d_condition_count2(map2);
+						model.addAttribute("count_1_1", count_1_1);
+						model.addAttribute("list_1_1", d_condition_list_1_1);
+					}
+						
+				}else if(vo.getD_condition() == 2){
+					map.put("d_condition", 2);
+					List<App_ExpenseVo> d_condition_list_2 = app_dao.app_d_condition_list(map);
+					int count_2 = app_dao.app_d_condition_count(map);
+					model.addAttribute("count_2", count_2);
+					model.addAttribute("list_2", d_condition_list_2);
+					
+				}else if(vo.getD_condition() == 3){
+					map.put("d_condition", 3);
+					List<App_ExpenseVo> d_condition_list_3 = app_dao.app_d_condition_list(map);
+					int count_3 = app_dao.app_d_condition_count(map);
+					model.addAttribute("count_3", count_3);
+					model.addAttribute("list_3", d_condition_list_3);
+					
+				}
+			}		
+		}
 		
 		return VIEW_PATH+"approval_main_page.jsp";
 		
@@ -147,7 +198,6 @@ public class ApprovalController {
 		int idx = user.getIdx();
 		Map map = new HashMap();
 		map.put("idx", idx);
-		System.out.println(idx);
 		
 		List<App_ExpenseVo> list = app_dao.app_expense_list();
 		
