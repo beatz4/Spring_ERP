@@ -45,140 +45,118 @@
 	<div id="page-wrapper">
 		<div class="row">
 			<div class="col-lg-12">
-				<h1 class="page-header">신규 사원 정보</h1>
+				<h1 class="page-header">신규 사원 등록</h1>
 			</div> 
-			<!-- /.col-lg-12 -->
 		</div>
-		<!-- /.row -->
-		<div class="row">
-			<div class="col-lg-3">
-			</div>
-			<!-- /.col-lg-3 -->
-			<div class="col-lg-6">
-				<div class="panel panel-default">
-					<div class="panel-heading">가입 양식</div>
-				</div>
-				<div class="panel-body">
-					<div class="row">
-						<div class="col-lg-6">
-							<form role="form">
-								<!-- 이름 -->
-								<div class="form-group">
-									<label>이름</label> 
-									<input id="name" class="form-control">
-									<p class="help-block">이름을 입력하세요.</p>
-								</div>
-
-								<!-- 주민 번호 -->
-								<div class="form-group">
-									<label>주민번호</label> 
-									<input id="regnumber" class="form-control">
-									<p class="help-block">-를 포함하여 입력해주세요.</p>
-								</div>
-
-								<!-- 아이디 -->
-								<label>아이디</label>
-								<div class="form-group"> 
-									<div class="input-group">
-										<input id="id" type="text" class="form-control">
-										<span class="input-group-btn">
-											<button class="btn btn-secondary" type="button" onclick="chk_Id_dup();">
-												중복체크
-											</button>
-										</span>
-									</div>
-									<p class="help-block">특문을 제외한 아이디를 입력해주세요.</p>
-								</div>
-								
-								<!-- 비밀 번호 -->
-								<div class="form-group">
-									<label>비밀번호</label> 
-									<input id="pwd" type="password"
-										class="form-control" onkeyup="confirm_PW();">
-									<p class="help-block">특문, 숫자 포함 8글자 이상입력해주세요.</p>
-								</div>
-								
-								<!-- 비밀 번호 확인 -->
-								<div class="form-group">
-									<label>비밀번호 확인</label> 
-									<input id="c_pwd" type="password" class="form-control" onkeyup="confirm_PW();"> 
-									<span id="msg"></span>
-								</div>
-
-								<!-- 주소 입력 -->
-								<label>주소</label>
-								<div class="form-group"> 
-									<div class="input-group">
-										<input id="address" type="text" class="form-control" placeholder="버튼을 이용해주세요." disabled="disabled">
-										<span class="input-group-btn">
-											<button class="btn btn-secondary" type="button" onclick="find_address();">
-												검색 
-											</button>
-										</span>
-									</div>
-								</div>
-								
-								<!-- 이메일 -->
-								<div class="form-group">
-									<label>E-Mail</label> 
-									<input id="email" class="form-control">
-									<p class="help-block">@를 포함하여 정확히 기입해주세요.</p>
-								</div>
-								
-								<!-- 전화번호 -->
-								<div class="form-group">
-									<label>전화 번호</label> 
-									<input id="phone" class="form-control">
-									<p class="help-block">-를 포함하여 입력해주세요.</p>
-								</div>
-								
-								<!-- 직급 -->
-								<div class="form-group">
-									<label>직급</label>
-									<c:forEach var="g" items="${ list }">
-										<div class="radio">
-											<label> 
-												<!-- 처음 권한을 선택한 것을 기본값으로 한다. -->
-												<c:choose>
-													<c:when test="${ g.g_idx eq '1' }">
-														<input type="radio" name="optionsRadios" id="position" value="${ g.g_idx }" checked="checked">${ g.g_position }
-													</c:when>
-													<c:otherwise>
-														<input type="radio" name="optionsRadios" id="position" value="${ g.g_idx }">${ g.g_position }
-													</c:otherwise>
-												</c:choose>
-											</label>
-										</div>
-									</c:forEach>
-								</div>
-								
-								<!-- 소속 팀 트리구조 -->
-								<div class="form-group">
-									<label>소속 그룹</label>  
-										<ul id="tree" class="ztree"></ul>
-								</div>
-								
-								<button type="button" class="btn btn-default"
-										onclick="resgister(this.form);">가입</button>
-								<button type="reset" class="btn btn-default" 
-										onclick="location.href='user_manager.do'">취소</button>
-								
-							</form>
+			<div class="panel-body">
+				<form role="form" style="width: 50%;">
+					<div style="float: left; width: 50%;">
+						<!-- 이름 -->
+						<div class="form-group">
+							<label>이름</label> 
+							<input id="name" class="form-control">
+							<p class="help-block">이름을 입력하세요.</p>
 						</div>
-						<!-- /.row (nested) -->
+	
+						<!-- 주민 번호 -->
+						<div class="form-group">
+							<label>주민번호</label> 
+							<input id="regnumber" class="form-control">
+							<p class="help-block">-를 포함하여 입력해주세요.</p>
+						</div>
+	
+						<!-- 아이디 -->
+						<label>아이디</label>
+						<div class="form-group"> 
+							<div class="input-group">
+								<input id="id" type="text" class="form-control">
+								<span class="input-group-btn">
+									<button class="btn btn-secondary" type="button" onclick="chk_Id_dup();">
+										중복체크
+									</button>
+								</span>
+							</div>
+							<p class="help-block">특문을 제외한 아이디를 입력해주세요.</p>
+						</div>
+						
+						<!-- 비밀 번호 -->
+						<div class="form-group">
+							<label>비밀번호</label> 
+							<input id="pwd" type="password"
+								class="form-control" onkeyup="confirm_PW();">
+							<p class="help-block">특문, 숫자 포함 8글자 이상입력해주세요.</p>
+						</div>
+						
+						<!-- 비밀 번호 확인 -->
+						<div class="form-group">
+							<label>비밀번호 확인</label> 
+							<input id="c_pwd" type="password" class="form-control" onkeyup="confirm_PW();"> 
+							<span id="msg"></span>
+						</div>
+	
+						<!-- 주소 입력 -->
+						<label>주소</label>
+						<div class="form-group"> 
+							<div class="input-group">
+								<input id="address" type="text" class="form-control" placeholder="버튼을 이용해주세요." disabled="disabled">
+								<span class="input-group-btn">
+									<button class="btn btn-secondary" type="button" onclick="find_address();">
+										검색 
+									</button>
+								</span>
+							</div>
+						</div>
+						
+						<!-- 이메일 -->
+						<div class="form-group">
+							<label>E-Mail</label> 
+							<input id="email" class="form-control">
+							<p class="help-block">@를 포함하여 정확히 기입해주세요.</p>
+						</div>
+						
+						<!-- 전화번호 -->
+						<div class="form-group">
+							<label>전화 번호</label> 
+							<input id="phone" class="form-control">
+							<p class="help-block">-를 포함하여 입력해주세요.</p>
+						</div>
 					</div>
-					 <!-- /.panel-body -->
-				</div>
-				<!-- /.panel -->
+					
+					<div style="float: right; padding-right: 150px;">
+						<!-- 직급 -->
+						<div class="form-group">
+							<label>직급</label>
+							<c:forEach var="g" items="${ list }">
+								<div class="radio">
+									<label> 
+										<!-- 처음 권한을 선택한 것을 기본값으로 한다. -->
+										<c:choose>
+											<c:when test="${ g.g_idx eq '1' }">
+												<input type="radio" name="optionsRadios" id="position" value="${ g.g_idx }" checked="checked">${ g.g_position }
+											</c:when>
+											<c:otherwise>
+												<input type="radio" name="optionsRadios" id="position" value="${ g.g_idx }">${ g.g_position }
+											</c:otherwise>
+										</c:choose>
+									</label>
+								</div>
+							</c:forEach>
+						</div>
+						
+						<!-- 소속 팀 트리구조 -->
+						<div class="form-group">
+							<label>소속 그룹</label>  
+								<ul id="tree" class="ztree"></ul>
+						</div>
+						
+						<button type="button" class="btn btn-default"
+								onclick="resgister(this.form);">가입</button>
+						<button type="reset" class="btn btn-default" 
+								onclick="location.href='user_manager.do'">취소</button>
+					</div>
+				</form>
 			</div>
-			<!-- /.col-lg-6 -->
-			<div class="col-lg-3">
-			</div>
-			<!-- /.col-lg-3 -->
 		</div>
-		<!-- /.row -->
-	</div>
-	<!-- /#page-wrapper -->
 
 <!-- jQuery -->
 <script
