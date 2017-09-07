@@ -154,7 +154,7 @@
 		</div>
 		<div class="panel panel-default" style="margin: 0; min-width: 500px; min-height: 590px;">
 			<div class="panel-body">
-				<table class="table table-striped table-bordered table-hover" id="dataTables" style="text-align: center;">
+				<table class="table table-striped table-bordered table-hover" id="dataTables" style="text-align:center;table-layout:fixed;word-break:break-all;">
 					<thead>
 						<tr>
 							<th width="2%" style="text-align: center;"><input id="th_checkAll" name="checkAll" type="checkbox" onclick="checkAll();"></th>

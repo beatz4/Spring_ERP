@@ -17,14 +17,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-
 @Controller
 public class CKEditorFileUploadController {
 
-	
 	@Autowired
 	ServletContext application;
-	
 	
 	@RequestMapping(value="/ckeditorImageUpload.do", method=RequestMethod.POST)
 	public void ckeditorImageUpload(
@@ -86,17 +83,10 @@ public class CKEditorFileUploadController {
                 e.printStackTrace();
             }
         }
- 
-       
-
 	}
 	
-	
-	
-	
-	
 	//¹æ¹ý2
-	@RequestMapping(value="/ckeditorImageUpload2.do", method=RequestMethod.POST)
+	/*@RequestMapping(value="/ckeditorImageUpload2.do", method=RequestMethod.POST)
 	public void ckeditorImageUpload2(
 			HttpServletRequest request, 
 			HttpServletResponse response, 
@@ -160,13 +150,5 @@ public class CKEditorFileUploadController {
                 e.printStackTrace();
             }
         }
- 
-        
-
-	}
-
-	
-
-
-	
+ 	}*/	
 }

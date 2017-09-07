@@ -83,7 +83,7 @@
 			    <div class="panel-heading">받은쪽지</div>
 			    <div class="panel-body">			    
 			    	<form name="f" method="get" action="insert.do">
-						<table  id="send_table" style="width: 100%;">
+						<table  id="send_table" style="width: 100%;table-layout: fixed;word-break:break-all;">
 							<tr>
 								<td style="width:100%;">
 								   <div style="width: 49%; float: left;">
