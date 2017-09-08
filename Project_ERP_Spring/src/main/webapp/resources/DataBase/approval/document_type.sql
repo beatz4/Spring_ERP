@@ -24,6 +24,8 @@ alter table document_type drop constraint fk_doc_user_idx
 
 commit
 
+
+
 --sampledata
 insert into document_type values(seq_doc_idx.nextVal, 3, '지출결의서', sysdate);
 insert into document_type values(seq_doc_idx.nextVal, 3, '휴가신청서', sysdate);

@@ -127,27 +127,27 @@ public class ApprovalDao {
 		return res;
 	}
 
-	public List<App_ExpenseVo> app_expense_list() {
+	public List<App_DocVo> app_doc_list() {
 		// TODO Auto-generated method stub
-		List<App_ExpenseVo> list = null;
+		List<App_DocVo> list = null;
 		
-		list = sqlSession.selectList("app_expense_list");
+		list = sqlSession.selectList("app_document_list");
 		
 		return list;
 	}
 
-	public List<App_ExpenseVo> app_d_condition_list(Map map) {
+	public List<App_DocVo> app_d_condition_list(Map map) {
 		// TODO Auto-generated method stub
-		List<App_ExpenseVo> list = null;
+		List<App_DocVo> list = null;
 		
 		list = sqlSession.selectList("app_d_condition_list", map);
 		
 		return list;
 	}
 
-	public List<App_ExpenseVo> app_d_wationg_list(Map map) {
+	public List<App_DocVo> app_d_wating_list(Map map) {
 		// TODO Auto-generated method stub
-		List<App_ExpenseVo> list = null;
+		List<App_DocVo> list = null;
 		
 		list = sqlSession.selectList("app_d_wating_list", map);
 		
@@ -156,11 +156,21 @@ public class ApprovalDao {
 		return list;
 	}
 
-	public App_ExpenseVo app_expense_index(int d_expense_idx) {
+	public App_DocVo app_d_select_one(int a_line_idx) {
+		// TODO Auto-generated method stub
+		
+		App_DocVo vo = null;
+		
+		vo = sqlSession.selectOne("app_d_select_one", a_line_idx);
+		
+		return vo;
+	}
+	
+	public App_ExpenseVo app_expense_index(int app_d_idx) {
 		// TODO Auto-generated method stub
 		App_ExpenseVo vo = null;
 		
-		vo = sqlSession.selectOne("app_expense_index", d_expense_idx);
+		vo = sqlSession.selectOne("app_expense_index", app_d_idx);
 		
 		return vo;
 	}
@@ -174,20 +184,20 @@ public class ApprovalDao {
 		return list;
 	}
 
-	public int expense_app_update(Map map) {
+	public int app_update(Map map) {
 		// TODO Auto-generated method stub
 		int res = 0;
 				
-		res = sqlSession.update("expense_app_update", map);
+		res = sqlSession.update("app_update", map);
 		
 		return res;
 	}
 
-	public int expense_cancel_update(Map map) {
+	public int app_cancel(Map map) {
 		// TODO Auto-generated method stub
 		int res = 0;
 		
-		res = sqlSession.update("expense_cancel_update", map);
+		res = sqlSession.update("app_cancel", map);
 		
 		return res;
 		
@@ -210,5 +220,25 @@ public class ApprovalDao {
 		
 		return res;
 	}
+
+	public int insert_app_doc(App_DocVo vo) {
+		// TODO Auto-generated method stub
+		int res = 0;
+		
+		res = sqlSession.insert("app_doc_insert", vo);
+		
+		return res;
+	}
+
+	public App_LineVo app_had_list(int idx) {
+		// TODO Auto-generated method stub
+		App_LineVo line = null;
+		
+		line = sqlSession.selectOne("app_had_list", idx);
+		
+		return line;
+	}
+
+	
 	
 }

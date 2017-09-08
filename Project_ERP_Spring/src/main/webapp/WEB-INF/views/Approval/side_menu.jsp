@@ -125,6 +125,10 @@
 						<li><a href="expense_list.do?d_condition=2">반려 문서
 						<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-open-file"></span></a>
 					</li>
+					</li>
+						<li><a href="app_had_list.do">내가 받은 결재
+						<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-open-file"></span></a>
+					</li>
 					<li>
 						<a href="${ pageContext.request.contextPath }/Approval/app_line.do">결제선 관리
 						<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-inbox"></span></a>

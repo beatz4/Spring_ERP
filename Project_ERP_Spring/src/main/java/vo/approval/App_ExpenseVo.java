@@ -2,101 +2,10 @@ package vo.approval;
 
 public class App_ExpenseVo {
 	
-	int d_expense_idx, idx, app_d_idx, next_idx;
-	String d_expense_regdate, d_expense_title, d_expense_date, d_expense_acnumber, d_expense_acname, d_expense_tpay, ip, d_expense_total;
-	int t_expense_idx, app_one, app_two, app_three, app_four, d_condition;
-	String t_expense_title, app_one_date, app_two_date, app_three_date, app_four_date;
-	
-	public String getApp_one_date() {
-		return app_one_date.substring(0, 10);
-	}
-
-	public void setApp_one_date(String app_one_date) {
-		this.app_one_date = app_one_date;
-	}
-
-	public String getApp_two_date() {
-		
-		if(app_two_date != null){
-			return app_two_date.substring(0, 10);
-		}
-		return app_two_date;
-	}
-
-	public void setApp_two_date(String app_two_date) {
-		this.app_two_date = app_two_date;
-	}
-
-	public String getApp_three_date() {
-		
-		if(app_three_date != null){
-			return app_three_date.substring(0, 10);
-		}
-		return app_three_date;
-	}
-
-	public void setApp_three_date(String app_three_date) {
-		this.app_three_date = app_three_date;
-	}
-
-	public String getApp_four_date() {
-		if(app_four_date != null){
-			return app_four_date.substring(0, 10);
-		}
-		return app_four_date;
-	}
-
-	public void setApp_four_date(String app_four_date) {
-		this.app_four_date = app_four_date;
-	}
-
-	public int getNext_idx() {
-		return next_idx;
-	}
-
-	public void setNext_idx(int next_idx) {
-		this.next_idx = next_idx;
-	}
-
-	public int getApp_one() {
-		return app_one;
-	}
-
-	public void setApp_one(int app_one) {
-		this.app_one = app_one;
-	}
-
-	public int getApp_two() {
-		return app_two;
-	}
-
-	public void setApp_two(int app_two) {
-		this.app_two = app_two;
-	}
-
-	public int getApp_three() {
-		return app_three;
-	}
-
-	public void setApp_three(int app_three) {
-		this.app_three = app_three;
-	}
-
-	public int getApp_four() {
-		return app_four;
-	}
-
-	public void setApp_four(int app_four) {
-		this.app_four = app_four;
-	}
-
-	public int getD_condition() {
-		return d_condition;
-	}
-
-	public void setD_condition(int d_condition) {
-		this.d_condition = d_condition;
-	}
+	int d_expense_idx, idx, app_d_idx;
+	String d_expense_regdate, d_expense_date, d_expense_acnumber, d_expense_acname, d_expense_tpay, ip, d_expense_total;
+	int t_expense_idx;
+	String t_expense_title;
 
 	public int getD_expense_idx() {
 		return d_expense_idx;
@@ -131,19 +40,11 @@ public class App_ExpenseVo {
 	}
 
 	public String getD_expense_regdate() {
-		return d_expense_regdate.substring(2, 10).replaceAll("-", ".");
+		return d_expense_regdate.substring(0, 10);
 	}
 
 	public void setD_expense_regdate(String d_expense_regdate) {
 		this.d_expense_regdate = d_expense_regdate;
-	}
-
-	public String getD_expense_title() {
-		return d_expense_title;
-	}
-
-	public void setD_expense_title(String d_expense_title) {
-		this.d_expense_title = d_expense_title;
 	}
 
 	public String getD_expense_date() {

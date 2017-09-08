@@ -36,39 +36,14 @@
 
 	<div id="page-wrapper">
 		<div class="row">
-			<div class="col-lg-5">
-				<h5 class="page-header"><i class="fa fa-archive fa-fw"></i> 결재 진행</h5>
-			</div>
-			<!-- /.col-lg-12 -->
-			<div class="col-lg-7">
+			<div class="col-lg-12">
 				<h5 class="page-header"><i class="fa fa-archive fa-fw"></i> 개인 문서함</h5>
 			</div>
 			<!-- /.col-lg-12 -->
 		</div>
 		<!-- /.row -->
 		<div class="row">
-			<div class="col-lg-5">
-				<div class="panel panel-default">
-					<div class="panel-body">
-						<table width="100%" class="table table-striped table-bordered table-hover" id="approval">
-								<tr>
-									<th width="30%" class="text-center">미결제 문서</th>
-									<td class="text-center">1</td>
-								</tr>
-								<tr>
-									<th class="text-center">결제완료 문서</th>
-									<td align="center">1</td>
-								</tr> 
-								<tr>
-									<th class="text-center">반려 문서</th>
-									<td align="center">1</td>	
-								</tr> 
-                        </table>
-					</div>
-				</div>
-			<!-- /.col-lg-6 -->
-			</div>
-			<div class="col-lg-7">
+			<div class="col-lg-12">
 				<div class="panel panel-default">
 					<div class="panel-body">
 						<table width="100%" class="table table-striped table-bordered table-hover" id="person_approval">
@@ -139,12 +114,17 @@
 								</tr>
 							</thead>
 							<tbody>
+								<c:if test="${list_1 eq null }">
+									<tr class="text-center">
+										<td colspan="5">문서함이 비어있습니다.</td>
+									</tr>
+								</c:if>
 								<c:forEach var="vo" items="${ list_1 }" begin="0" end="2">
 									<tr class="text-center">
-										<td>지출결의서</td>
-										<td>${vo.d_expense_title }</td>
-										<td></td>
-										<td>${vo.d_expense_regdate }</td>
+										<td>${vo.doc_title }</td>
+										<td>${vo.app_document_title }</td>
+										<td>${vo.name }</td>
+										<td>${vo.app_one_date}</td>
 										<td>상신</td>
 									</tr> 
 								</c:forEach> 
@@ -155,33 +135,42 @@
 			<!-- /.col-lg-12 -->
 			</div>
 		</div>
+	
 		<div class="row">
-			<div class="col-lg-12">
+			<div class="col-lg-6">
 				<h5 class="page-header"><i class="fa fa-archive fa-fw"></i> 내가 올린 결재 > 결재 완료 문서</h5>
 			</div>
 			<!-- /.col-lg-12 -->
+			<div class="col-lg-6">
+				<h5 class="page-header"><i class="fa fa-archive fa-fw"></i> 내가 올린 결재 > 반려 문서</h5>
+			</div>
 		</div>
 		<div class="row">
-			<div class="col-lg-12">
+			<div class="col-lg-6">
 				<div class="panel panel-default">
 					<div class="panel-body">
 						<table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
 							<thead>
 								<tr>
 									<th width="10%" class="text-center">문서 분류</th>
-									<th width="62%" class="text-center">제목</th>
+									<th width="20%" class="text-center">제목</th>
 									<th width="10%" class="text-center">기안자</th>
 									<th width="10%" class="text-center">기안일</th>
 									<th width="8%" class="text-center">상태</th>
 								</tr>
 							</thead>
 							<tbody>
+								<c:if test="${list_3 eq null }">
+									<tr class="text-center">
+										<td colspan="5">문서함이 비어있습니다.</td>
+									</tr>
+								</c:if>
 								<c:forEach var="vo" items="${ list_3 }" begin="0" end="2">
 									<tr class="text-center">
-										<td>지출결의서</td>
-										<td>${vo.d_expense_title }</td>
-										<td></td>
-										<td>${vo.d_expense_regdate }</td>
+										<td>${vo.doc_title }</td>
+										<td>${vo.app_document_title }</td>
+										<td>${vo.name }</td>
+										<td>${vo.app_one_date}</td>
 										<td>완료</td>
 									</tr> 
 								</c:forEach>
@@ -191,10 +180,51 @@
 				</div>
 			<!-- /.col-lg-12 -->
 			</div>
+		
+			
+			<!-- /.col-lg-12 -->
+		
+		
+			<div class="col-lg-6">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<table width="100%" class="table table-striped table-bordered table-hover" id="dataTables">
+							<thead>
+								<tr>
+									<th width="10%" class="text-center">문서 분류</th>
+									<th width="20%" class="text-center">제목</th>
+									<th width="10%" class="text-center">기안자</th>
+									<th width="10%" class="text-center">기안일</th>
+									<th width="8%" class="text-center">상태</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:if test="${list_2 eq null }">
+									<tr class="text-center">
+										<td colspan="5">문서함이 비어있습니다.</td>
+									</tr>
+								</c:if>
+								<c:forEach var="vo" items="${ list_2 }" begin="0" end="2">
+									<tr class="text-center">
+										<td>${vo.doc_title }</td>
+										<td>${vo.app_document_title }</td>
+										<td>${vo.name }</td>
+										<td>${vo.app_one_date}</td>
+										<td>반려</td>
+									</tr> 
+								</c:forEach> 
+							</tbody>
+                        </table>
+					</div>
+				</div>
+			<!-- /.col-lg-12 -->
+			</div>
+			<!-- /.row -->
 		</div>
+	
 		<div class="row">
 			<div class="col-lg-12">
-				<h5 class="page-header"><i class="fa fa-archive fa-fw"></i> 내가 올린 결재 > 반려 문서</h5>
+				<h5 class="page-header"><i class="fa fa-archive fa-fw"></i> 내가 받은 결재 </h5>
 			</div>
 			<!-- /.col-lg-12 -->
 		</div>
@@ -213,13 +243,28 @@
 								</tr>
 							</thead>
 							<tbody>
+								<c:if test="${list eq null }">
+									<tr class="text-center">
+										<td colspan="5">문서함이 비어있습니다.</td>
+									</tr>
+								</c:if>
 								<c:forEach var="vo" items="${ list }" begin="0" end="2">
 									<tr class="text-center">
-										<td>지출결의서</td>
-										<td>${vo.d_expense_title }</td>
-										<td></td>
-										<td>${vo.d_expense_regdate }</td>
-										<td>반려</td>
+										<td>${vo.doc_title }</td>
+										<td>${vo.app_document_title }</td>
+										<td>${vo.name }</td>
+										<td>${vo.app_one_date}</td>
+										<c:choose>
+											<c:when test="${vo.d_condition eq 1 }">
+												<td>상신</td>
+											</c:when>
+											<c:when test="${vo.d_condition eq 2 }">
+												<td>반려</td>
+											</c:when>
+											<c:when test="${vo.d_condition eq 3 }">
+												<td>완료</td>
+											</c:when>
+										</c:choose>
 									</tr> 
 								</c:forEach> 
 							</tbody>
@@ -230,9 +275,19 @@
 			</div>
 			<!-- /.row -->
 		</div>
+		
 	</div>
 	<!-- /#page-wrapper -->
 	<!-- jQuery -->
+<script type="text/javascript">
+	$(document).ready(function(){
+		
+		$("td").css("white-space","nowrap");
+		$("td").css("overflow","hidden");
+		$("td").css("text-overflow","ellipsis");
+		
+	});
+</script>
 <script
 	src="${ pageContext.request.contextPath }/resources/ExternalLib/bootstrap/js/jquery.min.js"></script>
 

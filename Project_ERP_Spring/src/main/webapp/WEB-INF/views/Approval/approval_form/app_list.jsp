@@ -48,18 +48,23 @@
 	<div id="page-wrapper" style="height: 100%;">
 		<div class="row" style="padding-top: 20px;">
 			<div class="col-lg-12">
-				<c:if test="${param.d_condition eq 1 && param.result eq 'request'}">
-					<h1 class="page-header">결재 요청 목록</h1>
-				</c:if>
-				<c:if test="${param.d_condition eq 1 && param.result eq 'wating'}">
-					<h1 class="page-header">결재  대기 목록</h1>
-				</c:if>
-				<c:if test="${param.d_condition eq 3 }">
-					<h1 class="page-header">결재 완료 목록</h1>
-				</c:if>
-				<c:if test="${param.d_condition eq 2 }">
-					<h1 class="page-header">결재 반려 목록</h1>
-				</c:if>
+				<c:choose>
+					<c:when test="${param.d_condition eq 1 && param.result eq 'request'}">
+						<h1 class="page-header">결재 요청 목록</h1>
+					</c:when>
+					<c:when test="${param.d_condition eq 1 && param.result eq 'wating'}">
+						<h1 class="page-header">결재  대기 목록</h1>
+					</c:when>
+					<c:when test="${param.d_condition eq 3 }">
+						<h1 class="page-header">결재 완료 목록</h1>
+					</c:when>
+					<c:when test="${param.d_condition eq 2 }">
+						<h1 class="page-header">결재 반려 목록</h1>
+					</c:when>
+					<c:otherwise>
+						<h1 class="page-header">내가 결재한 목록</h1>
+					</c:otherwise>
+				</c:choose>
 			</div>
 			<!-- /.col-lg-12 -->
 		</div>
@@ -72,7 +77,9 @@
 							<thead>
 								<tr>
 									<th width="7%" style="text-align: center;">선택</th>
+									<th width="13%" style="text-align: center;">문서종류</th>
 									<th style="text-align: center;">제목</th>
+									<th width="10%" style="text-align: center;">작성자</th>
 									<th width="10%" style="text-align: center;">진행상태</th>
 									<th width="10%" style="text-align: center;">신청날짜</th>
 								</tr>
@@ -81,9 +88,11 @@
 								<c:forEach var="vo" items="${ list }">
 									<tr>
 										<td id="chk_user" align="center">
-											<input id="chk_user" type="checkbox" name="checkbox" value="${ vo.d_expense_idx }">
+											<input id="chk_user" type="checkbox" name="checkbox" value="${ vo.app_d_idx }">
 										</td>
-										<td style="text-align: center;"><a href="app_expense_index.do?d_expense_idx=${vo.d_expense_idx }">${ vo.d_expense_title }</a></td>
+										<td style="text-align: center;">${ vo.doc_title }</td>
+										<td style="text-align: center;"><a href="app_document_index.do?app_d_idx=${vo.app_d_idx }">${ vo.app_document_title }</a></td>
+										<td style="text-align: center;">${ vo.name }</td>
 										<c:choose>
 											<c:when test="${param.d_condition eq 1 }">
 												<td style="text-align: center;">결재대기</td>
@@ -95,7 +104,7 @@
 												<td style="text-align: center;">결재완료</td>
 											</c:when>
 										</c:choose>
-										<td>${ vo.d_expense_regdate }</td>
+										<td>${ vo.app_one_date }</td>
 									</tr> 
 								</c:forEach> 
 							</tbody>
@@ -137,7 +146,7 @@
         $('#dataTables').DataTable({
            	responsive: true 
         });
-        
+        $('td').css("text-align","center");
         $('#dataTables_wrapper .col-sm-6 #dataTables_filter').css("text-align","right");
         $('#dataTables_wrapper .col-sm-6 #dataTables_paginate').css("text-align","right");
         

@@ -38,47 +38,47 @@
 								</tr>
 								<tr>
 									<c:choose>
-										<c:when test="${vo.app_one eq 1 }">
-											<td class="${vo.app_one }"><img src="${ pageContext.request.contextPath }/resources/image/success.jpg" width="70px" height="67px" ></td>
+										<c:when test="${user_vo.app_one eq 1 }">
+											<td class="${user_vo.app_one }"><img src="${ pageContext.request.contextPath }/resources/image/success.jpg" width="70px" height="67px" ></td>
 										</c:when>
-										<c:when test="${vo.app_one eq 2 }">
-											<td class="${vo.app_one }"><img src="${ pageContext.request.contextPath }/resources/image/fail.png" width="70px" height="67px" ></td>
+										<c:when test="${user_vo.app_one eq 2 }">
+											<td class="${user_vo.app_one }"><img src="${ pageContext.request.contextPath }/resources/image/fail.png" width="70px" height="67px" ></td>
 										</c:when>
 										<c:otherwise>
-											<td class="${vo.app_one }"></td>
+											<td class="${user_vo.app_one }"></td>
 										</c:otherwise>
 									</c:choose>
 									<c:choose>
-										<c:when test="${vo.app_two eq 1 }">
-											<td class="${vo.app_two }" style="margin: 0px"><img src="${ pageContext.request.contextPath }/resources/image/success.jpg" width="70px" height="67px" ></td>
+										<c:when test="${user_vo.app_two eq 1 }">
+											<td class="${user_vo.app_two }" style="margin: 0px"><img src="${ pageContext.request.contextPath }/resources/image/success.jpg" width="70px" height="67px" ></td>
 										</c:when>
-										<c:when test="${vo.app_two eq 2 }">
-											<td class="${vo.app_two }" style="margin: 0px"><img src="${ pageContext.request.contextPath }/resources/image/fail.png" width="70px" height="67px" ></td>
+										<c:when test="${user_vo.app_two eq 2 }">
+											<td class="${user_vo.app_two }" style="margin: 0px"><img src="${ pageContext.request.contextPath }/resources/image/fail.png" width="70px" height="67px" ></td>
 										</c:when>
 										<c:otherwise>
-											<td class="${vo.app_one }"></td>
+											<td class="${user_vo.app_two }"></td>
 										</c:otherwise>
 									</c:choose>
 									<c:choose>
-										<c:when test="${vo.app_three eq 1 }">
-											<td class="${vo.app_three }"><img src="${ pageContext.request.contextPath }/resources/image/success.jpg" width="70px" height="67px"></td>
+										<c:when test="${user_vo.app_three eq 1 }">
+											<td class="${user_vo.app_three }"><img src="${ pageContext.request.contextPath }/resources/image/success.jpg" width="70px" height="67px"></td>
 										</c:when>
-										<c:when test="${vo.app_one eq 2 }">
-											<td class="${vo.app_three }"><img src="${ pageContext.request.contextPath }/resources/image/fail.png" width="70px" height="67px"></td>
+										<c:when test="${user_vo.app_three eq 2 }">
+											<td class="${user_vo.app_three }"><img src="${ pageContext.request.contextPath }/resources/image/fail.png" width="70px" height="67px"></td>
 										</c:when>
 										<c:otherwise>
-											<td class="${vo.app_three }"></td>
+											<td class="${user_vo.app_three }"></td>
 										</c:otherwise>
 									</c:choose>
 									<c:choose>
-										<c:when test="${vo.app_four eq 1 }">
-											<td class="${vo.app_four }"><img src="${ pageContext.request.contextPath }/resources/image/success.jpg" width="70px" height="67px"></td>
+										<c:when test="${user_vo.app_four eq 1 }">
+											<td class="${user_vo.app_four }"><img src="${ pageContext.request.contextPath }/resources/image/success.jpg" width="70px" height="67px"></td>
 										</c:when>
-										<c:when test="${vo.app_four eq 2 }">
-											<td class="${vo.app_four }"><img src="${ pageContext.request.contextPath }/resources/image/fail.png" width="70px" height="67px"></td>
+										<c:when test="${user_vo.app_four eq 2 }">
+											<td class="${user_vo.app_four }"><img src="${ pageContext.request.contextPath }/resources/image/fail.png" width="70px" height="67px"></td>
 										</c:when>
 										<c:otherwise>
-											<td class="${vo.app_one }"></td>
+											<td class="${user_vo.app_four }"></td>
 										</c:otherwise>
 									</c:choose>
 								</tr>
@@ -89,10 +89,10 @@
 									<td align="center" class="name_g_position_4">${line_vo.user_name_four }</td>
 								</tr>
 								<tr height="15%">			
-									<td>${vo.app_one_date }</td>
-									<td>${vo.app_two_date }</td>
-									<td>${vo.app_three_date }</td>
-									<td>${vo.app_four_date }</td>
+									<td>${user_vo.app_one_date }</td>
+									<td>${user_vo.app_two_date }</td>
+									<td>${user_vo.app_three_date }</td>
+									<td>${user_vo.app_four_date }</td>
 								</tr>
 							</table>
 						</div>
@@ -149,7 +149,7 @@
 										<td class="text-center" width="38%">
 											<div class="form-group">
 												<input class="form-control"
-													style="font-size: 15px" name="d_expense_title" value="${vo.d_expense_title }">
+													style="font-size: 15px" name="d_expense_title" value="${user_vo.app_document_title }">
 											</div>
 										</td>
 										<th width="12%" class="text-center"
@@ -280,7 +280,7 @@
 						</div>
 					</div>
 				<!-- </div> -->
-				<c:if test="${vo.d_condition eq 1 and vo.next_idx eq 0}">
+				<c:if test="${user_vo.d_condition eq 1 and user_vo.idx != user_vo.next_idx }">
 					<div class="col-lg-12" align="center">
 						<button type="button" class="btn btn-primary" onclick="expense_app(this.form);">결재하기</button>
 						<button type="button" class="btn btn-primary" onclick="expense_cancle(this.form);">반려하기</button>
@@ -291,6 +291,7 @@
 	</div>
 <script>
 
+	
 	$(document).ready(function(){
 		
 		$("input").attr("readonly", true);
@@ -305,15 +306,15 @@
 		
 		if(cf = true){
 			
-			var d_expense_idx = ${vo.d_expense_idx};
-			var next_idx = 0;
+			var app_d_idx = ${user_vo.app_d_idx};
+			var next_idx = stay;
 			var app_one = 0;
 			var app_two = 0;
 			var app_three =0;
 			var app_four = 0;
 			var d_condition = 1;
 			
-			if(${vo.app_one} == 1){
+			if(${user_vo.app_one} == 1){
 				next_idx = $(".g_position_3").attr("data-toggle");
 				app_one = 1;
 				app_two = 1;
@@ -323,7 +324,7 @@
 					d_condition = 3;
 				}
 			}
-			if(${vo.app_two} == 1){
+			if(${user_vo.app_two} == 1){
 				next_idx = $(".g_position_4").attr("data-toggle");
 				app_one = 1;
 				app_two = 1;
@@ -334,7 +335,7 @@
 					d_condition = 3;
 				}
 			}
-			if(${vo.app_three} == 1){
+			if(${user_vo.app_three} == 1){
 				next_idx = 0;
 				app_one = 1;
 				app_two = 1;
@@ -346,7 +347,7 @@
 			$.ajax({
 				url : "expense_app.do",
 				data: {
-					   'd_expense_idx'     : d_expense_idx,
+					   'app_d_idx'     	   : app_d_idx,
 					   'next_idx'          : next_idx,
 					   'app_one'		   : app_one,
 					   'app_two'		   : app_two,
@@ -370,7 +371,7 @@
 		
 		if(cf = true){
 			
-			var d_expense_idx = ${vo.d_expense_idx};
+			var app_d_idx = ${user_vo.app_d_idx};
 			var next_idx = 0;
 			var app_one = 0;
 			var app_two = 0;
@@ -378,21 +379,21 @@
 			var app_four = 0;
 			var d_condition = 2;
 			
-			if(${vo.app_one} == 1){
+			if(${user_vo.app_one} == 1){
 				next_idx = 0;
 				app_one = 1;
 				app_two = 2;
 				d_condition = 2;
 				
 			}
-			if(${vo.app_two} == 1){
+			if(${user_vo.app_two} == 1){
 				next_idx = 0;
 				app_one = 1;
 				app_two = 1;
 				app_three =2;
 				d_condition = 2;
 			}
-			if(${vo.app_three} == 1){
+			if(${user_vo.app_three} == 1){
 				next_idx = 0;
 				app_one = 1;
 				app_two = 1;
@@ -403,7 +404,7 @@
 			$.ajax({
 				url : "expense_cancel.do",
 				data: {
-					   'd_expense_idx'     : d_expense_idx,
+					   'app_d_idx'     	   : app_d_idx,
 					   'next_idx'          : next_idx,
 					   'app_one'		   : app_one,
 					   'app_two'		   : app_two,

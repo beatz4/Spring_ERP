@@ -188,13 +188,13 @@
 		<!-- </div> -->
 		<div class="col-lg-12" align="center">
 			<button type="button" id="formadd" class="btn btn-primary">추가하기</button>
-			<button type="button" class="btn btn-primary" onclick="expense_add(this.form);">기안하기</button>
+			<button type="button" class="btn btn-primary" onclick="app_document();">기안하기</button>
 		</div>	
 	</form>
 	
 
 <script>
-
+	
 	function app_line(){
 		
 		var popupX = (window.screen.width / 2) - (1200 / 2);
@@ -206,55 +206,76 @@
 		window.open("app_line_index.do", "pop", 'status=no, height=800, width=1200, resizable=no, left='+ popupX + ', top='+ popupY + ', screenX='+ popupX + ', screenY= '+ popupY);
 		
 	}
+	
+	function app_document(){
+			
+			var a_line_idx = $(".g_position_1").attr("name");
+			var next_idx = $(".g_position_2").attr("data-toggle");
+			var d_expense_title = $("[name=d_expense_title]").val();
+			var doc_idx = 1;
+			var app_one = 1;
+			var app_two = 0;
+			var app_three = 0;
+			var app_four = 0;
+			var d_condition = 1;
+			
+			$.ajax({
+				url : "app_document.do",
+				data: {'idx' 		       : ${app_user_list.idx},
+					   'next_idx'          : next_idx,
+					   'doc_idx'           : doc_idx,
+					   'a_line_idx'		   : a_line_idx,
+					   'app_document_title': d_expense_title,
+					   'app_one'		   : app_one,
+					   'app_two'		   : app_two,
+					   'app_three'		   : app_three,
+					   'app_four'		   : app_four,
+					   'd_condition'	   : d_condition
+				},
+				success : function(data){
+					
+					expense_add(data);
+					
+				}
+				
+			});	 
+	}
 
-	function expense_add(f){
+	function expense_add(app_d_idx){
 		
-		var app_d_idx = $(".g_position_1").attr("name");
-		var next_idx = $(".g_position_2").attr("data-toggle");
-		var d_expense_regdate = f.d_expense_regdate.value;
-		var d_expense_title = f.d_expense_title.value;
-		var d_expense_date =f.d_expense_date.value;
-		var d_expense_acnumber = f.d_expense_acnumber.value;
-		var d_expense_acname = f.d_expense_acname.value;
-		var d_expense_total = f.d_expense_total.value;
-		var d_expense_tpay = f.d_expense_tpay.value;
-		var app_one = 1;
-		var app_two = 0;
-		var app_three =0;
-		var app_four = 0;
-		var d_condition = 1;
+		var d_expense_regdate = $("[name=d_expense_regdate]").val();
+		var d_expense_date = $("[name=d_expense_date]").val();
+		var d_expense_acnumber = $("[name=d_expense_acnumber]").val();;
+		var d_expense_acname = $("[name=d_expense_acname]").val();;
+		var d_expense_total = $("[name=d_expense_total]").val();;
+		var d_expense_tpay = $("[name=d_expense_tpay]").val();;
 		
-		$.ajax({
+		 $.ajax({
 			url : "expense_insert.do",
 			data: {'idx' 		       : ${app_user_list.idx},
-				   'next_idx'          : next_idx,
 				   'app_d_idx'		   : app_d_idx,
 				   'd_expense_regdate' : d_expense_regdate,
-				   'd_expense_title'   : d_expense_title,
 				   'd_expense_date'    : d_expense_date,
 				   'd_expense_acnumber': d_expense_acnumber,
 				   'd_expense_acname'  : d_expense_acname,
 				   'd_expense_total'   : d_expense_total,
-				   'd_expense_tpay'    : d_expense_tpay,
-				   'app_one'		   : app_one,
-				   'app_two'		   : app_two,
-				   'app_three'		   : app_three,
-				   'app_four'		   : app_four,
-				   'd_condition'	   : d_condition
+				   'd_expense_tpay'    : d_expense_tpay
 				   
 			},
 			success : function(data){
 				if(data != -1){
-					 console.log(data);
-					 expense_add_content(data); 
+					 expense_add_content(data);
+					 
 				}else{
 					alert("오류 발생!!");
 				}
 				
 			}
 			
-		});
+		}); 
 	}
+	
+	
 	
 	function expense_add_content(d_expense_idx){
 		
@@ -275,12 +296,14 @@
 				        'c_expense_proof'   : $("[name=c_expense_proof]").eq(i).val()        
 				        },
 				success: function(data){
-					 /* location.href="expense_list.do?d_condition=1&result=request";  */
+					 
 				}
 			}); 
 		} 	
 		
 	}
+	
+	
 	
 	//총 금액계산기 및 돈 콤마
 	function money_blur(){
@@ -301,7 +324,7 @@
        	 
    	 });
 		 
-	 }
+	}
 	
 	//날짜선택기 메서드
 	function datepicker(){

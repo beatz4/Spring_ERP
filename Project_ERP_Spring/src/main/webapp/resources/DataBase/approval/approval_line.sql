@@ -1,5 +1,5 @@
-create sequence seq_a_line_idx 
-
+create sequence seq_a_line_idx ;
+select * from a_line where idx_one=5 or idx_two=5 or idx_three=5 or idx_four=5
 create table a_line (
 						a_line_idx 			int,           --결재선idx
 						idx          		int,           --결재선 만든 사원번호
@@ -9,10 +9,11 @@ create table a_line (
 						idx_four           	int,           --최종결재자
                         a_line_name 		varchar2(100), --결재선명
                         a_line_regdate      date           --생성일자
-)
+);
 
-select * from A_LINE
-select * from 
+
+alter table a_line add constraint pk_a_line_idx primary key (a_line_idx);
+
 
 --app_line_view 생성
 create or replace view app_line_view_1
@@ -36,25 +37,22 @@ select * from
 left outer join app_line_view_3 d on c.a_line_idx = d.a_line_idx_three) e 
 left outer join app_line_view_4 f on e.a_line_idx = f.a_line_idx_four order by e.a_line_idx;
 
-select * from app_line_view where a_line_idx=3
-
+------------------------------------------뷰어까지 한번에 등록하세요-----------------------------------------------------------------------------
+select a.*, b.* from 
+(select * from app_line_view) a inner join app_user_view b on a.idx=b.idx
+------------------------------------------시퀀스 삭제및 테이블 삭제-----------------------------------------------------------------------------
+drop sequence seq_a_line_idx; 
+drop table a_line;
 drop view app_line_view;
 drop view app_line_view_1;
 drop view app_line_view_2;
 drop view app_line_view_3;
 drop view app_line_view_4;
-
-delete from A_LINE where a_line_idx = 8
+---------------------------------------------------------------------------------------------------------------------------------------
 
 commit
---개인키 설정
-alter table a_line add constraint pk_a_line_idx primary key (a_line_idx)
 
 --외부키 연결
 alter table eap_line add constraint fk_eap_line_idx foreign key (idx) references user_manager(idx) 
 
---시퀀스 삭제및 테이블 삭제
-drop sequence seq_a_line_idx 
-drop table a_line
 
-insert into a_line values(seq_a_line_idx.nextVal, 3, '내결제선', sysdate);
