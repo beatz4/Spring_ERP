@@ -111,18 +111,18 @@
 					</li>
 					
 					<li>
-						<a href="expense_list.do?d_condition=1&result=request">결재 요청 문서
+						<a href="app_list.do?d_condition=1&result=request">결재 요청 문서
 						<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-open-file"></span></a>
 					</li>
 					<li>
-						<a href="expense_list.do?d_condition=1&result=wating">결재 대기 문서
+						<a href="app_list.do?d_condition=1&result=wating">결재 대기 문서
 						<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-open-file"></span></a>
 					</li>
 					<li>
-						<a href="expense_list.do?d_condition=3">결재 완료 문서
+						<a href="app_list.do?d_condition=3">결재 완료 문서
 						<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-open-file"></span></a>
 					</li>
-						<li><a href="expense_list.do?d_condition=2">반려 문서
+						<li><a href="app_list.do?d_condition=2">반려 문서
 						<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-open-file"></span></a>
 					</li>
 					</li>

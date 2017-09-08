@@ -296,7 +296,7 @@
 				        'c_expense_proof'   : $("[name=c_expense_proof]").eq(i).val()        
 				        },
 				success: function(data){
-					 
+					 location.href="app_list.do?d_condition=1&result=request";
 				}
 			}); 
 		} 	

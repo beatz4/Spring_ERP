@@ -18,7 +18,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="company_user_list" resultType="vo.UserVo" parameterType="int">
-		select * from user_view where c_idx=#{idx} order by app_d_idx desc
+		select * from user_view where c_idx=#{idx}
 	</select>
 	
 	<select id="app_check_one" resultType="vo.UserVo" parameterType="int">
@@ -184,6 +184,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<select id="app_had_list" parameterType="int" resultType="vo.approval.App_LineVo">
 		select * from a_line where idx_one=#{idx} or idx_two=#{idx} or idx_three=#{idx} or idx_four=#{idx}
+	</select>
+	
+	<select id="app_request" parameterType="int" resultType="vo.approval.App_DocVo">
+		select * from app_user_view where idx != #{idx} order by app_d_idx desc
 	</select>
 	
 </mapper>

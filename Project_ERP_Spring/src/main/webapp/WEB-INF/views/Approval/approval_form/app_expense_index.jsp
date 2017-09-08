@@ -280,7 +280,7 @@
 						</div>
 					</div>
 				<!-- </div> -->
-				<c:if test="${user_vo.d_condition eq 1 and user_vo.idx != user_vo.next_idx }">
+				<c:if test="${user_vo.d_condition eq 1 and user_vo.idx == idx.idx }">
 					<div class="col-lg-12" align="center">
 						<button type="button" class="btn btn-primary" onclick="expense_app(this.form);">결재하기</button>
 						<button type="button" class="btn btn-primary" onclick="expense_cancle(this.form);">반려하기</button>
@@ -307,7 +307,7 @@
 		if(cf = true){
 			
 			var app_d_idx = ${user_vo.app_d_idx};
-			var next_idx = stay;
+			var next_idx = 0;
 			var app_one = 0;
 			var app_two = 0;
 			var app_three =0;
@@ -358,6 +358,7 @@
 				},
 				success : function(data){
 					console.log(data);
+					location.href="app_had_list.do";
 				}
 				
 			});
@@ -415,6 +416,7 @@
 				},
 				success : function(data){
 					console.log(data);
+					location.href="app_had_list.do";
 				}
 				
 			});

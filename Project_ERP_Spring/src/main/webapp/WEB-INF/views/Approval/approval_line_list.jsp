@@ -118,7 +118,7 @@
 						<table width="100%" class="table table-striped table-bordered table-hover" id="dataTables">
 							<thead>
 								<tr>
-									<th width="5%">선택</th>
+									<th width="10%">선택</th>
 									<th style="text-align: center;">제목</th>
 									<th width="10%">생성날짜</th>
 								</tr>

@@ -85,25 +85,28 @@ public class ApprovalController {
 						model.addAttribute("count_1", count_1);
 						model.addAttribute("list_1", d_condition_list);
 						
-					}else if(vo.getNext_idx() == idx ){
+					}
+					if(vo.getNext_idx() == idx ){
 						
 						Map map2 = new HashMap();
 						map2.put("d_condition", vo.getD_condition());
 						map2.put("next_idx", idx);
 						d_condition_list = app_dao.app_d_wating_list(map2);
-						int count_1_1 =  app_dao.app_d_condition_count(map);
+						int count_1_1 =  app_dao.app_d_condition_count2(map2);
 						model.addAttribute("count_1_1", count_1_1);
 						model.addAttribute("list_1_1", d_condition_list);
 					}
 						
-				}else if(vo.getD_condition() == 2){
+				}
+				if(vo.getD_condition() == 2){
 					map.put("d_condition", vo.getD_condition());
 					d_condition_list = app_dao.app_d_condition_list(map);
 					int count_2 =  app_dao.app_d_condition_count(map);
 					model.addAttribute("count_2", count_2);
 					model.addAttribute("list_2", d_condition_list);
 					
-				}else if(vo.getD_condition() == 3){
+				}
+				if(vo.getD_condition() == 3){
 					map.put("d_condition", vo.getD_condition());
 					d_condition_list = app_dao.app_d_condition_list(map);
 					int count_3 =  app_dao.app_d_condition_count(map);
@@ -111,28 +114,37 @@ public class ApprovalController {
 					model.addAttribute("list_3", d_condition_list);
 				}
 			}
-			App_LineVo line = app_dao.app_had_list(idx);
-			
-			if(line != null){
-				
-				if(vo.getApp_two() != 0 || vo.getApp_three() != 0 || vo.getApp_four() != 0){
-					
-					if(line.getIdx_two() == idx || line.getIdx_three() == idx || line.getIdx_four() == idx){
-						
-						model.addAttribute("list", list);
-					
-					}
-				
-				}
-			
-			}
-
 		}
+		
+		List<App_DocVo> list2 = app_dao.app_request(idx);
+		
+		for(App_DocVo vo : list2){
+			
+			List<App_LineVo> line_list = app_dao.app_had_list(idx);
+			
+			if(line_list != null){
+				
+				for(App_LineVo line : line_list){
+					
+					if(vo.getApp_two() != 0 || vo.getApp_three() != 0 || vo.getApp_four() != 0){
+						
+						if(line.getIdx_two() == idx || line.getIdx_three() == idx || line.getIdx_four() == idx){
+							
+							model.addAttribute("list", list2);
+						
+						}
+					}
+				}
+			}
+		}
+		
+		
 		
 		return VIEW_PATH+"approval_main_page.jsp";
 		
 	}
 	
+	//지출, 휴가, 구매 등 전자결재 문서 타입 설정
 	@RequestMapping("/Approval/doc_type.do")
 	public String doc_type(Model model){
 		
@@ -144,6 +156,7 @@ public class ApprovalController {
 	}
 	
 	
+	//
 	@RequestMapping("/Approval/insert_form.do")
 	public String insert_form(int doc_idx, Model model){
 		
@@ -232,7 +245,7 @@ public class ApprovalController {
 	
 	
 	//결재 요청, 대기, 완료, 반려 리스트
-	@RequestMapping("/Approval/expense_list.do")
+	@RequestMapping("/Approval/app_list.do")
 	public String waiting_expense(Model model, int d_condition, String result){
 		
 		UserVo user = (UserVo)session.getAttribute("user");
@@ -276,7 +289,7 @@ public class ApprovalController {
 				}
 			}		
 		}
-		
+		model.addAttribute("idx", idx);
 		model.addAttribute("list", d_condition_list);
 		
 		return VIEW_PATH+"/approval_form/app_list.jsp";
@@ -287,29 +300,27 @@ public class ApprovalController {
 		UserVo user = (UserVo)session.getAttribute("user");
 		
 		int idx = user.getIdx();
-		Map map = new HashMap();
-		map.put("idx", idx);
 		
-		List<App_DocVo> list = app_dao.app_doc_list();
+		List<App_DocVo> list = app_dao.app_request(idx);
 		
 		for(App_DocVo vo : list){
 			
-			App_LineVo line = app_dao.app_had_list(idx);
+			List<App_LineVo> line_list = app_dao.app_had_list(idx);
 			
-			if(line != null){
+			if(line_list != null){
 				
-				if(vo.getApp_two() != 0 || vo.getApp_three() != 0 || vo.getApp_four() != 0){
+				for(App_LineVo line : line_list){
 					
-					if(line.getIdx_two() == idx || line.getIdx_three() == idx || line.getIdx_four() == idx){
+					if(vo.getApp_two() != 0 || vo.getApp_three() != 0 || vo.getApp_four() != 0){
 						
-						model.addAttribute("list", list);
-					
+						if(line.getIdx_two() == idx || line.getIdx_three() == idx || line.getIdx_four() == idx){
+							
+							model.addAttribute("list", list);
+						
+						}
 					}
-				
 				}
-			
 			}
-			
 		}
 		
 		return VIEW_PATH+"/approval_form/app_list.jsp";
@@ -432,7 +443,7 @@ public class ApprovalController {
 		return VIEW_PATH+"/approval_form/approval_index_line_list.jsp";
 	}
 	
-	
+	//결재선 추가
 	@RequestMapping(value ="/Approval/insert_app_line.do", produces="text/html;charset=utf-8")
 	public String insert_app_line(Model model){
 		
@@ -481,7 +492,7 @@ public class ApprovalController {
 			/*int idx_ckeck_int=Integer.parseInt(idx_check);*/
 			UserVo check_vo = app_dao.select_user_one(idx_check_front);
 			
-				if(vo.getG_level() < check_vo.getG_level()){
+				if(vo.getG_level() <= check_vo.getG_level()){
 					result = "nok";
 				
 				}else{

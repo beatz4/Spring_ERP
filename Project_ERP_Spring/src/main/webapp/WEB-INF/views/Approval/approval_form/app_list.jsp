@@ -62,7 +62,7 @@
 						<h1 class="page-header">결재 반려 목록</h1>
 					</c:when>
 					<c:otherwise>
-						<h1 class="page-header">내가 결재한 목록</h1>
+						<h1 class="page-header">내가 받은 결재</h1>
 					</c:otherwise>
 				</c:choose>
 			</div>
@@ -94,13 +94,13 @@
 										<td style="text-align: center;"><a href="app_document_index.do?app_d_idx=${vo.app_d_idx }">${ vo.app_document_title }</a></td>
 										<td style="text-align: center;">${ vo.name }</td>
 										<c:choose>
-											<c:when test="${param.d_condition eq 1 }">
+											<c:when test="${vo.d_condition eq 1 }">
 												<td style="text-align: center;">결재대기</td>
 											</c:when>
-											<c:when test="${param.d_condition eq 2 }">
+											<c:when test="${vo.d_condition eq 2 }">
 												<td style="text-align: center;">반려</td>
 											</c:when>
-											<c:when test="${param.d_condition eq 3 }">
+											<c:when test="${vo.d_condition eq 3 }">
 												<td style="text-align: center;">결재완료</td>
 											</c:when>
 										</c:choose>

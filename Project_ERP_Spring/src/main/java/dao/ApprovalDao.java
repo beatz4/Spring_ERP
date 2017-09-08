@@ -230,13 +230,22 @@ public class ApprovalDao {
 		return res;
 	}
 
-	public App_LineVo app_had_list(int idx) {
+	public List<App_LineVo> app_had_list(int idx) {
 		// TODO Auto-generated method stub
-		App_LineVo line = null;
+		List<App_LineVo> line = null;
 		
-		line = sqlSession.selectOne("app_had_list", idx);
+		line = sqlSession.selectList("app_had_list", idx);
 		
 		return line;
+	}
+
+	public List<App_DocVo> app_request(int idx) {
+		// TODO Auto-generated method stub
+		List<App_DocVo> list = null;
+		
+		list = sqlSession.selectList("app_request", idx);
+		
+		return list;
 	}
 
 	

@@ -1,6 +1,7 @@
 --시퀀스 생성
 create sequence seq_app_d_idx;
 
+select * from app_d
 --전자결재 DB테이블 생성
 create table app_d (
 					app_d_idx 	  	   int,  		 --결재문서idx
