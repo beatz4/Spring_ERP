@@ -18,7 +18,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<select id="company_user_list" resultType="vo.UserVo" parameterType="int">
-		select * from user_view where c_idx=#{idx}
+		select * from user_view where c_idx=#{idx} order by app_d_idx desc
 	</select>
 	
 	<select id="app_check_one" resultType="vo.UserVo" parameterType="int">
@@ -30,7 +30,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	
 	<select id="app_line_list" resultType="vo.approval.App_LineVo" parameterType="int">
-		select * from a_line where idx=#{idx}
+		select * from a_line where idx=#{idx} order by a_line_idx desc
 	</select>
 	
 	<select id="app_line_select_one" resultType="vo.approval.App_LineViewVo" parameterType="int">
@@ -49,22 +49,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where a_line_idx = #{a_line_idx} 
 	</update>
 	
-	<insert id="app_expense" parameterType="vo.approval.App_ExpenseVo" >
-		<selectKey keyProperty="d_expense_idx" resultType="int" order="BEFORE">
-   			 select seq_d_expense_idx.nextVal FROM DUAL
+	<insert id="app_doc_insert" parameterType="vo.approval.App_DocVo">
+		<selectKey keyProperty="app_d_idx" resultType="int" order="BEFORE">
+   			 select seq_app_d_idx.nextVal FROM DUAL
  		</selectKey>
-		insert into d_expense values(
-		#{d_expense_idx}, 
+		insert into app_d values(
+		#{app_d_idx},
 		#{idx},
 		#{next_idx},
-		#{app_d_idx},
-	    #{d_expense_regdate}, 
-		#{d_expense_title}, 
-		#{d_expense_date}, 
-		#{d_expense_acnumber}, 
-		#{d_expense_acname}, 
-		#{d_expense_total}, 
-		#{d_expense_tpay},
+		#{doc_idx},
+		#{a_line_idx},
+		#{app_document_title},
 		#{app_one},
 		sysdate,
 		#{app_two},
@@ -73,8 +68,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		null,
 		#{app_four},
 		null,
-		#{ip},
-		#{d_condition})
+		null,
+		#{d_condition}
+		)
+	</insert>
+	
+	<insert id="app_expense" parameterType="vo.approval.App_ExpenseVo" >
+		<selectKey keyProperty="d_expense_idx" resultType="int" order="BEFORE">
+   			 select seq_d_expense_idx.nextVal FROM DUAL
+ 		</selectKey>
+		insert into d_expense values(
+		#{d_expense_idx}, 
+		#{idx},
+		#{app_d_idx},
+	    #{d_expense_regdate},  
+		#{d_expense_date}, 
+		#{d_expense_acnumber}, 
+		#{d_expense_acname}, 
+		#{d_expense_total}, 
+		#{d_expense_tpay},
+		#{ip})
 	</insert> 
 	
 	<insert id="app_expense_content" parameterType="vo.approval.App_Expense_ContentVo">
@@ -91,28 +104,32 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		#{c_expense_proof})
 	</insert>
 	
-	<select id="app_expense_list" parameterType="int" resultType="vo.approval.App_ExpenseVo" >
-		select * from d_expense
+	<select id="app_document_list" resultType="vo.approval.App_DocVo" >
+		select * from app_user_view order by app_d_idx desc
 	</select>
 	
-	<select id="app_d_condition_list" parameterType="java.util.Map" resultType="vo.approval.App_ExpenseVo" >
-		select * from d_expense where d_condition=#{d_condition} and idx=#{idx}
+	<select id="app_d_condition_list" parameterType="java.util.Map" resultType="vo.approval.App_DocVo" >
+		select * from app_user_view where d_condition=#{d_condition} and idx=#{idx} order by app_d_idx desc
 	</select>
 	
-	<select id="app_d_wating_list" parameterType="java.util.Map" resultType="vo.approval.App_ExpenseVo">
-		select * from d_expense where d_condition=#{d_condition} and next_idx=#{next_idx}
+	<select id="app_d_wating_list" parameterType="java.util.Map" resultType="vo.approval.App_DocVo">
+		select * from app_user_view where d_condition=#{d_condition} and next_idx=#{next_idx} order by app_d_idx desc
+	</select>
+	
+	<select id="app_d_select_one" parameterType="int" resultType="vo.approval.App_DocVo">
+		select * from app_user_view where app_d_idx=#{app_d_idx} order by app_d_idx desc
 	</select>
 	
 	<select id="app_expense_index" parameterType="int" resultType="vo.approval.App_ExpenseVo">
-		select * from d_expense where d_expense_idx = #{d_expense_idx}
+		select * from d_expense where app_d_idx = #{app_d_idx}
 	</select>
 	
 	<select id="app_ex_content" parameterType="int" resultType="vo.approval.App_Expense_ContentVo">
-		select * from c_expense_view where d_expense_idx = #{d_expense_idx}
+		select * from c_expense_view where d_expense_idx = #{d_expense_idx} 
 	</select>
 	
-	<update id="expense_app_update" parameterType="java.util.Map">
-		update d_expense 
+	<update id="app_update" parameterType="java.util.Map">
+		update app_d 
 		set
 		next_idx=#{next_idx},
 		app_one=#{app_one}, 
@@ -131,11 +148,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			</when>
 		</choose>
 		d_condition=#{d_condition}
-		where d_expense_idx=#{d_expense_idx}
+		where app_d_idx=#{app_d_idx}
 	</update>
 	
-	<update id="expense_cancel_update" parameterType="java.util.Map">
-		update d_expense 
+	<update id="app_cancel" parameterType="java.util.Map">
+		update app_d 
 		set
 		next_idx=#{next_idx},
 		app_one=#{app_one}, 
@@ -154,15 +171,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			</when>
 		</choose>
 		d_condition=#{d_condition}
-		where d_expense_idx=#{d_expense_idx}
+		where app_d_idx=#{app_d_idx}
 	</update>
 	
 	<select id="expense_count" parameterType="java.util.Map" resultType="int">
-		select count(*) from d_expense where idx=#{idx} and d_condition=#{d_condition}
+		select count(*) from app_d where idx=#{idx} and d_condition=#{d_condition}
 	</select>
 	
 	<select id="expense_count2" parameterType="java.util.Map" resultType="int">
-		select count(*) from d_expense where next_idx=#{next_idx} and d_condition=#{d_condition}
+		select count(*) from app_d where next_idx=#{next_idx} and d_condition=#{d_condition}
+	</select>
+	
+	<select id="app_had_list" parameterType="int" resultType="vo.approval.App_LineVo">
+		select * from a_line where idx_one=#{idx} or idx_two=#{idx} or idx_three=#{idx} or idx_four=#{idx}
 	</select>
 	
 </mapper>

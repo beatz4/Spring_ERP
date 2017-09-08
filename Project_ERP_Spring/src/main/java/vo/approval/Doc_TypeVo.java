@@ -30,7 +30,7 @@ public class Doc_TypeVo {
 	}
 
 	public String getRegdate() {
-		return regdate.substring(2, 10).replaceAll("-", ".");
+		return regdate.substring(0, 10);
 	}
 
 	public void setRegdate(String regdate) {

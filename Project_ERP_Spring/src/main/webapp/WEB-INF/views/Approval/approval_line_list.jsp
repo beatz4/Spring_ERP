@@ -182,7 +182,7 @@
         $('#dataTables').DataTable({
            	responsive: true 
         });
-        
+        $("td").css("text-align","center");
         $('#dataTables_wrapper .col-sm-6 #dataTables_filter').css("text-align","right");
         $('#dataTables_wrapper .col-sm-6 #dataTables_paginate').css("text-align","right");
         

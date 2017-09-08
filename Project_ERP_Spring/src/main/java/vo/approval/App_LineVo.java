@@ -63,7 +63,7 @@ public class App_LineVo {
 	}
 
 	public String getA_line_regdate() {
-		return a_line_regdate.substring(2, 10).replaceAll("-", ".");
+		return a_line_regdate.substring(0, 10);
 	}
 
 	public void setA_line_regdate(String a_line_regdate) {
